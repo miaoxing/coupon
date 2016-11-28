@@ -8,7 +8,7 @@ class Coupons extends \miaoxing\plugin\BaseController
     {
         // 1. 获取统计的时间范围
         $today = date('Y-m-d');
-        list($startDate, $endDate) = explode('~', (string)$req['date']);
+        list($startDate, $endDate) = explode('~', (string) $req['date']);
         if (!$startDate) {
             $startDate = $today;
         }

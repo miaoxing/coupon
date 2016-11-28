@@ -2,7 +2,6 @@
 
 namespace Miaoxing\Coupon;
 
-use ArrayObject;
 use Miaoxing\Address\Service\Address;
 use Miaoxing\Coupon\Service\CouponLog;
 use plugins\mall\services\Order;

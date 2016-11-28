@@ -8,7 +8,7 @@ class CouponStat extends \miaoxing\plugin\BaseModel
      * {@inheritdoc}
      */
     protected $providers = [
-        'db' => 'app.db'
+        'db' => 'app.db',
     ];
 
     /**

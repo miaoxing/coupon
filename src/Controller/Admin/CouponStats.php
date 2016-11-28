@@ -24,7 +24,7 @@ class CouponStats extends \miaoxing\plugin\BaseController
         $lastUpdateTime = wei()->couponStat()->select('updateTime')->desc('id')->fetchColumn();
 
         switch ($req['_format']) {
-            case 'json' :
+            case 'json':
                 // 1. 读出统计数据
                 $stats = wei()->couponStat()
                     ->curApp()
@@ -52,8 +52,9 @@ class CouponStats extends \miaoxing\plugin\BaseController
 
                 // 3. 转换为数字
                 $stats = wei()->chart->convertNumbers($stats);
+
                 return $this->suc([
-                    'data' => $stats
+                    'data' => $stats,
                 ]);
 
             default:
