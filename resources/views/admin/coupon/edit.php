@@ -60,31 +60,31 @@
       </div>
 
       <div class="form-group">
-        <label class="col-lg-2 control-label" for="getLimit">
+        <label class="col-lg-2 control-label" for="get-limit">
           <span class="text-warning">*</span>
           领券限制
         </label>
 
         <div class="col-lg-4">
           <div class="input-group">
-            <input type="text" class="form-control" name="getLimit" id="getLimit" value="1" data-rule-required="true">
+            <input type="text" class="form-control" name="getLimit" id="get-limit" value="1" data-rule-required="true">
             <span class="input-group-addon">份</span>
           </div>
         </div>
-        <label for="getLimit" class="col-lg-6 help-text">每个用户领券上限，0为不限次数</label>
+        <label for="get-limit" class="col-lg-6 help-text">每个用户领券上限，0为不限次数</label>
       </div>
 
       <div class="form-group">
-        <label class="col-lg-2 control-label" for="validDay">
+        <label class="col-lg-2 control-label" for="valid-day">
           <span class="text-warning">*</span>
           有效期(天)
         </label>
 
         <div class="col-lg-4">
-          <input type="text" class="form-control" name="validDay" id="validDay" data-rule-required="true">
+          <input type="text" class="form-control" name="validDay" id="valid-day" data-rule-required="true">
         </div>
 
-        <label for="startTime" class="col-lg-6 help-text">领取优惠券后的有效时间</label>
+        <label for="valid-day" class="col-lg-6 help-text">领取优惠券后的有效时间</label>
       </div>
 
       <div class="form-group">
@@ -93,7 +93,7 @@
         </label>
 
         <div class="col-lg-4">
-          <input type="text" class="form-control js-start-time" name="startTime" style="position: relative;">
+          <input type="text" class="form-control js-start-time" name="startTime">
         </div>
 
         <label for="startTime" class="col-lg-6 help-text">不填代表不限制，长期有效</label>
@@ -105,38 +105,24 @@
         </label>
 
         <div class="col-lg-4">
-          <input type="text" class="form-control js-end-time" name="endTime" style="position: relative;">
+          <input type="text" class="form-control js-end-time" name="endTime">
         </div>
 
-        <label for="startTime" class="col-lg-6 help-text">不填代表不限制，长期有效</label>
+        <label for="endTime" class="col-lg-6 help-text">不填代表不限制，长期有效</label>
       </div>
 
       <div class="form-group">
-        <label class="col-lg-2 control-label" for="limitAmount">
+        <label class="col-lg-2 control-label" for="limit-amount">
           最低使用金额
         </label>
 
         <div class="col-lg-4">
-          <input type="text" class="form-control" name="limitAmount" id="limitAmount">
+          <input type="text" class="form-control" name="limitAmount" id="limit-amount">
         </div>
-        <label for="limitAmount" class="col-lg-6 help-text">不填、0都代表不限制</label>
+        <label for="limit-amount" class="col-lg-6 help-text">不填、0都代表不限制</label>
       </div>
 
       <?php require $this->getFile('promotion:admin/promotions/chooseProduct.php') ?>
-
-      <div class="form-group" style="display:none;">
-        <label class="col-lg-2 control-label" for="useScene">
-          使用场景
-        </label>
-
-        <div class="col-lg-4">
-          <select id="useScene" name="useScene" class="form-control">
-            <option value="0">不限</option>
-            <option value="1">限时特价</option>
-            <option value="2">积分换购</option>
-          </select>
-        </div>
-      </div>
 
       <div class="form-group">
         <label class="col-lg-2 control-label" for="rule">
@@ -159,42 +145,43 @@
       </div>
 
       <div class="form-group">
-        <label class="col-lg-2 control-label" for="stylesBgColor">
+        <label class="col-lg-2 control-label" for="styles-bg-color">
           优惠券颜色
         </label>
 
         <div class="col-lg-4">
-          <input type="text" class="form-control js-bg-color" name="styles[bgColor]" id="stylesBgColor"
-                 value="<?= $coupon['styles']['bgColor'] ?>">
+          <input type="text" class="form-control js-bg-color" name="styles[bgColor]" id="styles-bg-color"
+            value="<?= $coupon['styles']['bgColor'] ?>">
         </div>
-        <label class="col-lg-6 help-text" for="stylesBgColor">
+        <label class="col-lg-6 help-text" for="styles-bg-color">
           留空使用默认颜色
         </label>
       </div>
 
       <div class="form-group">
-        <label class="col-lg-2 control-label" for="stylesBtnColor">
+        <label class="col-lg-2 control-label" for="styles-btn-color">
           按钮颜色
         </label>
 
         <div class="col-lg-4">
-          <input type="text" class="form-control js-btn-color" name="styles[btnColor]" id="stylesBtnColor"
-                 value="<?= $coupon['styles']['btnColor'] ?>">
+          <input type="text" class="form-control js-btn-color" name="styles[btnColor]" id="styles-btn-color"
+            value="<?= $coupon['styles']['btnColor'] ?>">
         </div>
-        <label class="col-lg-6 help-text" for="stylesBtnColor">
+        <label class="col-lg-6 help-text" for="styles-btn-color">
           留空使用默认颜色
         </label>
       </div>
 
       <div class="form-group">
-        <label class="col-lg-2 control-label" for="stylesBtnFontColor">
+        <label class="col-lg-2 control-label" for="styles-btn-font-color">
           按钮文字颜色
         </label>
 
         <div class="col-lg-4">
-          <input type="text" class="form-control js-btn-font-color" name="styles[btnFontColor]" id="stylesBtnFontColor" value="<?= $coupon['styles']['btnFontColor'] ?>">
+          <input type="text" class="form-control js-btn-font-color" name="styles[btnFontColor]" id="styles-btn-font-color"
+            value="<?= $coupon['styles']['btnFontColor'] ?>">
         </div>
-        <label class="col-lg-6 help-text" for="stylesBtnFontColor">
+        <label class="col-lg-6 help-text" for="styles-btn-font-color">
           留空使用默认颜色
         </label>
       </div>

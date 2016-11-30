@@ -25,8 +25,9 @@
     <div class="well well-sm">
       <form class="js-chart-form form-inline">
         <div class="form-group">
-          <label class="control-label" for="rangeDate">日期范围</label>
-          <input type="text" class="js-range-date form-control text-center input-large" id="rangeDate" value="<?= $e($startDate . ' ~ ' . $endDate) ?>">
+          <label class="control-label" for="range-date">日期范围</label>
+          <input type="text" class="js-range-date form-control text-center input-large" id="range-date"
+            value="<?= $e($startDate . ' ~ ' . $endDate) ?>">
           <input type="hidden" class="js-start-date" name="startDate">
           <input type="hidden" class="js-end-date" name="endDate">
         </div>
@@ -40,22 +41,22 @@
         <a href="#receive" aria-controls="receive" role="tab" data-toggle="tab">新增领取</a>
       </li>
       <li role="presentation">
-        <a href="#totalReceive" aria-controls="receive" role="tab" data-toggle="tab">累积领取</a>
+        <a href="#total-receive" aria-controls="receive" role="tab" data-toggle="tab">累积领取</a>
       </li>
       <li>
         <a href="#use" aria-controls="use" role="tab" data-toggle="tab">新增核销</a>
       </li>
       <li>
-        <a href="#totalUse" aria-controls="use" role="tab" data-toggle="tab">累积核销</a>
+        <a href="#total-use" aria-controls="use" role="tab" data-toggle="tab">累积核销</a>
       </li>
     </ul>
     <div class="tab-content m-t no-border">
       <div role="tabpanel" class="js-chart-pane tab-pane text-center active" id="receive">
         加载中...
       </div>
-      <div role="tabpanel" class="js-chart-pane tab-pane" id="totalReceive"></div>
+      <div role="tabpanel" class="js-chart-pane tab-pane" id="total-receive"></div>
       <div role="tabpanel" class="js-chart-pane tab-pane" id="use"></div>
-      <div role="tabpanel" class="js-chart-pane tab-pane" id="totalUse"></div>
+      <div role="tabpanel" class="js-chart-pane tab-pane" id="total-use"></div>
     </div>
 
     <hr>
@@ -152,7 +153,7 @@
         ]
       },
       {
-        id: 'totalReceive',
+        id: 'total-receive',
         series: [
           {
             name: '累积领取人数',
@@ -176,7 +177,7 @@
           }
         ]
       }, {
-        id: 'totalUse',
+        id: 'total-use',
         series: [
           {
             name: '累积核销人数',

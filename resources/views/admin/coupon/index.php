@@ -25,16 +25,16 @@
           <?php if ($req['userlist'] || $req['groupId']) : ?>
             <th></th>
           <?php endif; ?>
-          <th>编号</th>
-          <th>图片</th>
-          <th>名称</th>
-          <th>金额</th>
-          <th>限制金额</th>
-          <th>有效期(日)</th>
-          <th style="width: 200px">规则</th>
-          <th style="width: 200px">备注</th>
-          <th style="width: 60px">启用</th>
-          <th>顺序</th>
+          <th class="t-3">编号</th>
+          <th class="t-5">图片</th>
+          <th class="t-10">名称</th>
+          <th class="t-3">金额</th>
+          <th class="t-5">限制金额</th>
+          <th class="t-5">有效期(日)</th>
+          <th class="t-10">规则</th>
+          <th class="t-10">备注</th>
+          <th class="t-3">启用</th>
+          <th class="t-3">顺序</th>
           <th>操作</th>
         </tr>
         </thead>
@@ -42,7 +42,7 @@
         <tfoot></tfoot>
       </table>
       <?php if ($req['userlist'] || $req['groupId']) : ?>
-        <div class="well form-well" style="margin-top: 1px; box-shadow:none">
+        <div class="well form-well">
           <form class="form-inline" role="form">
             <div class="form-group">
               <a class="btn btn-info" href="javascript:sendUserCoupon();">发送优惠券</a>

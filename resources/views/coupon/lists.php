@@ -19,12 +19,11 @@
     background-color: <?= $coupon['styles']['btnColor'] ?: '#fff' ?>;
     color: <?= $coupon['styles']['btnFontColor'] ?: '#000' ?>;
   }
-
   <?php endforeach; ?>
 </style>
 <?= $block->end() ?>
 
-<div class="coupon-container ">
+<div class="coupon-container">
   <?php require $view->getFile('coupon:coupon/lists-title.php') ?>
 
   <div class="m-x-sm">
