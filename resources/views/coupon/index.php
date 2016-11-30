@@ -28,8 +28,8 @@
                 <span class="coupon-list">有效期:
                   <?= substr($value['startTime'], 0, 10) ?> -- <?= substr($value['endTime'], 0, 10) ?>
                   <?php if (($value['endTime'] < date('Y-m-d H:i:s')) && ($used == 'no')) {
-                    echo '<span style="color:red;">(已过期)</span>';
-                  } ?>
+    echo '<span style="color:red;">(已过期)</span>';
+} ?>
                 </span>
                 <?php if ($used == 'no'): ?>
                   <span class="coupon-list">使用规则: <?= $value['rule'] ? $value['rule'] : '无'; ?></span>
