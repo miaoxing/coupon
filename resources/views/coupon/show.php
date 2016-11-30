@@ -22,24 +22,24 @@
 <?= $block->end() ?>
 
 <div class="coupon-container">
-  <div class="stamp stamp01 stamp-cell">
+  <div class="stamp stamp01">
     <i></i>
     <div class="par">
-      <p><?= $coupon['name'] ?></p>
-      <sub class="sign">￥</sub>
-      <span><?= sprintf('%.2f', $coupon['money']) ?></span>
+      <p class="f-16"><?= $coupon['name'] ?></p>
+      <sub class="sign f-20">￥</sub>
+      <span class="f-24"><?= sprintf('%.2f', $coupon['money']) ?></span>
       <sub>优惠券</sub>
-      <p>订单满<?= $coupon['limitAmount'] ?>元可使用</p>
+      <p class="f-16">订单满<?= $coupon['limitAmount'] ?>元可使用</p>
     </div>
-    <div class="copy">
-      <p>
+    <div class="copy f-20">
+      <p class="f-12">
         领取后<?= $coupon['validDay'] ?>天有效
       </p>
 
       <?php if ($canGet) : ?>
-      <a href="javascript:;" class="js-get-coupon submit" data-id="<?= $coupon['id'] ?>">点击领取</a>
+      <a href="javascript:;" class="js-get-coupon submit f-14" data-id="<?= $coupon['id'] ?>">点击领取</a>
       <?php else : ?>
-      <span class="non-submit">不可领取</span>
+      <span class="non-submit f-14">不可领取</span>
       <?php endif; ?>
 
     </div>
