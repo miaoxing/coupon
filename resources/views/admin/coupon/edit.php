@@ -178,8 +178,8 @@
         </label>
 
         <div class="col-lg-4">
-          <input type="text" class="form-control js-btn-font-color" name="styles[btnFontColor]" id="styles-btn-font-color"
-            value="<?= $coupon['styles']['btnFontColor'] ?>">
+          <input type="text" class="form-control js-btn-font-color" name="styles[btnFontColor]"
+            id="styles-btn-font-color" value="<?= $coupon['styles']['btnFontColor'] ?>">
         </div>
         <label class="col-lg-6 help-text" for="styles-btn-font-color">
           留空使用默认颜色

@@ -5,14 +5,15 @@
 <style>
   <?php foreach ($coupons as $key => $coupon) : ?>
   .stamp<?= $key ?> {
-    background: <?= $coupon['styles']['bgColor'] ?: '#50ADD' ?>;
-    background: radial-gradient(rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 4px, <?= $coupon['styles']['bgColor'] ?: '#50ADD' ?> 4px);
+    background: <?= $coupon['styles']['bgColor'] ?: '#50ADD3' ?>;
+    background: radial-gradient(rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 4px,
+    <?= $coupon['styles']['bgColor'] ?: '#50ADD3' ?> 4px);
     background-size: 12px 8px;
     background-position: -5px 10px;
   }
 
   .stamp<?= $key ?>:before {
-    background-color: <?= $coupon['styles']['bgColor'] ?: '#50ADD' ?>;
+    background-color: <?= $coupon['styles']['bgColor'] ?: '#50ADD3' ?>;
   }
 
   .stamp<?= $key ?> .copy .submit {

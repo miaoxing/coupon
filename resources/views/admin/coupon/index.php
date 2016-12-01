@@ -69,7 +69,8 @@
   <a href="<?= wei()->url('admin/coupon/edit') ?>?id=<%= id %>">
     编辑
   </a>
-  <a class="text-danger delete-record" href="javascript:;" data-href="<%= $.url('admin/coupon/delete', {id: id}) %>" title="删除">
+  <a class="text-danger delete-record" href="javascript:;" data-href="<%= $.url('admin/coupon/delete', {id: id}) %>"
+    title="删除">
     删除
   </a>
 </script>

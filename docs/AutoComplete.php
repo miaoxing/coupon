@@ -1,6 +1,7 @@
 <?php
 
 namespace plugins\coupon\docs {
+
     /**
      * @property    \Miaoxing\Coupon\Service\Coupon $coupon 优惠券
      * @method      \Miaoxing\Coupon\Service\Coupon|\Miaoxing\Coupon\Service\Coupon[] coupon()
@@ -20,6 +21,7 @@ namespace plugins\coupon\docs {
 }
 
 namespace {
+
     /**
      * @return \plugins\coupon\docs\AutoComplete
      */
