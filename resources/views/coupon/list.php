@@ -25,7 +25,7 @@
 <?= $block->end() ?>
 
 <div class="coupon-container">
-  <?php require $view->getFile('coupon:coupon/lists-title.php') ?>
+  <?php require $view->getFile('coupon:coupon/list-title.php') ?>
 
   <div class="m-x-sm">
     <a class="btn btn-primary hairline js-get-all-coupon" href="javascript:;">一键领取</a>

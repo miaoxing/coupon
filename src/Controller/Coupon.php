@@ -4,7 +4,7 @@ namespace Miaoxing\Coupon\Controller;
 
 class Coupon extends \miaoxing\plugin\BaseController
 {
-    protected $guestPages = ['coupon/lists'];
+    protected $guestPages = ['coupon/list'];
 
     public function indexAction()
     {
@@ -21,15 +21,18 @@ class Coupon extends \miaoxing\plugin\BaseController
         return get_defined_vars();
     }
 
-    public function listsAction($req)
+    public function listAction($req)
     {
         $coupons = wei()->coupon()->notDeleted()->enabled()->findAll();
         $data = [];
+
         foreach ($coupons as $i => $coupon) {
-            if ($coupon['startTime'] && strtotime($coupon['startTime']) > time()
-                || $coupon['endTime'] && strtotime($coupon['endTime']) <= time()
-                || ($coupon['getLimit'] && wei()->userCoupon->getUserCouponCount(wei()->curUser, $coupon) >= $coupon['getLimit'])
-            ) {
+            $curTime = time();
+            $beforeStartTime = $coupon['startTime'] && strtotime($coupon['startTime']) > $curTime;
+            $afterEndTime = $coupon['endTime'] && strtotime($coupon['endTime']) <= $curTime;
+            $overLimit = $coupon['getLimit']
+                && wei()->userCoupon->getUserCouponCount(wei()->curUser, $coupon) >= $coupon['getLimit'];
+            if ($beforeStartTime || $afterEndTime || $overLimit) {
                 $data[] = $coupon->toArray() + [
                         'canGet' => false,
                     ];
@@ -58,7 +61,9 @@ class Coupon extends \miaoxing\plugin\BaseController
             $canGet = false;
         }
 
-        if ($coupon['getLimit'] && wei()->userCoupon->getUserCouponCount(wei()->curUser, $coupon) >= $coupon['getLimit']) {
+        if ($coupon['getLimit']
+            && wei()->userCoupon->getUserCouponCount(wei()->curUser, $coupon) >= $coupon['getLimit']
+        ) {
             $canGet = false;
         }
 
@@ -79,11 +84,13 @@ class Coupon extends \miaoxing\plugin\BaseController
     {
         $coupons = wei()->coupon()->notDeleted()->enabled()->findAll();
         $isGet = false;
+
         foreach ($coupons as $i => $coupon) {
-            if ((!$coupon['startTime'] || strtotime($coupon['startTime']) <= time())
-                && (!$coupon['endTime'] || strtotime($coupon['endTime']) > time())
-                && (!$coupon['getLimit'] || wei()->userCoupon->getUserCouponCount(wei()->curUser, $coupon) < $coupon['getLimit'])
-            ) {
+            $afterStartTime = !$coupon['startTime'] || strtotime($coupon['startTime']) <= time();
+            $beforeEndTime = !$coupon['endTime'] || strtotime($coupon['endTime']) > time();
+            $inLimit = !$coupon['getLimit']
+                || wei()->userCoupon->getUserCouponCount(wei()->curUser, $coupon) < $coupon['getLimit'];
+            if ($afterStartTime && $beforeEndTime && $inLimit) {
                 $ret = wei()->coupon->sendCoupon($coupon['id'], wei()->curUser['id']);
                 if ($ret['code'] != 1) {
                     return $this->ret($ret);

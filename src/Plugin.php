@@ -34,7 +34,7 @@ class Plugin extends \miaoxing\plugin\BasePlugin
         $links[] = [
             'typeId' => 'marketing',
             'name' => '优惠券领取列表',
-            'url' => 'coupon/lists',
+            'url' => 'coupon/list',
         ];
     }
 
