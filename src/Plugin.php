@@ -28,13 +28,13 @@ class Plugin extends \miaoxing\plugin\BasePlugin
         $links[] = [
             'typeId' => 'marketing',
             'name' => '我的优惠券',
-            'url' => 'coupon/index',
+            'url' => 'coupon/my-coupon',
         ];
 
         $links[] = [
             'typeId' => 'marketing',
             'name' => '优惠券领取列表',
-            'url' => 'coupon/list',
+            'url' => 'coupon',
         ];
     }
 

@@ -1,57 +1,128 @@
-<?php $view->layout('plugin:layouts/jqm.php') ?>
-
-<?php require $view->getFile('mall:mall/asset-jqm.php') ?>
+<?php $view->layout() ?>
 
 <?= $block('css') ?>
-<link rel="stylesheet" href="<?= $asset('assets/mall/coupon.css') ?>">
+<link rel="stylesheet" href="<?= $asset('plugins/coupon/css/coupon.css') ?>">
+<style>
+  <?php foreach ($coupons as $key => $coupon) : ?>
+  .stamp<?= $key ?> {
+    background: <?= $coupon['styles']['bgColor'] ?: '#50ADD3' ?>;
+    background: radial-gradient(rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 4px,
+    <?= $coupon['styles']['bgColor'] ?: '#50ADD3' ?> 4px);
+    background-size: 12px 8px;
+    background-position: -5px 10px;
+  }
+
+  .stamp<?= $key ?>:before {
+    background-color: <?= $coupon['styles']['bgColor'] ?: '#50ADD3' ?>;
+  }
+
+  .stamp<?= $key ?> .copy .submit {
+    background-color: <?= $coupon['styles']['btnColor'] ?: '#fff' ?>;
+    color: <?= $coupon['styles']['btnFontColor'] ?: '#000' ?>;
+  }
+  <?php endforeach; ?>
+</style>
 <?= $block->end() ?>
 
-<div data-role="navbar">
-  <ul class="nav-tab">
-    <li><a href="<?= $wei->url('coupon/index', ['used' => 'no', 'v' => rand(1, 100000)]) ?>"
-      <?php if ($used == 'no') : ?>
-        class="ui-btn-active"
-      <?php endif; ?>>
-        未使用优惠券
-      </a>
-    </li>
-    <li><a href="<?= $wei->url('coupon/index', ['used' => 'yes', 'v' => rand(1, 100000)]) ?>"
-      <?php if ($used == 'yes') : ?>
-        class="ui-btn-active"
-      <?php endif; ?>>
-        已用优惠券
-      </a></li>
-  </ul>
-</div><!-- /navbar -->
-<div data-role="content">
-  <div>
-    <ul data-role="listview" class="common-list">
-      <?php if ($couponList) : ?>
-        <?php foreach ($couponList as $key => $value) : ?>
-          <li data-icon="false">
-            <a href="#">
-              <img src="<?= $value['pic'] ?>"/>
-              <h3><?= $value['name'] ?></h3>
-              <p>
-                <span class="coupon-list price">￥ <?= $value['money'] ?></span>
-                <span class="coupon-list">有效期:
-                  <?= substr($value['startTime'], 0, 10) ?> -- <?= substr($value['endTime'], 0, 10) ?>
-                  <?php if (($value['endTime'] < date('Y-m-d H:i:s')) && ($used == 'no')) : ?>
-                    <span style="color:red;">(已过期)</span>
-                  <?php endif; ?>
-                </span>
-                <?php if ($used == 'no') : ?>
-                  <span class="coupon-list">使用规则: <?= $value['rule'] ? $value['rule'] : '无'; ?></span>
-                <?php elseif ($used == 'yes') : ?>
-                  <span class="coupon-list">使用时间: <?= substr($value['useTime'], 0, 10) ?></span>
-                <?php endif; ?>
-              </p>
-            </a>
-          </li>
-        <?php endforeach; ?>
-      <?php else : ?>
-        <li data-icon="false" style="text-align:center;">暂无优惠券</li>
-      <?php endif; ?>
-    </ul>
+<div class="coupon-container">
+  <?php require $view->getFile('coupon:coupon/index-title.php') ?>
+
+  <div class="m-x-sm">
+    <a class="btn btn-primary hairline js-get-all-coupon" href="javascript:;">一键领取</a>
   </div>
+
+  <?php foreach ($coupons as $key => $coupon) : ?>
+    <div class="stamp stamp<?= $key ?>">
+      <i></i>
+
+      <div class="par">
+        <p class="f-16"><?= $coupon['name'] ?></p>
+        <sub class="sign f-20">￥</sub>
+        <span class="f-24"><?= sprintf('%.2f', $coupon['money']) ?></span>
+        <sub>优惠券</sub>
+
+        <p class="f-16">订单满<?= $coupon['limitAmount'] ?>元可使用</p>
+      </div>
+      <div class="copy f-20">
+        <p class="f-12">
+          领取后<?= $coupon['validDay'] ?>天有效
+        </p>
+
+        <?php if ($coupon['canGet']) : ?>
+          <a href="javascript:;" class="js-get-coupon submit f-14" data-id="<?= $coupon['id'] ?>">点击领取</a>
+        <?php else : ?>
+          <span class="non-submit f-14"><?= $coupon['canGetMsg'] ?: '不可领取' ?></span>
+        <?php endif; ?>
+        <p class="f-12">数量:<?= $coupon['quantity'] ?></p>
+      </div>
+    </div>
+
+    <div class="coupon-remark">
+    <span class="text-primary">
+      备注: <?= $coupon['remark'] ?>
+    </span>
+    </div>
+  <?php endforeach; ?>
 </div>
+
+<div class="m-a-sm">
+  <a class="btn btn-block btn-default hairline" href="<?= $url->full(''); ?>">跳转首页</a>
+</div>
+
+<?= $block('js') ?>
+<script>
+  <?php $needPerfect = wei()->event->until('preGetCoupon'); ?>
+  var perfectInformation = function() {
+    var setimeout;
+    setimeout = setTimeout(function () {
+      clearTimeout(setimeout);
+      window.location.href = $.url('users/info');
+    }, 3000);
+
+    $.alert('完善信息才能领取优惠券，马上跳转完善信息页面......', function () {
+      clearTimeout(setimeout);
+      window.location.href = $.url('users/info');
+    });
+  };
+
+  $('.js-get-coupon').click(function () {
+    <?php if ($needPerfect) : ?>
+      perfectInformation();
+
+    <?php else : ?>
+      var id = $(this).data('id');
+      $.ajax({
+        type: 'post',
+        url: $.url('coupon/get-coupon'),
+        data: {
+          id: id
+        },
+        dataType: 'json',
+        success: function (ret) {
+          $.msg(ret, function() {
+            window.location.reload();
+          });
+        }
+      });
+    <?php endif; ?>
+  });
+
+  $('.js-get-all-coupon').click(function () {
+    <?php if ($needPerfect) : ?>
+      perfectInformation();
+
+    <?php else : ?>
+      $.ajax({
+        type: 'post',
+        url: $.url('coupon/get-all-coupon'),
+        dataType: 'json',
+        success: function (ret) {
+          $.msg(ret, function() {
+            window.location.reload();
+          });
+        }
+      });
+    <?php endif; ?>
+  });
+</script>
+<?= $block->end() ?>

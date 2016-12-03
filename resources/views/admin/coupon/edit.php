@@ -60,6 +60,20 @@
       </div>
 
       <div class="form-group">
+        <label class="col-lg-2 control-label" for="quantity">
+          <span class="text-warning">*</span>
+          库存数量
+        </label>
+
+        <div class="col-lg-4">
+          <div class="input-group">
+            <input type="text" class="form-control" name="quantity" id="quantity" data-rule-required="true">
+            <span class="input-group-addon">份</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
         <label class="col-lg-2 control-label" for="get-limit">
           <span class="text-warning">*</span>
           领券限制
@@ -141,6 +155,16 @@
 
         <div class="col-lg-4">
           <textarea class="form-control" name="remark" id="remark"></textarea>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-lg-2 control-label" for="redirect-link-to">
+          领取后跳转链接
+        </label>
+
+        <div class="col-lg-4">
+          <p class="form-control-static" id="redirect-link-to"></p>
         </div>
       </div>
 
@@ -239,7 +263,7 @@
 
 <?= $block('js') ?>
 <script>
-  require(['form', 'ueditor', 'validator', 'assets/spectrum', 'assets/dateTimePicker'], function () {
+  require(['linkTo', 'form', 'ueditor', 'validator', 'assets/spectrum', 'assets/dateTimePicker'], function (linkTo) {
     var coupon = <?= $coupon->toJson() ?>;
     $('#coupon-form')
       .loadJSON(coupon)
@@ -274,8 +298,20 @@
       timeFormat: 'HH:mm:ss'
     });
 
+    // 跳转后直接跳转的链接
+    linkTo.init({
+      $el: $('#redirect-link-to'),
+      name: 'redirectLinkTo',
+      data: coupon.redirectLinkTo,
+      hide: {
+        keyword: true,
+        decorator: true
+      }
+    });
+
     // 点击选择图片
     $('.js-pic').imageInput();
   });
 </script>
 <?= $block->end() ?>
+<?php require $view->getFile('@link-to/link-to/link-to.php') ?>

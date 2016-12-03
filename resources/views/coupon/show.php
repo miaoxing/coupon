@@ -42,7 +42,7 @@
       <?php else : ?>
       <span class="non-submit f-14">不可领取</span>
       <?php endif; ?>
-
+      <p class="f-12">数量:<?= $coupon['quantity'] ?></p>
     </div>
   </div>
 </div>
@@ -84,9 +84,14 @@
           dataType: 'json',
           success: function (ret) {
             $.msg(ret);
-            // 领取成功，跳转首页
+
             if(ret.code == 1) {
-              setInterval("window.location.href = $.url('')", 3000);
+              // 领取成功，跳转链接
+              <?php if ($coupon['redirectLinkTo']['type'] && $coupon['redirectLinkTo']) : ?>
+                setInterval(function() {
+                  window.location.href = '<?= $wei->linkTo->getUrl($coupon['redirectLinkTo']); ?>'
+                }, 3000);
+              <?php endif; ?>
             }
           }
         });

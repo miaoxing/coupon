@@ -243,6 +243,10 @@ class Coupon extends \miaoxing\plugin\BaseModel
             return ['code' => -1, 'message' => '不存在该优惠券'];
         }
 
+        if ($coupon['quantity'] <= 0) {
+            return ['code' => -1, 'message' => '优惠券库存为0，无法获得优惠券'];
+        }
+
         $user = wei()->user()->findOneById($userId);
         if ($coupon['getLimit'] && wei()->userCoupon->getUserCouponCount($user, $coupon) >= $coupon['getLimit']) {
             return ['code' => -1, 'message' => '超过领取数量，无法获得优惠券'];
@@ -266,6 +270,8 @@ class Coupon extends \miaoxing\plugin\BaseModel
         ];
         wei()->db->insert('userCoupon', $couponData);
 
+        $coupon->decr('quantity', 1)->save();
+
         // 记录领取日志
         wei()->stat->log('couponLogs', [
             'userId' => $userId,
@@ -280,6 +286,7 @@ class Coupon extends \miaoxing\plugin\BaseModel
     {
         parent::afterFind();
         $this['styles'] = (array) json_decode($this['styles'], true);
+        $this['redirectLinkTo'] = (array) json_decode($this['redirectLinkTo'], true);
         $this['productIds'] = (array) json_decode($this['productIds'], true);
         $this['categoryIds'] = (array) json_decode($this['categoryIds'], true);
 
@@ -298,6 +305,7 @@ class Coupon extends \miaoxing\plugin\BaseModel
     {
         parent::beforeSave();
         $this['styles'] = json_encode($this['styles'], JSON_UNESCAPED_UNICODE);
+        $this['redirectLinkTo'] = json_encode($this['redirectLinkTo'], JSON_UNESCAPED_UNICODE);
         $this['productIds'] = json_encode((array) $this['productIds']);
         $this['categoryIds'] = json_encode((array) $this['categoryIds']);
         $this->event->trigger('preImageDataSave', [&$this, ['pic']]);

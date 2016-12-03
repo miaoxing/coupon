@@ -6,7 +6,7 @@ class Coupon extends \miaoxing\plugin\BaseController
 {
     protected $guestPages = ['coupon/list'];
 
-    public function indexAction()
+    public function myCouponAction()
     {
         $used = $this->request('used', 'no');
         $couponList = [];
@@ -21,7 +21,7 @@ class Coupon extends \miaoxing\plugin\BaseController
         return get_defined_vars();
     }
 
-    public function listAction($req)
+    public function indexAction($req)
     {
         $coupons = wei()->coupon()->notDeleted()->enabled()->findAll();
         $data = [];
@@ -32,7 +32,8 @@ class Coupon extends \miaoxing\plugin\BaseController
             $afterEndTime = $coupon['endTime'] && strtotime($coupon['endTime']) <= $curTime;
             $overLimit = $coupon['getLimit']
                 && wei()->userCoupon->getUserCouponCount(wei()->curUser, $coupon) >= $coupon['getLimit'];
-            if ($beforeStartTime || $afterEndTime || $overLimit) {
+            $lowQuantity = $coupon['quantity'] <= 0;
+            if ($beforeStartTime || $afterEndTime || $overLimit || $lowQuantity) {
                 $data[] = $coupon->toArray() + [
                         'canGet' => false,
                     ];
@@ -58,6 +59,10 @@ class Coupon extends \miaoxing\plugin\BaseController
         }
 
         if ($coupon['endTime'] && strtotime($coupon['endTime']) < time()) {
+            $canGet = false;
+        }
+
+        if ($coupon['quantity'] <= 0) {
             $canGet = false;
         }
 
@@ -90,7 +95,8 @@ class Coupon extends \miaoxing\plugin\BaseController
             $beforeEndTime = !$coupon['endTime'] || strtotime($coupon['endTime']) > time();
             $inLimit = !$coupon['getLimit']
                 || wei()->userCoupon->getUserCouponCount(wei()->curUser, $coupon) < $coupon['getLimit'];
-            if ($afterStartTime && $beforeEndTime && $inLimit) {
+            $muchQuantity = $coupon['quantity'] > 0;
+            if ($afterStartTime && $beforeEndTime && $inLimit && $muchQuantity) {
                 $ret = wei()->coupon->sendCoupon($coupon['id'], wei()->curUser['id']);
                 if ($ret['code'] != 1) {
                     return $this->ret($ret);

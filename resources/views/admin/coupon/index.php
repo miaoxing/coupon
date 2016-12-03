@@ -26,11 +26,12 @@
             <th></th>
           <?php endif; ?>
           <th class="t-3">编号</th>
-          <th class="t-5">图片</th>
+          <th class="t-4">图片</th>
           <th class="t-10">名称</th>
           <th class="t-3">金额</th>
-          <th class="t-5">限制金额</th>
-          <th class="t-5">有效期(日)</th>
+          <th class="t-4">限制金额</th>
+          <th class="t-4">库存数量</th>
+          <th class="t-4">有效期(日)</th>
           <th class="t-10">规则</th>
           <th class="t-10">备注</th>
           <th class="t-3">启用</th>
@@ -116,6 +117,9 @@
           data: 'limitAmount'
         },
         {
+          data: 'quantity'
+        },
+        {
           data: 'validDay'
         },
         {
@@ -147,12 +151,12 @@
     });
 
     // 切换状态
-    recordTable.on('click', '.toggle-status', function(){
+    recordTable.on('click', '.toggle-status', function () {
       var $this = $(this);
       var data = {};
       data['id'] = $this.data('id');
       data[$this.attr('name')] = +!$this.data('value');
-      $.post($.url('admin/coupon/update-enable'), data, function(result){
+      $.post($.url('admin/coupon/update-enable'), data, function (result) {
         $.msg(result);
         recordTable.reload();
       }, 'json');
@@ -163,7 +167,7 @@
       var link = $(this);
       $.confirm('删除后将无法还原,确认删除?', function () {
         $.post(link.data('href'), function (result) {
-          $.msg(result, function(){
+          $.msg(result, function () {
             recordTable.reload();
           });
         }, 'json');

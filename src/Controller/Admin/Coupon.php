@@ -77,6 +77,10 @@ class Coupon extends \miaoxing\plugin\BaseController
                     'digit' => 1,
                     'required' => false,
                 ],
+                'quantity' => [
+                    'minLength' => 1,
+                    'digit' => 1,
+                ],
                 'validDay' => [
                     'minLength' => 1,
                     'digit' => 1,
@@ -91,6 +95,7 @@ class Coupon extends \miaoxing\plugin\BaseController
                 'money' => '金额',
                 'validDay' => '有效时间',
                 'getLimit' => '领取限制',
+                'quantity' => '库存数量',
                 'pic' => '图片',
             ],
         ]);
