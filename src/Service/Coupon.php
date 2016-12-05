@@ -14,6 +14,7 @@ class Coupon extends \miaoxing\plugin\BaseModel
         'sort' => 50,
         'enable' => 1,
         'styles' => [],
+        'redirectLinkTo' => [],
         'productIds' => [],
         'categoryIds' => [],
     ];

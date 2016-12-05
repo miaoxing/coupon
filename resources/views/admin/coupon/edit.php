@@ -38,12 +38,12 @@
         <div class="col-lg-4">
           <div class="input-group">
             <input type="text" class="form-control js-pic" id="pic" name="pic">
-                        <span class="input-group-btn">
-                            <button id="select-thumb" class="btn btn-white" type="button">
+            <span class="input-group-btn">
+              <button id="select-thumb" class="btn btn-white" type="button">
                 <i class="fa fa-calendar bigger-110"></i>
                 选择图片
               </button>
-                        </span>
+            </span>
           </div>
         </div>
       </div>
