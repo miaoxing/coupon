@@ -2,7 +2,7 @@
 
 namespace Miaoxing\Coupon\Service;
 
-use miaoxing\plugin\services\User;
+use Miaoxing\Plugin\Service\User;
 use plugins\cart\services\Cart;
 
 class UserCoupon extends \miaoxing\plugin\BaseModel
