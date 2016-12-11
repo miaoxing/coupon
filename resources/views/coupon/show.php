@@ -42,7 +42,7 @@
       <?php else : ?>
       <span class="non-submit f-14">不可领取</span>
       <?php endif; ?>
-      <p class="f-12">数量:<?= $coupon['quantity'] ?></p>
+      <p class="f-12">剩余数量:<?= $coupon['quantity'] ?></p>
     </div>
   </div>
 </div>
