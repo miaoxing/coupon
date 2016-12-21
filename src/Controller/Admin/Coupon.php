@@ -196,19 +196,31 @@ class Coupon extends \miaoxing\plugin\BaseController
                 continue;
             }
 
+            // 优先查询openId
             $user = wei()->user()->find(['wechatOpenId' => $value[1]]);
             if (!$user) {
+
+                // 其次查询个人中心手机号码
                 $user = wei()->user()->find(['mobile' => $value[2]]);
-
                 if (!$user) {
-                    $errors[] = [
-                        'code' => -1,
-                        'message' => '不存在该用户',
-                        'id' => $value[0],
-                    ];
 
-                    continue;
+                    // 最后查询地址中的手机号码
+                    $address = wei()->address()->find(['contact' => $value[2]]);
+                    if (!$address) {
+
+                        $errors[] = [
+                            'code' => -1,
+                            'message' => '不存在该用户',
+                            'id' => $value[0],
+                        ];
+
+                        continue;
+                    }
+
+                    // 根据地址获取用户
+                    $user = wei()->user()->findById($address['userId']);
                 }
+
             }
 
             if ($value[4] <= 0) {
