@@ -275,7 +275,7 @@ class Coupon extends \miaoxing\plugin\BaseModel
             'createTime' => date('Y-m-d H:i:s'),
         ];
 
-        for ($i = 0; $i < $count; $i++) {
+        for ($i = 0; $i < $count; ++$i) {
             wei()->db->insert('userCoupon', $couponData);
         }
 
