@@ -235,9 +235,10 @@ class Coupon extends \miaoxing\plugin\BaseModel
      *
      * @param int $couponId
      * @param int $userId
+     * @param int $count
      * @return bool
      */
-    public function sendCoupon($couponId, $userId)
+    public function sendCoupon($couponId, $userId, $count = 1)
     {
         $coupon = wei()->coupon()->findOneById($couponId);
         if (!$coupon) {
@@ -246,6 +247,10 @@ class Coupon extends \miaoxing\plugin\BaseModel
 
         if ($coupon['quantity'] <= 0) {
             return ['code' => -1, 'message' => '优惠券库存为0，无法获得优惠券'];
+        }
+
+        if ($coupon['quantity'] < $count) {
+            return ['code' => -1, 'message' => '优惠券库存不足，无法获得优惠券'];
         }
 
         $user = wei()->user()->findOneById($userId);
@@ -269,9 +274,12 @@ class Coupon extends \miaoxing\plugin\BaseModel
             'endTime' => $endTime,
             'createTime' => date('Y-m-d H:i:s'),
         ];
-        wei()->db->insert('userCoupon', $couponData);
 
-        $coupon->decr('quantity', 1)->save();
+        for ($i = 0; $i < $count; $i++) {
+            wei()->db->insert('userCoupon', $couponData);
+        }
+
+        $coupon->decr('quantity', $count)->save();
 
         // 记录领取日志
         wei()->stat->log('couponLogs', [

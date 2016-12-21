@@ -12,6 +12,7 @@ class Coupon extends \miaoxing\plugin\BaseController
         'new,create' => '添加',
         'edit,update,updateEnable' => '编辑',
         'destroy' => '删除',
+        'upload' => '批量发送优惠券',
     ];
 
     public function indexAction($req)
@@ -168,5 +169,88 @@ class Coupon extends \miaoxing\plugin\BaseController
         }
 
         return $this->json('发送优惠券成功', 1);
+    }
+
+    /**
+     * 批量发送优惠券
+     * @param $req
+     * @return $this
+     */
+    public function uploadAction($req)
+    {
+        set_time_limit(0);
+
+        $errors = [];
+        $totalCount = 0;
+        $createCount = 0;
+        $updateCount = 0;
+        foreach ((array) $req['data'] as $key => $value) {
+            $coupon = wei()->coupon()->findOrInitById($value[3]);
+            if ($coupon->isNew()) {
+                $errors[] = [
+                    'code' => -1,
+                    'message' => '不存在该优惠券',
+                    'id' => $value[0],
+                ];
+
+                continue;
+            }
+
+            $user = wei()->user()->find(['wechatOpenId' => $value[1]]);
+            if (!$user) {
+                $user = wei()->user()->find(['mobile' => $value[2]]);
+
+                if (!$user) {
+                    $errors[] = [
+                        'code' => -1,
+                        'message' => '不存在该用户',
+                        'id' => $value[0],
+                    ];
+
+                    continue;
+                }
+            }
+
+            if ($value[4] <= 0) {
+                $errors[] = [
+                    'code' => -1,
+                    'message' => '发放数量不可为零',
+                    'id' => $value[0],
+                ];
+
+                continue;
+            }
+
+            $ret = wei()->coupon->sendCoupon($coupon['id'], $user['id'], $value[4]);
+
+            if ($ret['code'] !== 1) {
+                $errors[] = [
+                    'code' => $ret['code'],
+                    'message' => $ret['message'],
+                    'id' => $value[0],
+                ];
+            } else {
+                ++$createCount;
+            }
+
+            ++$totalCount;
+        }
+
+        if ($errors) {
+            wei()->logger->warning('批量发放优惠券发生错误', $errors);
+
+            return $this->err([
+                'errors' => $errors,
+                'totalCount' => $totalCount,
+                'createCount' => $createCount,
+                'updateCount' => $updateCount,
+            ]);
+        } else {
+            return $this->suc([
+                'totalCount' => $totalCount,
+                'createCount' => $createCount,
+                'updateCount' => $updateCount,
+            ]);
+        }
     }
 }

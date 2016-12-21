@@ -1,10 +1,30 @@
 <?php $view->layout() ?>
 
+<?= $block('css') ?>
+<link rel="stylesheet" href="<?= $asset('plugins/admin/assets/filter.css') ?>"/>
+<style>
+  .form-import {
+    display: inline-block;
+  }
+</style>
+<?= $block->end() ?>
+
 <div class="page-header">
   <div class="pull-right">
-    <form id="shop-upload-form" class="form-horizontal" method="post" role="form">
-      <a class="btn btn-success" href="<?= $url('admin/coupon/new') ?>">增加优惠券</a>
+    <a class="btn btn-success" href="<?= $url('admin/coupon/new') ?>">增加优惠券</a>
+
+    <form class="js-import-form form-horizontal form-import" method="post" role="form">
+      <div class="js-excel-fileinput excel-fileinput fileinput fileinput-new" data-provides="fileinput">
+        <span class="btn btn-white btn-file">
+          <span class="fileinput-new">批量发放优惠券</span>
+            <input type="file" name="file">
+        </span>
+        <a href="<?= $asset('vendor/miaoxing/coupon/public/file/批量发放优惠券模板.xlsx') ?>" class="btn btn-link">
+          下载范例
+        </a>
+      </div>
     </form>
+
   </div>
   <h1>
     微商城
@@ -80,11 +100,7 @@
 
 <?= $block('js') ?>
 <script>
-  require(['dataTable'], function () {
-    getCouponList();
-  });
-
-  function getCouponList() {
+  require(['dataTable', 'plugins/excel/assets/excel'], function () {
     var recordTable = $('#coupon-list').dataTable({
       "ajax": {
         url: $.url('admin/coupon.json')
@@ -173,10 +189,26 @@
         }, 'json');
       });
     });
-  }
-</script>
 
-<script>
+    // 批量发放优惠券
+    $('.js-excel-fileinput').on('change.bs.fileinput', function (event) {
+      $('.js-import-form').uploadFile('admin/coupon/upload', 5, function (result) {
+        if (result.code == 1) {
+          $.msg(result);
+          recordTable.reload();
+
+          var $modal = $(template.render('import-suc-tpl', result));
+          $modal.modal('show');
+
+        } else {
+          var $modal = $(template.render('import-error-tpl', result));
+          $modal.modal('show');
+        }
+      });
+      $(this).fileinput('clear');
+    });
+  });
+
   function sendUserCoupon() {
     var couponList = [];
     $('input[name="c_id"]:checked').each(function () {
@@ -215,3 +247,5 @@
   }
 </script>
 <?= $block->end() ?>
+<?php require $this->getFile('excel:admin/error-modal.php') ?>
+<?php require $this->getFile('excel:admin/suc-modal.php') ?>
