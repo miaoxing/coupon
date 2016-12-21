@@ -207,7 +207,6 @@ class Coupon extends \miaoxing\plugin\BaseController
                     // 最后查询地址中的手机号码
                     $address = wei()->address()->find(['contact' => $value[2]]);
                     if (!$address) {
-
                         $errors[] = [
                             'code' => -1,
                             'message' => '不存在该用户',
@@ -220,7 +219,6 @@ class Coupon extends \miaoxing\plugin\BaseController
                     // 根据地址获取用户
                     $user = wei()->user()->findById($address['userId']);
                 }
-
             }
 
             if ($value[4] <= 0) {
