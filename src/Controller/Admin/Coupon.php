@@ -196,31 +196,6 @@ class Coupon extends \miaoxing\plugin\BaseController
                 continue;
             }
 
-            // 优先查询openId
-            $user = wei()->user()->find(['wechatOpenId' => $value[1]]);
-            if (!$user) {
-
-                // 其次查询个人中心手机号码
-                $user = wei()->user()->find(['mobile' => $value[2]]);
-                if (!$user) {
-
-                    // 最后查询地址中的手机号码
-                    $address = wei()->address()->find(['contact' => $value[2]]);
-                    if (!$address) {
-                        $errors[] = [
-                            'code' => -1,
-                            'message' => '不存在该用户',
-                            'id' => $value[0],
-                        ];
-
-                        continue;
-                    }
-
-                    // 根据地址获取用户
-                    $user = wei()->user()->findById($address['userId']);
-                }
-            }
-
             if ($value[4] <= 0) {
                 $errors[] = [
                     'code' => -1,
@@ -231,8 +206,44 @@ class Coupon extends \miaoxing\plugin\BaseController
                 continue;
             }
 
-            $ret = wei()->coupon->sendCoupon($coupon['id'], $user['id'], $value[4]);
+            // 优先查询openId
+            $user = wei()->user()->find(['wechatOpenId' => $value[1]]);
+            if (!$value[1] || !$user) {
 
+                // 其次查询所有个人中心手机号码
+                $users = wei()->user()->findAll(['mobile' => $value[2]]);
+                if ($users->length() <= 0) {
+
+                    // 最后查询所有地址中的手机号码
+                    $address = wei()->address()->select('distinct userId')->findAll(['contact' => $value[2]]);
+                    if ($address->length() <= 0) {
+                        $errors[] = [
+                            'code' => -1,
+                            'message' => '不存在该用户',
+                            'id' => $value[0],
+                        ];
+
+                        continue;
+                    }
+
+                    // 根据地址获取用户
+                    $users = wei()->user()->findAll(['id' => array_column($address->toArray(), 'userId')]);
+                }
+
+                // 相同手机号的用户分别发放优惠券
+                foreach ($users as $user) {
+                    $ret = wei()->coupon->sendCoupon($coupon['id'], $user['id'], $value[4]);
+                    if ($ret['code'] !== 1) {
+                        break;
+                    }
+                }
+
+            } else {
+                // 能用openid找到用户的直接发放优惠券
+                $ret = wei()->coupon->sendCoupon($coupon['id'], $user['id'], $value[4]);
+            }
+
+            // 记录导入错误信息
             if ($ret['code'] !== 1) {
                 $errors[] = [
                     'code' => $ret['code'],
