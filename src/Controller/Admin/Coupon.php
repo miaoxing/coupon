@@ -193,6 +193,8 @@ class Coupon extends \miaoxing\plugin\BaseController
                     'id' => $value[0],
                 ];
 
+                ++$totalCount;
+
                 continue;
             }
 
@@ -202,6 +204,8 @@ class Coupon extends \miaoxing\plugin\BaseController
                     'message' => '发放数量不可为零',
                     'id' => $value[0],
                 ];
+
+                ++$totalCount;
 
                 continue;
             }
@@ -222,6 +226,8 @@ class Coupon extends \miaoxing\plugin\BaseController
                             'message' => '不存在该用户',
                             'id' => $value[0],
                         ];
+
+                        ++$totalCount;
 
                         continue;
                     }
