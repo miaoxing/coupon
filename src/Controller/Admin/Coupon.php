@@ -237,7 +237,6 @@ class Coupon extends \miaoxing\plugin\BaseController
                         break;
                     }
                 }
-
             } else {
                 // 能用openid找到用户的直接发放优惠券
                 $ret = wei()->coupon->sendCoupon($coupon['id'], $user['id'], $value[4]);
