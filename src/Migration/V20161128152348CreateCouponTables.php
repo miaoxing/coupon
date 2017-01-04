@@ -11,7 +11,7 @@ class V20161128152348CreateCouponTables extends BaseMigration
      */
     public function up()
     {
-        $this->scheme->table('coupon')->tableComment('优惠券')
+        $this->schema->table('coupon')->tableComment('优惠券')
             ->id()
             ->string('name', 32)->comment('名称')
             ->string('money', 8)->defaults(0)->comment('金额')
@@ -35,7 +35,7 @@ class V20161128152348CreateCouponTables extends BaseMigration
             ->softDeletable()
             ->exec();
 
-        $this->scheme->table('userCoupon')
+        $this->schema->table('userCoupon')
             ->id()
             ->int('userId')
             ->int('couponId')
@@ -47,7 +47,7 @@ class V20161128152348CreateCouponTables extends BaseMigration
             ->bool('remind')
             ->exec();
 
-        $this->scheme->table('couponLogs')
+        $this->schema->table('couponLogs')
             ->id()
             ->int('appId')
             ->int('userId')
@@ -57,7 +57,7 @@ class V20161128152348CreateCouponTables extends BaseMigration
             ->timestamp('createTime')
             ->exec();
 
-        $this->scheme->table('couponStats')
+        $this->schema->table('couponStats')
             ->id()
             ->int('appId')
             ->int('couponId')
@@ -79,9 +79,9 @@ class V20161128152348CreateCouponTables extends BaseMigration
      */
     public function down()
     {
-        $this->scheme->dropIfExists('coupon');
-        $this->scheme->dropIfExists('userCoupon');
-        $this->scheme->dropIfExists('couponLogs');
-        $this->scheme->dropIfExists('couponStats');
+        $this->schema->dropIfExists('coupon');
+        $this->schema->dropIfExists('userCoupon');
+        $this->schema->dropIfExists('couponLogs');
+        $this->schema->dropIfExists('couponStats');
     }
 }
