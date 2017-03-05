@@ -19,7 +19,7 @@
           <span class="fileinput-new">批量发放优惠券</span>
             <input type="file" name="file">
         </span>
-        <a href="<?= $asset('vendor/miaoxing/coupon/public/file/批量发放优惠券模板.xlsx') ?>" class="btn btn-link">
+        <a href="<?= $asset('plugins/coupon/docs/批量发放优惠券模板.xlsx') ?>" class="btn btn-link">
           下载范例
         </a>
       </div>
