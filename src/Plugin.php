@@ -4,7 +4,7 @@ namespace Miaoxing\Coupon;
 
 use Miaoxing\Address\Service\Address;
 use Miaoxing\Coupon\Service\CouponLog;
-use plugins\mall\services\Order;
+use Miaoxing\Order\Service\Order;
 
 class Plugin extends \miaoxing\plugin\BasePlugin
 {
