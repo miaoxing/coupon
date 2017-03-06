@@ -1,6 +1,6 @@
 <?php $view->layout('plugin:layouts/jqm.php') ?>
 
-<?php require $view->getFile('mall:mall/asset-jqm.php') ?>
+<?php require $view->getFile('@order/mall/asset-jqm.php') ?>
 
 <?= $block('css') ?>
 <link rel="stylesheet" href="<?= $asset('assets/mall/coupon.css') ?>">
