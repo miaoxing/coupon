@@ -2,7 +2,7 @@
 
 namespace Miaoxing\Coupon\Service;
 
-use plugins\cart\services\Cart;
+use Miaoxing\Cart\Service\Cart;
 
 class Coupon extends \miaoxing\plugin\BaseModel
 {
@@ -32,7 +32,7 @@ class Coupon extends \miaoxing\plugin\BaseModel
     /**
      * 根据多个购物车,拉取可用的优惠券
      *
-     * @param Cart|Cart[] $carts
+     * @param Cart|\Miaoxing\Cart\Service\Cart[] $carts
      * @return Coupon[]
      */
     public function getAvailableCouponsByCarts(Cart $carts)

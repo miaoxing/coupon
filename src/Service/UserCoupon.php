@@ -3,7 +3,7 @@
 namespace Miaoxing\Coupon\Service;
 
 use Miaoxing\Plugin\Service\User;
-use plugins\cart\services\Cart;
+use Miaoxing\Cart\Service\Cart;
 
 class UserCoupon extends \miaoxing\plugin\BaseModel
 {
@@ -39,7 +39,7 @@ class UserCoupon extends \miaoxing\plugin\BaseModel
     }
 
     /**
-     * @param Cart|Cart[] $carts
+     * @param Cart|\Miaoxing\Cart\Service\Cart[] $carts
      * @return array|bool
      * @throws \Exception
      */
