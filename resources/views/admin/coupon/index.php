@@ -100,7 +100,7 @@
 
 <?= $block('js') ?>
 <script>
-  require(['dataTable', 'plugins/excel/assets/excel'], function () {
+  require(['dataTable', 'plugins/excel/js/excel'], function () {
     var recordTable = $('#coupon-list').dataTable({
       "ajax": {
         url: $.url('admin/coupon.json')
