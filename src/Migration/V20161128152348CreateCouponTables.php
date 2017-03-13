@@ -30,9 +30,9 @@ class V20161128152348CreateCouponTables extends BaseMigration
             ->bool('enable')
             ->datetime('startTime')
             ->datetime('endTime')
-            ->timestamps()
-            ->userstamps()
-            ->softDeletable()
+            ->timestampsV1()
+            ->userstampsV1()
+            ->softDeletableV1()
             ->exec();
 
         $this->schema->table('userCoupon')
@@ -70,7 +70,7 @@ class V20161128152348CreateCouponTables extends BaseMigration
             ->int('totalReceiveUser')->comment('总共领取优惠券的人数')
             ->int('totalUseCount')->comment('总共使用优惠券的数量')
             ->int('totalUseUser')->comment('总共使用优惠券的人数')
-            ->timestamps()
+            ->timestampsV1()
             ->exec();
     }
 
