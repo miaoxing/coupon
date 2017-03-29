@@ -187,7 +187,7 @@ class Coupon extends \miaoxing\plugin\BaseController
                         'code' => -1,
                         'message' => '一次性不能上传超过500条记录',
                         'id' => '-',
-                    ]
+                    ],
                 ],
                 'totalCount' => 0,
                 'createCount' => 0,
