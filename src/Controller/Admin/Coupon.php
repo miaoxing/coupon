@@ -180,6 +180,21 @@ class Coupon extends \miaoxing\plugin\BaseController
     {
         set_time_limit(0);
 
+        if (count($req['data']) > 500) {
+            return $this->err([
+                'errors' => [
+                    [
+                        'code' => -1,
+                        'message' => '一次性不能上传超过500条记录',
+                        'id' => '-',
+                    ]
+                ],
+                'totalCount' => 0,
+                'createCount' => 0,
+                'updateCount' => 0,
+            ]);
+        }
+
         $errors = [];
         $totalCount = 0;
         $createCount = 0;
