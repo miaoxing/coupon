@@ -2,18 +2,13 @@
 
 <?= $block('css') ?>
 <link rel="stylesheet" href="<?= $asset('plugins/admin/css/filter.css') ?>"/>
-<style>
-  .form-import {
-    display: inline-block;
-  }
-</style>
 <?= $block->end() ?>
 
 <div class="page-header">
-  <div class="pull-right">
-    <a class="btn btn-success" href="<?= $url('admin/coupon/new') ?>">增加优惠券</a>
+  <a class="btn btn-success pull-right" href="<?= $url('admin/coupon/new') ?>">增加优惠券</a>
 
-    <form class="js-import-form form-horizontal form-import" method="post" role="form">
+  <div class="pull-right">
+    <form class="js-import-form form-horizontal" method="post" role="form">
       <div class="js-excel-fileinput excel-fileinput fileinput fileinput-new" data-provides="fileinput">
         <span class="btn btn-white btn-file">
           <span class="fileinput-new">批量发放优惠券</span>
@@ -24,7 +19,6 @@
         </a>
       </div>
     </form>
-
   </div>
   <h1>
     微商城
@@ -84,13 +78,13 @@
   <a href="<%= $.url('admin/coupon-stats/show', {couponId: id}) %>">
     统计
   </a>
-  <a href="javascript:sendAll(<%= id %>);" title="发送">
+  <a href="javascript:sendAll(<%= id %>)" title="发送">
     发送
   </a>
   <a href="<?= wei()->url('admin/coupon/edit') ?>?id=<%= id %>">
     编辑
   </a>
-  <a class="text-danger delete-record" href="javascript:;" data-href="<%= $.url('admin/coupon/delete', {id: id}) %>"
+  <a class="text-danger delete-record" href="javascript:" data-href="<%= $.url('admin/coupon/delete', {id: id}) %>"
     title="删除">
     删除
   </a>

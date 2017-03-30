@@ -136,7 +136,7 @@
         <label for="limit-amount" class="col-lg-6 help-text">不填、0都代表不限制</label>
       </div>
 
-      <?php require $this->getFile('promotion:admin/promotions/chooseProduct.php') ?>
+      <?php require $this->getFile('product:admin/products/chooseProduct.php') ?>
 
       <div class="form-group">
         <label class="col-lg-2 control-label" for="rule">

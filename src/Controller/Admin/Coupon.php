@@ -228,11 +228,9 @@ class Coupon extends \miaoxing\plugin\BaseController
             // 优先查询openId
             $user = wei()->user()->find(['wechatOpenId' => $value[1]]);
             if (!$value[1] || !$user) {
-
                 // 其次查询所有个人中心手机号码
                 $users = wei()->user()->findAll(['mobile' => $value[2]]);
                 if ($users->length() <= 0) {
-
                     // 最后查询所有地址中的手机号码
                     $address = wei()->address()->select('distinct userId')->findAll(['contact' => $value[2]]);
                     if ($address->length() <= 0) {
