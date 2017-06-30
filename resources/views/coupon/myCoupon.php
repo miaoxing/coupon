@@ -6,14 +6,14 @@
 
 <div data-role="navbar">
   <ul class="nav-tab">
-    <li><a href="<?= $wei->url('coupon/index', ['used' => 'no', 'v' => rand(1, 100000)]) ?>"
+    <li><a href="<?= $wei->url('coupon/my-coupon', ['used' => 'no', 'v' => rand(1, 100000)]) ?>"
       <?php if ($used == 'no') : ?>
         class="ui-btn-active"
       <?php endif; ?>>
         未使用优惠券
       </a>
     </li>
-    <li><a href="<?= $wei->url('coupon/index', ['used' => 'yes', 'v' => rand(1, 100000)]) ?>"
+    <li><a href="<?= $wei->url('coupon/my-coupon', ['used' => 'yes', 'v' => rand(1, 100000)]) ?>"
       <?php if ($used == 'yes') : ?>
         class="ui-btn-active"
       <?php endif; ?>>
@@ -33,8 +33,8 @@
               <p>
                 <span class="coupon-list price">￥ <?= $value['money'] ?></span>
                 <span class="coupon-list">有效期:
-                  <?= substr($value['startTime'], 0, 10) ?> -- <?= substr($value['endTime'], 0, 10) ?>
-                  <?php if (($value['endTime'] < date('Y-m-d H:i:s')) && ($used == 'no')) : ?>
+                  <?= substr($value['startTime'], 0, 10) ?> - <?= substr($value['endTime'], 0, 10) ?>
+                  <?php if ($value['endTime'] && ($value['endTime'] < date('Y-m-d H:i:s')) && ($used == 'no')) : ?>
                     <span style="color:red;">(已过期)</span>
                   <?php endif; ?>
                 </span>
