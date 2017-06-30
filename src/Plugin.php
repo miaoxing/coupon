@@ -25,14 +25,19 @@ class Plugin extends \miaoxing\plugin\BasePlugin
 
     public function onLinkToGetLinks(&$links, &$types)
     {
+        $types['coupon'] = [
+            'name' => '优惠券',
+            'sort' => 400,
+        ];
+
         $links[] = [
-            'typeId' => 'marketing',
+            'typeId' => 'coupon',
             'name' => '我的优惠券',
             'url' => 'coupon/my-coupon',
         ];
 
         $links[] = [
-            'typeId' => 'marketing',
+            'typeId' => 'coupon',
             'name' => '优惠券领取列表',
             'url' => 'coupon',
         ];
