@@ -75,12 +75,12 @@
     var setimeout;
     setimeout = setTimeout(function () {
       clearTimeout(setimeout);
-      window.location.href = $.url('users/info');
+      window.location.href = $.url('users/edit');
     }, 3000);
 
     $.alert('完善信息才能领取优惠券，马上跳转完善信息页面......', function () {
       clearTimeout(setimeout);
-      window.location.href = $.url('users/info');
+      window.location.href = $.url('users/edit');
     });
   };
 
