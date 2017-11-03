@@ -269,12 +269,11 @@ class Coupon extends \miaoxing\plugin\BaseModel
             return ['code' => -1, 'message' => '已过了最后领取的时间，请关注下次活动时间'];
         }
 
-        $endTime = date('Y-m-d H:i:s', time() + $coupon['validDay'] * 86400);
         $couponData = [
             'userId' => $userId,
             'couponId' => $couponId,
             'startTime' => date('Y-m-d H:i:s'),
-            'endTime' => $endTime,
+            'endTime' => $this->getEndTime($coupon),
             'createTime' => date('Y-m-d H:i:s'),
         ];
 
@@ -292,6 +291,11 @@ class Coupon extends \miaoxing\plugin\BaseModel
         ]);
 
         return ['code' => 1, 'message' => '操作成功'];
+    }
+
+    protected function getEndTime($coupon)
+    {
+        return date('Y-m-d H:i:s', time() + $coupon['validDay'] * 86400);
     }
 
     public function afterFind()

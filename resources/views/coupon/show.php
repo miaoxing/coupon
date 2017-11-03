@@ -30,7 +30,7 @@
       <sub class="sign f-20">￥</sub>
       <span class="f-24"><?= sprintf('%.2f', $coupon['money']) ?></span>
       <sub>优惠券</sub>
-      <p class="f-16">订单满<?= $coupon['limitAmount'] ?>元可使用</p>
+      <p class="f-16">订单满<?= $coupon['limitAmount'] ?: '0' ?>元可使用</p>
     </div>
     <div class="copy f-20">
       <p class="f-12">
