@@ -3,12 +3,15 @@
 namespace Miaoxing\Coupon\Service;
 
 use Miaoxing\Cart\Service\Cart;
+use Miaoxing\Product\Service\Product;
 
 class Coupon extends \miaoxing\plugin\BaseModel
 {
     protected $code;
 
     protected $message;
+
+    protected $products;
 
     protected $data = [
         'sort' => 50,
@@ -318,5 +321,23 @@ class Coupon extends \miaoxing\plugin\BaseModel
         $this['productIds'] = json_encode((array) $this['productIds']);
         $this['categoryIds'] = json_encode((array) $this['categoryIds']);
         $this->event->trigger('preImageDataSave', [&$this, ['pic']]);
+    }
+
+    /**
+     * Record: 获取指定参加活动的商品
+     *
+     * @return Product|Product[]
+     */
+    public function getProducts()
+    {
+        if (!$this->products) {
+            $this->products = wei()->product()->beColl();
+            if ($this['productIds']) {
+                // 按原来的顺序排列
+                $this->products->orderBy('FIELD(id, ' . implode(', ', $this['productIds']) . ')')->findAll(['id' => $this['productIds']]);
+            }
+        }
+
+        return $this->products;
     }
 }

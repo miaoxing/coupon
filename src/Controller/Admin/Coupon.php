@@ -53,7 +53,9 @@ class Coupon extends \miaoxing\plugin\BaseController
 
     public function editAction($req)
     {
-        $coupon = wei()->coupon()->findOrInitById($req['id']);
+        $coupon = wei()->coupon()->findId($req['id']);
+
+        $products = $coupon->getProducts()->toArray();
 
         return get_defined_vars();
     }
