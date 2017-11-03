@@ -48,7 +48,7 @@
 
 <div class="coupon-remark">
   <span class="text-primary">
-    备注: <?= $coupon['remark'] ?>
+    备注: <?= $coupon['remark'] ?: '-' ?>
   </span>
 </div>
 
