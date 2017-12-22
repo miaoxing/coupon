@@ -338,7 +338,8 @@ class Coupon extends \miaoxing\plugin\BaseModel
             $this->products = wei()->product()->beColl();
             if ($this['productIds']) {
                 // 按原来的顺序排列
-                $this->products->orderBy('FIELD(id, ' . implode(', ', $this['productIds']) . ')')->findAll(['id' => $this['productIds']]);
+                $this->products->orderBy('FIELD(id, ' . implode(', ', $this['productIds']) . ')')
+                    ->findAll(['id' => $this['productIds']]);
             }
         }
 
