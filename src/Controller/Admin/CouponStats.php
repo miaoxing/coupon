@@ -4,7 +4,7 @@ namespace Miaoxing\Coupon\Controller\admin;
 
 use DateTime;
 
-class CouponStats extends \miaoxing\plugin\BaseController
+class CouponStats extends \Miaoxing\Plugin\BaseController
 {
     protected $controllerName = '优惠券统计';
 

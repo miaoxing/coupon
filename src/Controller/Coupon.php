@@ -2,7 +2,7 @@
 
 namespace Miaoxing\Coupon\Controller;
 
-class Coupon extends \miaoxing\plugin\BaseController
+class Coupon extends \Miaoxing\Plugin\BaseController
 {
     protected $guestPages = ['coupon/list'];
 

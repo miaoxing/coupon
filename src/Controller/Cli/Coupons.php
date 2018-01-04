@@ -2,7 +2,7 @@
 
 namespace Miaoxing\Coupon\Controller\cli;
 
-class Coupons extends \miaoxing\plugin\BaseController
+class Coupons extends \Miaoxing\Plugin\BaseController
 {
     public function statAction($req)
     {

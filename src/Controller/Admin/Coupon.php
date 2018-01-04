@@ -2,7 +2,7 @@
 
 namespace Miaoxing\Coupon\Controller\admin;
 
-class Coupon extends \miaoxing\plugin\BaseController
+class Coupon extends \Miaoxing\Plugin\BaseController
 {
     protected $controllerName = '优惠券管理';
 
