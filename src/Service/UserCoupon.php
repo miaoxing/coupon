@@ -5,7 +5,7 @@ namespace Miaoxing\Coupon\Service;
 use Miaoxing\Plugin\Service\User;
 use Miaoxing\Cart\Service\Cart;
 
-class UserCoupon extends \miaoxing\plugin\BaseModel
+class UserCoupon extends \Miaoxing\Plugin\BaseModel
 {
     protected $code;
 

@@ -2,7 +2,7 @@
 
 namespace Miaoxing\Coupon\Service;
 
-class CouponLog extends \miaoxing\plugin\BaseModel
+class CouponLog extends \Miaoxing\Plugin\BaseModel
 {
     const ACTION_RECEIVE = 1;
 

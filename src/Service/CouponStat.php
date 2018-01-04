@@ -2,7 +2,7 @@
 
 namespace Miaoxing\Coupon\Service;
 
-class CouponStat extends \miaoxing\plugin\BaseModel
+class CouponStat extends \Miaoxing\Plugin\BaseModel
 {
     /**
      * {@inheritdoc}
