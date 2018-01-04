@@ -6,7 +6,7 @@ use Miaoxing\Address\Service\Address;
 use Miaoxing\Coupon\Service\CouponLog;
 use Miaoxing\Order\Service\Order;
 
-class Plugin extends \miaoxing\plugin\BasePlugin
+class Plugin extends \Miaoxing\Plugin\BasePlugin
 {
     protected $name = '优惠券';
 
