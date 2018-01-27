@@ -1,6 +1,6 @@
 <?php $view->layout() ?>
 
-<?= $block('css') ?>
+<?= $block->css() ?>
 <link rel="stylesheet" href="<?= $asset('plugins/coupon/css/coupon.css') ?>">
 <style>
   .stamp01 {
@@ -52,7 +52,7 @@
   </span>
 </div>
 
-<?= $block('js') ?>
+<?= $block->js() ?>
   <script>
     <?php $needPerfect = wei()->event->until('preGetCoupon'); ?>
     var perfectInformation = function() {

@@ -1,6 +1,6 @@
 <?php $view->layout() ?>
 
-<?= $block('css') ?>
+<?= $block->css() ?>
 <link rel="stylesheet" href="<?= $asset('plugins/admin/css/filter.css') ?>"/>
 <?= $block->end() ?>
 
@@ -91,7 +91,7 @@
 
 <?php require $view->getFile('admin:admin/checkboxCol.php') ?>
 
-<?= $block('js') ?>
+<?= $block->js() ?>
 <script>
   require(['dataTable', 'plugins/excel/js/excel'], function () {
     var recordTable = $('#coupon-list').dataTable({

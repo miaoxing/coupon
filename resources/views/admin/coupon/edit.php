@@ -261,7 +261,7 @@
 </div><!-- /.col -->
 <!-- /.row -->
 
-<?= $block('js') ?>
+<?= $block->js() ?>
 <script>
   require(['linkTo', 'form', 'ueditor', 'validator', 'assets/spectrum', 'assets/dateTimePicker'], function (linkTo) {
     var coupon = <?= $coupon->toJson() ?>;

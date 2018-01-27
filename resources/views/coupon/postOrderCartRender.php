@@ -19,7 +19,7 @@
   <i class="bm-angle-right list-feedback"></i>
 </li>
 
-<?= $block('js') ?>
+<?= $block->js() ?>
 <script>
   $('.js-user-coupon').change(function () {
     var selected = $(this).find('option:selected');

@@ -1,6 +1,6 @@
 <?php $view->layout() ?>
 
-<?= $block('css') ?>
+<?= $block->css() ?>
 <link rel="stylesheet" href="<?= $asset('plugins/coupon/css/coupon.css') ?>">
 <style>
   <?php foreach ($coupons as $key => $coupon) : ?>
@@ -68,7 +68,7 @@
   <a class="btn btn-block btn-default hairline" href="<?= $url->full(''); ?>">跳转首页</a>
 </div>
 
-<?= $block('js') ?>
+<?= $block->js() ?>
 <script>
   <?php $needPerfect = wei()->event->until('preGetCoupon'); ?>
   var perfectInformation = function() {
