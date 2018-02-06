@@ -36,15 +36,7 @@
         </label>
 
         <div class="col-lg-4">
-          <div class="input-group">
-            <input type="text" class="form-control js-pic" id="pic" name="pic">
-            <span class="input-group-btn">
-              <button id="select-thumb" class="btn btn-white" type="button">
-                <i class="fa fa-calendar bigger-110"></i>
-                选择图片
-              </button>
-            </span>
-          </div>
+          <input type="text" class="form-control js-pic" id="pic" name="pic" required>
         </div>
       </div>
 
@@ -263,7 +255,10 @@
 
 <?= $block->js() ?>
 <script>
-  require(['linkTo', 'form', 'ueditor', 'validator', 'assets/spectrum', 'assets/dateTimePicker'], function (linkTo) {
+  require([
+    'linkTo', 'form', 'ueditor', 'validator', 'assets/spectrum', 'assets/dateTimePicker',
+    'plugins/admin/js/image-upload'
+  ], function (linkTo) {
     var coupon = <?= $coupon->toJson() ?>;
     $('#coupon-form')
       .loadJSON(coupon)
@@ -310,7 +305,7 @@
     });
 
     // 点击选择图片
-    $('.js-pic').imageInput();
+    $('.js-pic').imageUpload();
   });
 </script>
 <?= $block->end() ?>
