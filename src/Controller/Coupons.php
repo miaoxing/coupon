@@ -76,13 +76,13 @@ class Coupons extends BaseController
         $isGet = false;
 
         foreach ($coupons as $i => $coupon) {
-            $afterStartTime = !$coupon['startTime'] || strtotime($coupon['startTime']) <= time();
-            $beforeEndTime = !$coupon['endTime'] || strtotime($coupon['endTime']) > time();
-            $inLimit = !$coupon['getLimit']
-                || wei()->userCouponModel->getUserCouponCount(wei()->curUser, $coupon) < $coupon['getLimit'];
-            $muchQuantity = $coupon['quantity'] > 0;
+            $afterStartTime = !$coupon->startedAt || strtotime($coupon->startedAt) <= time();
+            $beforeEndTime = !$coupon->endedAt || strtotime($coupon->endedAt) > time();
+            $inLimit = !$coupon->getLimit
+                || wei()->userCouponModel->getUserCouponCount(wei()->curUser, $coupon) < $coupon->getLimit;
+            $muchQuantity = $coupon->quantity > 0;
             if ($afterStartTime && $beforeEndTime && $inLimit && $muchQuantity) {
-                $ret = wei()->couponModel->sendCoupon($coupon['id'], wei()->curUser['id']);
+                $ret = wei()->couponModel->sendCoupon($coupon->id, wei()->curUser['id']);
                 if ($ret['code'] !== 1) {
                     return $ret;
                 }

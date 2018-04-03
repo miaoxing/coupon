@@ -111,8 +111,7 @@ class Coupons extends \Miaoxing\Plugin\BaseController
 
     public function deleteAction($req)
     {
-        $coupon = wei()->couponModel()->findOneById($req['id']);
-        $coupon->softDelete();
+        wei()->couponModel()->findOneById($req['id'])->destroy();
 
         return $this->suc();
     }

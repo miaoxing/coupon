@@ -23,7 +23,7 @@ class CouponModel extends BaseModelV2
 
     protected $data = [
         'sort' => 50,
-        'enable' => 1,
+        'enable' => true,
         'styles' => [],
         'redirect_link_to' => [],
         'product_ids' => [],
@@ -51,7 +51,8 @@ class CouponModel extends BaseModelV2
      * 根据多个购物车,拉取可用的优惠券
      *
      * @param Cart|\Miaoxing\Cart\Service\Cart[] $carts
-     * @return CouponModel[]
+     * @return UserCouponModel|UserCouponModel[]
+     * @throws \Exception
      */
     public function getAvailableCouponsByCarts(Cart $carts)
     {
@@ -70,7 +71,7 @@ class CouponModel extends BaseModelV2
         foreach ($userCoupons as $key => $userCoupon) {
             $coupon = $userCoupon->coupon;
 
-            if ($coupon['enable'] == 0 || $amount < $coupon['limitAmount']
+            if ($coupon->enable == 0 || $amount < $coupon->limitAmount
                 || wei()->productFilter->filterCarts($carts, $coupon)->length() <= 0
             ) {
                 $userCoupons->remove($key);
@@ -151,9 +152,9 @@ class CouponModel extends BaseModelV2
         return $this->suc();
     }
 
-    protected function getEndTime($coupon)
+    protected function getEndTime(CouponModel $coupon)
     {
-        return date('Y-m-d H:i:s', time() + $coupon['validDay'] * 86400);
+        return date('Y-m-d H:i:s', time() + $coupon->validDay * 86400);
     }
 
     public function afterFind()

@@ -5,8 +5,9 @@ namespace Miaoxing\Coupon;
 use Miaoxing\Address\Service\Address;
 use Miaoxing\Coupon\Service\CouponLog;
 use Miaoxing\Order\Service\Order;
+use Miaoxing\Plugin\BasePlugin;
 
-class Plugin extends \Miaoxing\Plugin\BasePlugin
+class Plugin extends BasePlugin
 {
     protected $name = '优惠券';
 
@@ -90,13 +91,13 @@ class Plugin extends \Miaoxing\Plugin\BasePlugin
         $userCoupon = wei()->userCouponModel()->findOneById($order['userCouponId']);
         $userCoupon->save([
             'used' => true,
-            'useTime' => date('Y-m-d H:i:s'),
+            'usedAt' => wei()->time(),
         ]);
 
         // 记录核销日志
         wei()->stat->log('couponLogs', [
             'userId' => $order['userId'],
-            'couponId' => $userCoupon['couponId'],
+            'couponId' => $userCoupon->couponId,
             'action' => CouponLog::ACTION_USE,
         ]);
     }

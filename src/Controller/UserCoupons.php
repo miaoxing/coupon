@@ -10,7 +10,7 @@ class UserCoupons extends BaseController
     {
         $userCoupons = wei()->userCouponModel()
             ->mine()
-            ->andWhere(['used' => $req['used']])
+            ->andWhere(['used' => (bool) $req['used']])
             ->desc('id')
             ->findAll()
             ->load('coupon');

@@ -4,6 +4,7 @@ namespace Miaoxing\Coupon\Service;
 
 use Miaoxing\Coupon\Metadata\UserCouponTrait;
 use Miaoxing\Plugin\BaseModelV2;
+use Miaoxing\Plugin\Model\HasAppIdTrait;
 use Miaoxing\Plugin\Service\User;
 use Miaoxing\Cart\Service\Cart;
 
@@ -13,6 +14,7 @@ use Miaoxing\Cart\Service\Cart;
 class UserCouponModel extends BaseModelV2
 {
     use UserCouponTrait;
+    use HasAppIdTrait;
 
     protected $code;
 
@@ -92,7 +94,7 @@ class UserCouponModel extends BaseModelV2
      */
     public function getUserCouponCount(User $user, CouponModel $coupon)
     {
-        $count = wei()->userCouponModel()->findAll(['user_id' => $user['id'], 'coupon_id' => $coupon['id']])->count();
+        $count = wei()->userCouponModel()->count(['user_id' => $user['id'], 'coupon_id' => $coupon['id']]);
 
         return $count;
     }
