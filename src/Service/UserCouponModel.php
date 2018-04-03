@@ -7,6 +7,9 @@ use Miaoxing\Plugin\BaseModelV2;
 use Miaoxing\Plugin\Service\User;
 use Miaoxing\Cart\Service\Cart;
 
+/**
+ * @property CouponModel $coupon
+ */
 class UserCouponModel extends BaseModelV2
 {
     use UserCouponTrait;
@@ -15,16 +18,9 @@ class UserCouponModel extends BaseModelV2
 
     protected $message;
 
-    /**
-     * @var CouponModel
-     */
-    protected $coupon;
-
-    public function getCoupon()
+    public function coupon()
     {
-        $this->coupon || $this->coupon = wei()->couponModel()->findOrInitById($this['couponId']);
-
-        return $this->coupon;
+        return $this->belongsTo(wei()->couponModel());
     }
 
     public function getCode()
@@ -70,14 +66,14 @@ class UserCouponModel extends BaseModelV2
             return false;
         }
 
-        if (wei()->productFilter->filterCarts($carts, $this->getCoupon())->length() <= 0) {
+        if (wei()->productFilter->filterCarts($carts, $this->coupon)->length() <= 0) {
             $this->code = -1003;
             $this->message = '该购物车没有包括优惠券可使用的商品,请从新选择优惠券';
 
             return false;
         }
 
-        $coupon = $this->getCoupon();
+        $coupon = $this->coupon;
         if (!$coupon->isAvailable()) {
             $this->code = $coupon->getCode();
             $this->message = $coupon->getMessage();
@@ -96,18 +92,18 @@ class UserCouponModel extends BaseModelV2
      */
     public function getUserCouponCount(User $user, CouponModel $coupon)
     {
-        $count = wei()->userCouponModel()->findAll(['userId' => $user['id'], 'couponId' => $coupon['id']])->count();
+        $count = wei()->userCouponModel()->findAll(['user_id' => $user['id'], 'coupon_id' => $coupon['id']])->count();
 
         return $count;
     }
 
     public function getReduceCost()
     {
-        return $this->getCoupon()->get('money');
+        return $this->coupon->get('money');
     }
 
     public function getName()
     {
-        return $this->getCoupon()->get('name');
+        return $this->coupon->get('name');
     }
 }

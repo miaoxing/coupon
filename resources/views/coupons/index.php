@@ -20,12 +20,12 @@
     background-color: <?= $coupon['styles']['btnColor'] ?: '#fff' ?>;
     color: <?= $coupon['styles']['btnFontColor'] ?: '#000' ?>;
   }
-  <?php endforeach; ?>
+  <?php endforeach ?>
 </style>
 <?= $block->end() ?>
 
 <div class="coupon-container">
-  <?php require $view->getFile('coupon:coupon/index-title.php') ?>
+  <?php require $view->getFile('@coupon/coupons/index-title.php') ?>
 
   <div class="m-x-sm">
     <a class="btn btn-primary hairline js-get-all-coupon" href="javascript:;">一键领取</a>
@@ -40,9 +40,9 @@
         <sub class="sign f-20">￥</sub>
         <span class="f-24"><?= sprintf('%.2f', $coupon['money']) ?></span>
         <sub>优惠券</sub>
-
         <p class="f-16">订单满<?= $coupon['limitAmount'] ?>元可使用</p>
       </div>
+
       <div class="copy f-20">
         <p class="f-12">
           领取后<?= $coupon['validDay'] ?>天有效
@@ -64,13 +64,9 @@
   <?php endforeach; ?>
 </div>
 
-<div class="m-a-sm">
-  <a class="btn btn-block btn-default hairline" href="<?= $url->full(''); ?>">跳转首页</a>
-</div>
-
 <?= $block->js() ?>
 <script>
-  <?php $needPerfect = wei()->event->until('preGetCoupon'); ?>
+  <?php $needPerfect = wei()->event->until('preGetCoupon') ?>
   var perfectInformation = function() {
     var setimeout;
     setimeout = setTimeout(function () {
@@ -92,7 +88,7 @@
       var id = $(this).data('id');
       $.ajax({
         type: 'post',
-        url: $.url('coupon/get-coupon'),
+        url: $.url('coupons/get-coupon'),
         data: {
           id: id
         },
@@ -113,7 +109,7 @@
     <?php else : ?>
       $.ajax({
         type: 'post',
-        url: $.url('coupon/get-all-coupon'),
+        url: $.url('coupons/get-all-coupon'),
         dataType: 'json',
         success: function (ret) {
           $.msg(ret, function() {

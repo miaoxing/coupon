@@ -33,7 +33,7 @@ class Plugin extends \Miaoxing\Plugin\BasePlugin
         $links[] = [
             'typeId' => 'coupon',
             'name' => '我的优惠券',
-            'url' => 'coupon/my-coupon',
+            'url' => 'user-coupons',
         ];
 
         $links[] = [
@@ -104,14 +104,14 @@ class Plugin extends \Miaoxing\Plugin\BasePlugin
     public function onOrdersShowItem(Order $order)
     {
         if ($order['userCouponId']) {
-            $this->view->display('coupon:coupon/ordersShowItem.php', get_defined_vars());
+            $this->display(get_defined_vars());
         }
     }
 
     public function onAdminOrdersShow(Order $order, &$data)
     {
         if ($order['userCouponId']) {
-            $data['couponName'] = $order->getUserCoupon()->getCoupon()->get('name');
+            $data['couponName'] = $order->getUserCoupon()->coupon->name;
         } else {
             $data['couponName'] = '';
         }

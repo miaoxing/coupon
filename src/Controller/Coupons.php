@@ -6,30 +6,13 @@ use Miaoxing\Plugin\BaseController;
 
 class Coupons extends BaseController
 {
-    protected $guestPages = ['coupon/list'];
-
-    public function myCouponAction()
-    {
-        $used = $this->request('used', 'no');
-        $couponList = [];
-        if ($used == 'no') {
-            $couponList = wei()->couponModel->getNotUseCoupon($this->curUser['id']);
-        } elseif ($used == 'yes') {
-            $couponList = wei()->couponModel->getUsedCoupon($this->curUser['id']);
-        }
-
-        $headerTitle = '优惠券';
-
-        return get_defined_vars();
-    }
-
     public function indexAction($req)
     {
-        $coupons = wei()->couponModel()->notDeleted()->enabled()->findAll();
+        $coupons = wei()->couponModel()->enabled()->findAll();
         $data = [];
 
+        $curTime = time();
         foreach ($coupons as $i => $coupon) {
-            $curTime = time();
             $beforeStartTime = $coupon->startedAt && strtotime($coupon->startedAt) > $curTime;
             $afterEndTime = $coupon->endedAt && strtotime($coupon->endedAt) <= $curTime;
             $overLimit = $coupon['getLimit']
@@ -89,7 +72,7 @@ class Coupons extends BaseController
 
     public function getAllCouponAction($req)
     {
-        $coupons = wei()->couponModel()->notDeleted()->enabled()->findAll();
+        $coupons = wei()->couponModel()->enabled()->findAll();
         $isGet = false;
 
         foreach ($coupons as $i => $coupon) {
@@ -100,8 +83,8 @@ class Coupons extends BaseController
             $muchQuantity = $coupon['quantity'] > 0;
             if ($afterStartTime && $beforeEndTime && $inLimit && $muchQuantity) {
                 $ret = wei()->couponModel->sendCoupon($coupon['id'], wei()->curUser['id']);
-                if ($ret['code'] != 1) {
-                    return $this->ret($ret);
+                if ($ret['code'] !== 1) {
+                    return $ret;
                 }
 
                 $isGet = true;

@@ -70,7 +70,7 @@
 <!-- /.row -->
 
 <script id="table-actions" type="text/html">
-  <a href="<%= $.url('coupon/%s', id) %>">
+  <a href="<%= $.url('coupons/%s', id) %>">
     领取
   </a>
   <a href="<%= $.url('admin/coupon-stats/show', {couponId: id}) %>">

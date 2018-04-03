@@ -68,7 +68,7 @@ class CouponModel extends BaseModelV2
         $amount = $carts->getProductAmount();
 
         foreach ($userCoupons as $key => $userCoupon) {
-            $coupon = $userCoupon->getCoupon();
+            $coupon = $userCoupon->coupon;
 
             if ($coupon['enable'] == 0 || $amount < $coupon['limitAmount']
                 || wei()->productFilter->filterCarts($carts, $coupon)->length() <= 0
@@ -91,8 +91,10 @@ class CouponModel extends BaseModelV2
     {
         $data = [];
         $userCoupon = wei()->userCouponModel()
-            ->where('userId=?', $userId)
-            ->andWhere('used=?', 0)
+            ->andWhere([
+                'user_id' => $userId,
+                'used' => false,
+            ])
             ->andWhere('started_at < ?', date('Y-m-d H:i:s'))
             ->andWhere('ended_at > ?', date('Y-m-d H:i:s'))
             ->findAll();
@@ -127,10 +129,10 @@ class CouponModel extends BaseModelV2
     public function getNotUseCoupon($userId, $type = null)
     {
         $data = [];
-        $userCoupon = wei()->userCouponModel()->where(['userId' => $userId])->andWhere(['used' => 0])->findAll();
+        $userCoupon = wei()->userCouponModel()->andWhere(['user_id' => $userId])->andWhere(['used' => 0])->findAll();
 
         foreach ($userCoupon as $key => $value) {
-            $coupon = wei()->couponModel()->where(['id' => $value['couponId']])->andWhere(['enable' => 1]);
+            $coupon = wei()->couponModel()->andWhere(['id' => $value['couponId']])->andWhere(['enable' => 1]);
             if ($type) {
                 $coupon->andWhere('useScene = 0 OR useScene = ?', $type);
             }
@@ -138,8 +140,8 @@ class CouponModel extends BaseModelV2
             $result = $coupon->find();
             if ($result) {
                 $data[] = $result->toArray() + [
-                        'startTime' => $value['startTime'],
-                        'endTime' => $value['endTime'],
+                        'startTime' => $value->startedAt,
+                        'endTime' => $value->endedAt,
                     ];
             }
         }
@@ -247,7 +249,7 @@ class CouponModel extends BaseModelV2
     {
         $coupon = wei()->couponModel()->findOneById($couponId);
         if (!$coupon) {
-            return ['code' => -1, 'message' => '不存在该优惠券'];
+            return $this->err('不存在该优惠券');
         }
 
         if ($coupon->quantity <= 0) {
@@ -274,13 +276,12 @@ class CouponModel extends BaseModelV2
         $couponData = [
             'userId' => $userId,
             'couponId' => $couponId,
-            'startTime' => date('Y-m-d H:i:s'),
-            'endTime' => $this->getEndTime($coupon),
-            'createTime' => date('Y-m-d H:i:s'),
+            'startAt' => date('Y-m-d H:i:s'),
+            'endedAt' => $this->getEndTime($coupon),
         ];
 
         for ($i = 0; $i < $count; ++$i) {
-            wei()->db->insert('userCoupon', $couponData);
+            wei()->userCouponModel()->save($couponData);
         }
 
         $coupon->decr('quantity', $count)->save();

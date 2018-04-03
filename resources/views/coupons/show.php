@@ -76,7 +76,7 @@
         var id = $(this).data('id');
         $.ajax({
           type: 'post',
-          url: $.url('coupon/get-coupon'),
+          url: $.url('coupons/get-coupon'),
           data: {
             id: id
           },
@@ -84,7 +84,7 @@
           success: function (ret) {
             $.msg(ret);
 
-            if(ret.code == 1) {
+            if(ret.code === 1) {
               // 领取成功，跳转链接
               <?php if ($coupon['redirectLinkTo']['type'] && $coupon['redirectLinkTo']) : ?>
                 setInterval(function() {
