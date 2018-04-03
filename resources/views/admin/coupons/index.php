@@ -137,7 +137,7 @@
             return template.render('checkbox-col-tpl', {
               id: full.id,
               name: 'enable',
-              value: data
+              value: data ? '1' : '0'
             });
           }
         },
