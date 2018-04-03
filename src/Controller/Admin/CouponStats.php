@@ -14,7 +14,7 @@ class CouponStats extends \Miaoxing\Plugin\BaseController
 
     public function showAction($req)
     {
-        $coupon = wei()->coupon()->findOneById($req['couponId']);
+        $coupon = wei()->couponModel()->findOneById($req['couponId']);
 
         // 获取查询的日期范围
         $startDate = $req['startDate'] ?: date('Y-m-d', strtotime('-7 days'));

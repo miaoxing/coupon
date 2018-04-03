@@ -7,7 +7,7 @@
 <!-- /.page-header -->
 <div class="page-header">
   <div class="pull-right">
-    <a class="btn btn-default" href="<?= $url('admin/coupon') ?>">返回列表</a>
+    <a class="btn btn-default" href="<?= $url('admin/coupons') ?>">返回列表</a>
   </div>
   <h1>
     优惠券统计

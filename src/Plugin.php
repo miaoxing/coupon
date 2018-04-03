@@ -18,7 +18,7 @@ class Plugin extends \Miaoxing\Plugin\BasePlugin
     {
         $navs[] = [
             'parentId' => 'marketing-activities',
-            'url' => 'admin/coupon/index',
+            'url' => 'admin/coupons',
             'name' => '优惠券管理',
         ];
     }
@@ -39,7 +39,7 @@ class Plugin extends \Miaoxing\Plugin\BasePlugin
         $links[] = [
             'typeId' => 'coupon',
             'name' => '优惠券领取列表',
-            'url' => 'coupon',
+            'url' => 'coupons',
         ];
     }
 
@@ -59,8 +59,8 @@ class Plugin extends \Miaoxing\Plugin\BasePlugin
             return;
         }
 
-        $userCoupons = wei()->coupon->getAvailableCouponsByCarts($carts);
-        $this->view->display('coupon:coupon/postOrderCartRender.php', get_defined_vars());
+        $userCoupons = wei()->couponModel->getAvailableCouponsByCarts($carts);
+        $this->display(get_defined_vars());
     }
 
     public function onPreOrderCreate(Order $order, Address $address = null, $data)
@@ -70,7 +70,7 @@ class Plugin extends \Miaoxing\Plugin\BasePlugin
         }
 
         $carts = $order->getCarts();
-        $userCoupon = wei()->userCoupon()->mine()->findOneById($data['userCouponId']);
+        $userCoupon = wei()->userCouponModel()->mine()->findOneById($data['userCouponId']);
         if (!$userCoupon->isAvailable($carts)) {
             return $userCoupon->getResult();
         }
@@ -87,7 +87,7 @@ class Plugin extends \Miaoxing\Plugin\BasePlugin
         }
 
         // 设置优惠券已使用
-        $userCoupon = wei()->userCoupon()->findOneById($order['userCouponId']);
+        $userCoupon = wei()->userCouponModel()->findOneById($order['userCouponId']);
         $userCoupon->save([
             'used' => true,
             'useTime' => date('Y-m-d H:i:s'),
@@ -119,7 +119,7 @@ class Plugin extends \Miaoxing\Plugin\BasePlugin
 
     public function onAdminOrdersShowItem()
     {
-        $this->view->display('coupon:coupon/adminOrdersShowItem.php');
+        $this->display();
     }
 
     /**
@@ -135,7 +135,7 @@ class Plugin extends \Miaoxing\Plugin\BasePlugin
         if (!in_array('优惠券信息', $outputData[0])) {
             $outputData[0][] = '优惠券信息';
         }
-        $couponName = $order['userCouponId'] ? wei()->userCoupon()->findById($order['userCouponId'])->getName() : '-';
+        $couponName = $order['userCouponId'] ? wei()->userCouponModel()->findById($order['userCouponId'])->getName() : '-';
         $rowData[] = $couponName;
     }
 }

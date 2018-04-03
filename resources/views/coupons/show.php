@@ -97,11 +97,5 @@
 
       <?php endif; ?>
     });
-
-    <?php if (!$canGet) : ?>
-      // 不可领取，跳转首页
-      setInterval("window.location.href = $.url('')", 3000);
-    <?php endif; ?>
-
   </script>
 <?= $block->end() ?>

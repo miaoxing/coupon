@@ -2,23 +2,27 @@
 
 namespace Miaoxing\Coupon\Service;
 
+use Miaoxing\Coupon\Metadata\UserCouponTrait;
+use Miaoxing\Plugin\BaseModelV2;
 use Miaoxing\Plugin\Service\User;
 use Miaoxing\Cart\Service\Cart;
 
-class UserCoupon extends \Miaoxing\Plugin\BaseModel
+class UserCouponModel extends BaseModelV2
 {
+    use UserCouponTrait;
+
     protected $code;
 
     protected $message;
 
     /**
-     * @var Coupon
+     * @var CouponModel
      */
     protected $coupon;
 
     public function getCoupon()
     {
-        $this->coupon || $this->coupon = wei()->coupon()->findOrInitById($this['couponId']);
+        $this->coupon || $this->coupon = wei()->couponModel()->findOrInitById($this['couponId']);
 
         return $this->coupon;
     }
@@ -45,21 +49,21 @@ class UserCoupon extends \Miaoxing\Plugin\BaseModel
      */
     public function isAvailable(Cart $carts)
     {
-        if ($this['used']) {
+        if ($this->used) {
             $this->code = -1000;
             $this->message = '该优惠券已经使用过';
 
             return false;
         }
 
-        if ($this['startTime'] >= date('Y-m-d H:i:s')) {
+        if ($this->startedAt >= date('Y-m-d H:i:s')) {
             $this->code = -1001;
             $this->message = '该优惠券还没到使用时间';
 
             return false;
         }
 
-        if ($this['endTime'] <= date('Y-m-d H:i:s')) {
+        if ($this->endedAt <= date('Y-m-d H:i:s')) {
             $this->code = -1002;
             $this->message = '该优惠券已经过了最后使用时间';
 
@@ -87,12 +91,12 @@ class UserCoupon extends \Miaoxing\Plugin\BaseModel
     /**
      * 获取用户领取优惠券的数量
      * @param User $user
-     * @param Coupon $coupon
+     * @param CouponModel $coupon
      * @return int
      */
-    public function getUserCouponCount(User $user, Coupon $coupon)
+    public function getUserCouponCount(User $user, CouponModel $coupon)
     {
-        $count = wei()->userCoupon()->findAll(['userId' => $user['id'], 'couponId' => $coupon['id']])->count();
+        $count = wei()->userCouponModel()->findAll(['userId' => $user['id'], 'couponId' => $coupon['id']])->count();
 
         return $count;
     }

@@ -5,7 +5,7 @@
 <?= $block->end() ?>
 
 <div class="page-header">
-  <a class="btn btn-success pull-right" href="<?= $url('admin/coupon/new') ?>">增加优惠券</a>
+  <a class="btn btn-success pull-right" href="<?= $url('admin/coupons/new') ?>">增加优惠券</a>
 
   <div class="pull-right">
     <form class="js-import-form form-horizontal" method="post" role="form">
@@ -80,10 +80,10 @@
     发送
   </a>
   <br>
-  <a href="<?= wei()->url('admin/coupon/edit') ?>?id=<%= id %>">
+  <a href="<%= $.url('admin/coupons/%s/edit', id) %>">
     编辑
   </a>
-  <a class="text-danger delete-record" href="javascript:" data-href="<%= $.url('admin/coupon/delete', {id: id}) %>"
+  <a class="text-danger delete-record" href="javascript:" data-href="<%= $.url('admin/coupons/delete', {id: id}) %>"
     title="删除">
     删除
   </a>
@@ -95,8 +95,8 @@
 <script>
   require(['dataTable', 'plugins/excel/js/excel'], function () {
     var recordTable = $('#coupon-list').dataTable({
-      "ajax": {
-        url: $.url('admin/coupon.json')
+      ajax: {
+        url: $.url('admin/coupons.json')
       },
       columns: [
         <?php if ($req['userlist'] || $req['groupId']) :?>
@@ -159,7 +159,7 @@
       var data = {};
       data['id'] = $this.data('id');
       data[$this.attr('name')] = +!$this.data('value');
-      $.post($.url('admin/coupon/update-enable'), data, function (result) {
+      $.post($.url('admin/coupons/update-enable'), data, function (result) {
         $.msg(result);
         recordTable.reload();
       }, 'json');
@@ -179,7 +179,7 @@
 
     // 批量发放优惠券
     $('.js-excel-fileinput').on('change.bs.fileinput', function (event) {
-      $('.js-import-form').uploadFile('admin/coupon/upload', 5, function (result) {
+      $('.js-import-form').uploadFile('admin/coupons/upload', 5, function (result) {
         if (result.code == 1) {
           $.msg(result);
           recordTable.reload();
@@ -206,7 +206,7 @@
       return;
     }
     $.ajax({
-      url: '<?= wei()->url('admin/coupon/sendUser')?>',
+      url: '<?= wei()->url('admin/coupons/sendUser')?>',
       type: 'post',
       data: {couponlist: couponList.toString(), userlist: '<?= $req['userlist']; ?>', groupId: '<?=$req['groupId']?>'},
       dataType: 'json',
@@ -222,7 +222,7 @@
   function sendAll(couponId) {
     if (confirm("确定全部用户发送？")) {
       $.ajax({
-        url: '<?= wei()->url('admin/coupon/sendAll')?>',
+        url: '<?= wei()->url('admin/coupons/sendAll')?>',
         type: 'post',
         data: {couponId: couponId},
         dataType: 'json',

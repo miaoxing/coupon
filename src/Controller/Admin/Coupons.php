@@ -2,7 +2,7 @@
 
 namespace Miaoxing\Coupon\Controller\admin;
 
-class Coupon extends \Miaoxing\Plugin\BaseController
+class Coupons extends \Miaoxing\Plugin\BaseController
 {
     protected $controllerName = '优惠券管理';
 
@@ -19,25 +19,12 @@ class Coupon extends \Miaoxing\Plugin\BaseController
     {
         switch ($req['_format']) {
             case 'json':
-                $page = $this->request('page');
-                $rows = $this->request('rows');
-
-                $coupons = wei()->coupon()
-                    ->limit($rows)
-                    ->page($page)
-                    ->orderBy('id', 'desc')
-                    ->notDeleted()
+                $coupons = wei()->couponModel()
+                    ->paginate()
+                    ->sort()
                     ->findAll();
 
-                $data = $coupons->toArray();
-
-                return $this->suc([
-                    'message' => '读取列表成功',
-                    'data' => $data,
-                    'page' => (int) $req['page'],
-                    'rows' => (int) $req['rows'],
-                    'records' => $coupons->count(),
-                ]);
+                return $coupons->toRet();
 
             default:
                 $userId = $this->request('userId');
@@ -53,7 +40,7 @@ class Coupon extends \Miaoxing\Plugin\BaseController
 
     public function editAction($req)
     {
-        $coupon = wei()->coupon()->findId($req['id']);
+        $coupon = wei()->couponModel()->findId($req['id']);
 
         $products = $coupon->getProducts()->toArray();
 
@@ -64,9 +51,7 @@ class Coupon extends \Miaoxing\Plugin\BaseController
     public function updateAction($req)
     {
         $validator = wei()->validate([
-            // 待验证的数据
             'data' => $req,
-            // 验证规则数组
             'rules' => [
                 'name' => [
                     'minLength' => 1,
@@ -106,10 +91,10 @@ class Coupon extends \Miaoxing\Plugin\BaseController
             return $this->err($validator->getFirstMessage());
         }
 
-        $coupon = wei()->coupon()->findId($req['id'])->fromArray($req);
+        $coupon = wei()->couponModel()->findId($req['id'])->fromArray($req);
         $coupon->save();
 
-        return $this->suc('保存优惠券成功');
+        return $this->suc();
     }
 
     public function updateEnableAction($req)
@@ -118,7 +103,7 @@ class Coupon extends \Miaoxing\Plugin\BaseController
             return $this->err('操作失败');
         }
 
-        $coupon = wei()->coupon()->findId($req['id'])->fromArray($req);
+        $coupon = wei()->couponModel()->findId($req['id'])->fromArray($req);
         $coupon->save(['enable' => $req['enable']]);
 
         return $this->suc();
@@ -126,7 +111,7 @@ class Coupon extends \Miaoxing\Plugin\BaseController
 
     public function deleteAction($req)
     {
-        $coupon = wei()->coupon()->findOneById($req['id']);
+        $coupon = wei()->couponModel()->findOneById($req['id']);
         $coupon->softDelete();
 
         return $this->suc();
@@ -148,7 +133,7 @@ class Coupon extends \Miaoxing\Plugin\BaseController
         $couponList = explode(',', $req['couponlist']);
         foreach ($userList as $key => $userId) {
             foreach ($couponList as $key1 => $couponId) {
-                wei()->coupon->sendCoupon($couponId, $userId);
+                wei()->couponModel->sendCoupon($couponId, $userId);
             }
         }
 
@@ -165,7 +150,7 @@ class Coupon extends \Miaoxing\Plugin\BaseController
             $userList = wei()->user()->select('id')->limit(1000)->page($i)->fetchAll();
             if ($userList) {
                 foreach ($userList as $key => $value) {
-                    wei()->coupon->sendCoupon($couponId, $value['id']);
+                    wei()->couponModel->sendCoupon($couponId, $value['id']);
                 }
             }
         }
@@ -175,8 +160,9 @@ class Coupon extends \Miaoxing\Plugin\BaseController
 
     /**
      * 批量发送优惠券
+     *
      * @param $req
-     * @return $this
+     * @return array
      */
     public function uploadAction($req)
     {
@@ -202,7 +188,7 @@ class Coupon extends \Miaoxing\Plugin\BaseController
         $createCount = 0;
         $updateCount = 0;
         foreach ((array) $req['data'] as $key => $value) {
-            $coupon = wei()->coupon()->findOrInitById($value[3]);
+            $coupon = wei()->couponModel()->findOrInitById($value[3]);
             if ($coupon->isNew()) {
                 $errors[] = [
                     'code' => -1,
@@ -253,14 +239,14 @@ class Coupon extends \Miaoxing\Plugin\BaseController
 
                 // 相同手机号的用户分别发放优惠券
                 foreach ($users as $user) {
-                    $ret = wei()->coupon->sendCoupon($coupon['id'], $user['id'], $value[4]);
+                    $ret = wei()->couponModel->sendCoupon($coupon['id'], $user['id'], $value[4]);
                     if ($ret['code'] !== 1) {
                         break;
                     }
                 }
             } else {
                 // 能用openid找到用户的直接发放优惠券
-                $ret = wei()->coupon->sendCoupon($coupon['id'], $user['id'], $value[4]);
+                $ret = wei()->couponModel->sendCoupon($coupon['id'], $user['id'], $value[4]);
             }
 
             // 记录导入错误信息

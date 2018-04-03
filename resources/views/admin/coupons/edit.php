@@ -1,7 +1,7 @@
 <?php $view->layout() ?>
 <div class="page-header">
   <div class="pull-right">
-    <a class="btn btn-default" href="<?= $url('admin/coupon/index') ?>">返回列表</a>
+    <a class="btn btn-default" href="<?= $url('admin/coupons') ?>">返回列表</a>
   </div>
   <h1>
     微官网
@@ -94,24 +94,24 @@
       </div>
 
       <div class="form-group">
-        <label class="col-lg-2 control-label" for="startTime">
+        <label class="col-lg-2 control-label" for="startedAt">
           开始时间
         </label>
 
         <div class="col-lg-4">
-          <input type="text" class="form-control js-start-time" name="startTime">
+          <input type="text" class="form-control js-start-time" name="startedAt">
         </div>
 
         <label for="startTime" class="col-lg-6 help-text">不填代表不限制，长期有效</label>
       </div>
 
       <div class="form-group">
-        <label class="col-lg-2 control-label" for="endTime">
+        <label class="col-lg-2 control-label" for="endedAt">
           结束时间
         </label>
 
         <div class="col-lg-4">
-          <input type="text" class="form-control js-end-time" name="endTime">
+          <input type="text" class="form-control js-end-time" name="endedAt">
         </div>
 
         <label for="endTime" class="col-lg-6 help-text">不填代表不限制，长期有效</label>
@@ -223,10 +223,10 @@
 
         <div class="col-lg-4">
           <label class="radio-inline">
-            <input type="radio" name="enable" class="enable" value="1"> 启用
+            <input type="radio" name="enable" value="1"> 启用
           </label>
           <label class="radio-inline">
-            <input type="radio" name="enable" class="enable" value="0"> 禁用
+            <input type="radio" name="enable" value="0"> 禁用
           </label>
 
         </div>
@@ -241,7 +241,7 @@
             提交
           </button>
           &nbsp; &nbsp; &nbsp;
-          <a class="btn btn-default" href="<?= $url('admin/coupon/index') ?>">
+          <a class="btn btn-default" href="<?= $url('admin/coupons') ?>">
             <i class="fa fa-undo"></i>
             返回列表
           </a>
@@ -257,21 +257,23 @@
 <script>
   require([
     'linkTo', 'form', 'ueditor', 'validator', 'assets/spectrum', 'assets/dateTimePicker',
-    'plugins/admin/js/image-upload'
+    'plugins/admin/js/image-upload',
   ], function (linkTo) {
     var coupon = <?= $coupon->toJson() ?>;
+    // TODO populate
+    coupon.enable = coupon.enable ? '1' : '0';
     $('#coupon-form')
       .loadJSON(coupon)
       .ajaxForm({
-        url: '<?= $url('admin/coupon/update') ?>',
+        url:  $.url('admin/coupons/update'),
         dataType: 'json',
-        beforeSubmit: function (arr, $form, options) {
+        beforeSubmit: function (arr, $form) {
           return $form.valid();
         },
         success: function (result) {
           $.msg(result, function () {
-            if (result.code > 0) {
-              window.location = $.url('admin/coupon/index');
+            if (result.code === 1) {
+              window.location = $.url('admin/coupons');
             }
           });
         }
