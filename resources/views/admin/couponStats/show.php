@@ -19,7 +19,7 @@
 
     <div class="well well-sm bigger-110">
       优惠券名称: <?= $e($coupon['name']) ?>
-      <span class="pull-right small">数据每分钟更新,最后更新时间: <?= $lastUpdateTime ?: '暂无' ?></span>
+      <span class="pull-right small">新数据每分钟更新,最后更新时间: <?= $lastUpdateTime ?: '暂无' ?></span>
     </div>
 
     <div class="well well-sm">

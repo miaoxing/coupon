@@ -3,14 +3,14 @@
 namespace MiaoxingDoc\Coupon {
 
     /**
-     * @property    \Miaoxing\Coupon\Service\CouponLog $couponLog
-     * @method      \Miaoxing\Coupon\Service\CouponLog|\Miaoxing\Coupon\Service\CouponLog[] couponLog()
+     * @property    \Miaoxing\Coupon\Service\CouponLogModel $couponLogModel
+     * @method      \Miaoxing\Coupon\Service\CouponLogModel|\Miaoxing\Coupon\Service\CouponLogModel[] couponLogModel()
      *
      * @property    \Miaoxing\Coupon\Service\CouponModel $couponModel
      * @method      \Miaoxing\Coupon\Service\CouponModel|\Miaoxing\Coupon\Service\CouponModel[] couponModel()
      *
-     * @property    \Miaoxing\Coupon\Service\CouponStat $couponStat
-     * @method      \Miaoxing\Coupon\Service\CouponStat|\Miaoxing\Coupon\Service\CouponStat[] couponStat()
+     * @property    \Miaoxing\Coupon\Service\CouponStatModel $couponStatModel
+     * @method      \Miaoxing\Coupon\Service\CouponStatModel|\Miaoxing\Coupon\Service\CouponStatModel[] couponStatModel()
      *
      * @property    \Miaoxing\Coupon\Service\UserCouponModel $userCouponModel
      * @method      \Miaoxing\Coupon\Service\UserCouponModel|\Miaoxing\Coupon\Service\UserCouponModel[] userCouponModel()
@@ -29,8 +29,11 @@ namespace {
     {
     }
 
-    /** @var Miaoxing\Coupon\Service\CouponLog $couponLog */
-    $couponLog = wei()->couponLog;
+    /** @var Miaoxing\Coupon\Service\CouponLogModel $couponLogModel */
+    $couponLog = wei()->couponLogModel();
+
+    /** @var Miaoxing\Coupon\Service\CouponLogModel|Miaoxing\Coupon\Service\CouponLogModel[] $couponLogModels */
+    $couponLogs = wei()->couponLogModel();
 
     /** @var Miaoxing\Coupon\Service\CouponModel $couponModel */
     $coupon = wei()->couponModel();
@@ -38,8 +41,11 @@ namespace {
     /** @var Miaoxing\Coupon\Service\CouponModel|Miaoxing\Coupon\Service\CouponModel[] $couponModels */
     $coupons = wei()->couponModel();
 
-    /** @var Miaoxing\Coupon\Service\CouponStat $couponStat */
-    $couponStat = wei()->couponStat;
+    /** @var Miaoxing\Coupon\Service\CouponStatModel $couponStatModel */
+    $couponStat = wei()->couponStatModel();
+
+    /** @var Miaoxing\Coupon\Service\CouponStatModel|Miaoxing\Coupon\Service\CouponStatModel[] $couponStatModels */
+    $couponStats = wei()->couponStatModel();
 
     /** @var Miaoxing\Coupon\Service\UserCouponModel $userCouponModel */
     $userCoupon = wei()->userCouponModel();

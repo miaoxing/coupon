@@ -143,10 +143,10 @@ class CouponModel extends BaseModelV2
         $coupon->decr('quantity', $count)->save();
 
         // 记录领取日志
-        wei()->stat->log('couponLogs', [
+        wei()->statV2->log(wei()->couponLogModel(), [
             'userId' => $userId,
             'couponId' => $couponId,
-            'action' => CouponLog::ACTION_RECEIVE,
+            'action' => CouponLogModel::ACTION_RECEIVE,
         ]);
 
         return $this->suc();

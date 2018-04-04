@@ -3,7 +3,7 @@
 namespace Miaoxing\Coupon;
 
 use Miaoxing\Address\Service\Address;
-use Miaoxing\Coupon\Service\CouponLog;
+use Miaoxing\Coupon\Service\CouponLogModel;
 use Miaoxing\Order\Service\Order;
 use Miaoxing\Plugin\BasePlugin;
 
@@ -95,10 +95,10 @@ class Plugin extends BasePlugin
         ]);
 
         // 记录核销日志
-        wei()->stat->log('couponLogs', [
+        wei()->statV2->log(wei()->couponLogModel(), [
             'userId' => $order['userId'],
             'couponId' => $userCoupon->couponId,
-            'action' => CouponLog::ACTION_USE,
+            'action' => CouponLogModel::ACTION_USE,
         ]);
     }
 

@@ -83,7 +83,7 @@
       <div class="form-group">
         <label class="col-lg-2 control-label" for="valid-day">
           <span class="text-warning">*</span>
-          有效期(天)
+          有效期(日)
         </label>
 
         <div class="col-lg-4">

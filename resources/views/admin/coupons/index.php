@@ -38,7 +38,7 @@
         <tr>
           <?php if ($req['userlist'] || $req['groupId']) : ?>
             <th></th>
-          <?php endif; ?>
+          <?php endif ?>
           <th class="t-2">编号</th>
           <th class="t-4">图片</th>
           <th>名称</th>
@@ -46,8 +46,11 @@
           <th class="t-4">限制金额</th>
           <th class="t-4">库存数量</th>
           <th class="t-4">有效期(日)</th>
-          <th class="t-2">启用</th>
+          <th class="t-4">领取人数</th>
+          <th class="t-4">核销人数</th>
           <th class="t-2">顺序</th>
+          <th class="t-6">创建时间</th>
+          <th class="t-2">启用</th>
           <th class="t-6">操作</th>
         </tr>
         </thead>
@@ -98,6 +101,7 @@
       ajax: {
         url: $.url('admin/coupons.json')
       },
+      sorting: [[0, 'desc']],
       columns: [
         <?php if ($req['userlist'] || $req['groupId']) :?>
         {
@@ -132,6 +136,20 @@
           data: 'validDay'
         },
         {
+          data: 'receiveUser',
+          sortable: true
+        },
+        {
+          data: 'useUser',
+          sortable: true
+        },
+        {
+          data: 'sort'
+        },
+        {
+          data: 'createdAt'
+        },
+        {
           data: 'enable',
           render: function (data, type, full) {
             return template.render('checkbox-col-tpl', {
@@ -140,9 +158,6 @@
               value: data ? '1' : '0'
             });
           }
-        },
-        {
-          data: 'sort'
         },
         {
           data: 'id',

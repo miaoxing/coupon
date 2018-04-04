@@ -32,6 +32,10 @@ namespace Miaoxing\Coupon\Metadata;
  * @property int $deletedBy
  * @property int $updatedBy
  * @property string $updatedAt
+ * @property int $receiveCount 累积领取次数
+ * @property int $receiveUser 累积领取人数
+ * @property int $useCount 累积核销次数
+ * @property int $useUser 累积核销次数
  */
 trait CouponTrait
 {
@@ -67,5 +71,9 @@ trait CouponTrait
         'deleted_by' => 'int',
         'updated_by' => 'int',
         'updated_at' => 'datetime',
+        'receive_count' => 'int',
+        'receive_user' => 'int',
+        'use_count' => 'int',
+        'use_user' => 'int',
     ];
 }
