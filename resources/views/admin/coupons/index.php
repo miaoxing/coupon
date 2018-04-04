@@ -33,6 +33,29 @@
 
   <div class="col-xs-12">
     <div class="table-responsive">
+      <form class="js-coupon-form form-horizontal filter-form" role="form">
+        <div class="well form-well m-b">
+          <div class="form-group form-group-sm">
+            <label class="col-md-1 control-label" for="created-at">创建时间：</label>
+
+            <div class="col-md-3">
+              <input type="text" class="js-range-date form-control" id="created-at">
+              <input type="hidden" class="js-start-date" name="start_date">
+              <input type="hidden" class="js-end-date" name="end_date">
+            </div>
+
+          </div>
+
+          <div class="clearfix form-group form-group-sm">
+            <div class="col-md-offset-1 col-md-6">
+              <button class="js-user-filter btn btn-primary btn-sm" type="submit">
+                查询
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+
       <table id="coupon-list" class="table table-bordered table-hover table-center">
         <thead>
         <tr>
@@ -96,7 +119,7 @@
 
 <?= $block->js() ?>
 <script>
-  require(['dataTable', 'plugins/excel/js/excel'], function () {
+  require(['dataTable', 'plugins/excel/js/excel', 'daterangepicker'], function () {
     var recordTable = $('#coupon-list').dataTable({
       ajax: {
         url: $.url('admin/coupons.json')
@@ -208,6 +231,22 @@
         }
       });
       $(this).fileinput('clear');
+    });
+
+    $('.js-coupon-form')
+      .submit(function (e) {
+        recordTable.reload($(this).serialize(), false);
+        e.preventDefault();
+      });
+
+    // 日期范围选择
+    $('.js-range-date').daterangepicker({
+      format: 'YYYY-MM-DD',
+      separator: ' ~ '
+    }, function (start, end) {
+      $('.js-start-date').val(start.format(this.format));
+      $('.js-end-date').val(end.format(this.format));
+      this.element.trigger('change');
     });
   });
 

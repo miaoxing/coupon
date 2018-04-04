@@ -21,8 +21,17 @@ class Coupons extends \Miaoxing\Plugin\BaseController
             case 'json':
                 $coupons = wei()->couponModel()
                     ->paginate()
-                    ->sort()
-                    ->findAll();
+                    ->sort();
+
+                if ($req['start_date']) {
+                    $coupons->andWhere('created_at >= ?', $req['start_date']);
+                }
+
+                if ($req['end_date']) {
+                    $coupons->andWhere('created_at <= ?', $req['end_date'] . '23:59:59');
+                }
+
+                $coupons->findAll();
 
                 return $coupons->toRet();
 
