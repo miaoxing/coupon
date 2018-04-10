@@ -103,7 +103,7 @@ class CouponModel extends BaseModelV2
      */
     public function sendCoupon($couponId, $userId, $count = 1)
     {
-        $coupon = wei()->couponModel()->findOneById($couponId);
+        $coupon = wei()->couponModel()->findById($couponId);
         if (!$coupon) {
             return $this->err('不存在该优惠券');
         }
