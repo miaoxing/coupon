@@ -74,7 +74,7 @@
           <th class="t-2">顺序</th>
           <th class="t-6">创建时间</th>
           <th class="t-2">启用</th>
-          <th class="t-6">操作</th>
+          <th class="t-7">操作</th>
         </tr>
         </thead>
         <tbody></tbody>
@@ -96,6 +96,7 @@
 <!-- /.row -->
 
 <script id="table-actions" type="text/html">
+  <?php $event->trigger('adminCouponsViewActions') ?>
   <a href="<%= $.url('coupons/%s', id) %>">
     领取
   </a>
@@ -105,7 +106,6 @@
   <a href="javascript:sendAll(<%= id %>)" title="发送">
     发送
   </a>
-  <br>
   <a href="<%= $.url('admin/coupons/%s/edit', id) %>">
     编辑
   </a>
