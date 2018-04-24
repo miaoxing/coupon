@@ -97,14 +97,11 @@
 
 <script id="table-actions" type="text/html">
   <?php $event->trigger('adminCouponsViewActions') ?>
-  <a href="<%= $.url('coupons/%s', id) %>">
-    领取
-  </a>
   <a href="<%= $.url('admin/coupon-stats/show', {couponId: id}) %>">
     统计
   </a>
-  <a href="javascript:sendAll(<%= id %>)" title="发送">
-    发送
+  <a href="<%= $.url('coupons/%s', id) %>">
+    查看
   </a>
   <a href="<%= $.url('admin/coupons/%s/edit', id) %>">
     编辑
@@ -271,20 +268,6 @@
         }
       }
     });
-  }
-
-  function sendAll(couponId) {
-    if (confirm("确定全部用户发送？")) {
-      $.ajax({
-        url: '<?= wei()->url('admin/coupons/sendAll')?>',
-        type: 'post',
-        data: {couponId: couponId},
-        dataType: 'json',
-        success: function (r) {
-          alert(r.message);
-        }
-      });
-    }
   }
 </script>
 <?= $block->end() ?>

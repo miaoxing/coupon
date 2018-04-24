@@ -7,7 +7,7 @@ class Coupons extends \Miaoxing\Plugin\BaseController
     protected $controllerName = '优惠券管理';
 
     protected $actionPermissions = [
-        'sendUser,sendAll' => '发送',
+        'sendUser' => '发送',
         'index' => '列表',
         'new,create' => '添加',
         'edit,update,updateEnable' => '编辑',
@@ -142,24 +142,6 @@ class Coupons extends \Miaoxing\Plugin\BaseController
         foreach ($userList as $key => $userId) {
             foreach ($couponList as $key1 => $couponId) {
                 wei()->couponModel->sendCoupon($couponId, $userId);
-            }
-        }
-
-        return $this->json('发送优惠券成功', 1);
-    }
-
-    //发送优惠券
-    public function sendAllAction()
-    {
-        $couponId = $this->request('couponId');
-        $userCount = wei()->db->count('user', ['1' => 1]);
-        $page = ceil($userCount / 1000);
-        for ($i = 1; $i <= $page; ++$i) {
-            $userList = wei()->user()->select('id')->limit(1000)->page($i)->fetchAll();
-            if ($userList) {
-                foreach ($userList as $key => $value) {
-                    wei()->couponModel->sendCoupon($couponId, $value['id']);
-                }
             }
         }
 
