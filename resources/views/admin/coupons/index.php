@@ -7,7 +7,8 @@
 <div class="page-header">
   <a class="btn btn-success pull-right" href="<?= $url('admin/coupons/new') ?>">增加优惠券</a>
 
-  <?php if (wei()->setting('coupon.enableBatchSend')) { ?>
+  <?php if (wei()->setting('coupon.enableBatchSend')) {
+    ?>
     <div class="pull-right">
       <form class="js-import-form form-horizontal" method="post" role="form">
         <div class="js-excel-fileinput excel-fileinput fileinput fileinput-new" data-provides="fileinput">
@@ -21,7 +22,8 @@
         </div>
       </form>
     </div>
-  <?php } ?>
+  <?php 
+} ?>
   <h1>
     微商城
     <small>
