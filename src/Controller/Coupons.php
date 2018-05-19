@@ -39,6 +39,11 @@ class Coupons extends BaseController
     {
         $coupon = wei()->couponModel()->findOneById($req['id']);
         $canGet = true;
+
+        if (!$coupon->enable) {
+            $canGet = false;
+        }
+
         if ($coupon->startedAt && strtotime($coupon->startedAt) > time()) {
             $canGet = false;
         }
