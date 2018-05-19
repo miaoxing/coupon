@@ -136,7 +136,8 @@ class Plugin extends BasePlugin
         if (!in_array('优惠券信息', $outputData[0])) {
             $outputData[0][] = '优惠券信息';
         }
-        $couponName = $order['userCouponId'] ? wei()->userCouponModel()->findById($order['userCouponId'])->getName() : '-';
+        $couponName = $order['userCouponId']
+            ? wei()->userCouponModel()->findById($order['userCouponId'])->getName() : '-';
         $rowData[] = $couponName;
     }
 }

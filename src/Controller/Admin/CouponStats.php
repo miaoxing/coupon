@@ -47,7 +47,14 @@ class CouponStats extends \Miaoxing\Plugin\BaseController
 
                     $defaults = $this->camelArray(wei()->couponStatModel->getData());
 
-                    $stats = wei()->stat->normalize('couponLogModel', $stats, $defaults, $lastStat, $startDate, $endDate);
+                    $stats = wei()->stat->normalize(
+                        'couponLogModel',
+                        $stats,
+                        $defaults,
+                        $lastStat,
+                        $startDate,
+                        $endDate
+                    );
                 }
 
                 // 3. 转换为数字
