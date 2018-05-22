@@ -21,12 +21,13 @@ class CouponStats extends \Miaoxing\Plugin\BaseController
         $endDate = $req['endDate'] ?: date('Y-m-d');
 
         // 获取最后更新时间
-        $lastUpdateTime = wei()->couponStatModel()->select('updated_at')->desc('id')->fetchColumn();
+        $lastUpdateTime = wei()->couponStatModel()->unscoped()->select('updated_at')->desc('id')->fetchColumn();
 
         switch ($req['_format']) {
             case 'json':
                 // 1. 读出统计数据
                 $stats = wei()->couponStatModel()
+                    ->unscoped()
                     ->andWhere(['coupon_id' => $coupon['id']])
                     ->andWhere('stat_date BETWEEN ? AND ? ', [$startDate, $endDate])
                     ->findAll()
@@ -39,7 +40,7 @@ class CouponStats extends \Miaoxing\Plugin\BaseController
                 if (count($stats) != $dateCount) {
                     // 找到最后一个有数据的日期
                     $lastStat = wei()->couponStatModel()
-                        ->curApp()
+                        ->unscoped()
                         ->andWhere('stat_date < ?', $startDate)
                         ->desc('id')
                         ->findOrInit(['coupon_id' => $coupon['id']])

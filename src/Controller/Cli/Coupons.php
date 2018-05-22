@@ -2,6 +2,8 @@
 
 namespace Miaoxing\Coupon\Controller\cli;
 
+use Miaoxing\Coupon\Service\CouponStatModel;
+
 class Coupons extends \Miaoxing\Plugin\BaseController
 {
     public function statAction($req)
@@ -29,12 +31,16 @@ class Coupons extends \Miaoxing\Plugin\BaseController
 
         // 5. 更新到总表中
         foreach ($data as $row) {
+            /** @var CouponStatModel $last */
+            $last = wei()->couponStatModel()
+                ->desc('stat_date')
+                ->find(['coupon_id' => $row['coupon_id']]);
             $coupon = wei()->couponModel()->unscoped()->findById($row['coupon_id']);
             $coupon->save([
-                'receiveCount' => $row['receive_count'],
-                'receiveUser' => $row['receive_user'],
-                'useCount' => $row['use_count'],
-                'useUser' => $row['use_user'],
+                'receiveCount' => $last->totalReceiveCount,
+                'receiveUser' => $last->totalReceiveUser,
+                'useCount' => $last->totalUseCount,
+                'useUser' => $last->totalUseUser,
             ]);
         }
 

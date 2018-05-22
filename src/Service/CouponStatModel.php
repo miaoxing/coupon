@@ -2,10 +2,13 @@
 
 namespace Miaoxing\Coupon\Service;
 
+use Miaoxing\Coupon\Metadata\CouponStatTrait;
 use Miaoxing\Plugin\BaseModelV2;
 
 class CouponStatModel extends BaseModelV2
 {
+    use CouponStatTrait;
+
     /**
      * {@inheritdoc}
      */
