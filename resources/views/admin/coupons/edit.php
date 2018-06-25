@@ -95,7 +95,7 @@
 
       <div class="form-group">
         <label class="col-lg-2 control-label" for="startedAt">
-          开始时间
+          开始领取时间
         </label>
 
         <div class="col-lg-4">
@@ -107,7 +107,7 @@
 
       <div class="form-group">
         <label class="col-lg-2 control-label" for="endedAt">
-          结束时间
+          结束领取时间
         </label>
 
         <div class="col-lg-4">
