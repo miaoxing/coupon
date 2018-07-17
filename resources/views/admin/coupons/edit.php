@@ -1,17 +1,8 @@
 <?php $view->layout() ?>
-<div class="page-header">
-  <div class="pull-right">
-    <a class="btn btn-default" href="<?= $url('admin/coupons') ?>">返回列表</a>
-  </div>
-  <h1>
-    微官网
-    <small>
-      <i class="fa fa-angle-double-right"></i>
-      优惠券列表
-    </small>
-  </h1>
-</div>
-<!-- /.page-header -->
+
+<?= $block('header-actions') ?>
+<a class="btn btn-default" href="<?= $url('admin/coupons') ?>">返回列表</a>
+<?= $block->end() ?>
 
 <div class="row">
   <div class="col-xs-12">

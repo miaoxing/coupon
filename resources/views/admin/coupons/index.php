@@ -4,35 +4,25 @@
 <link rel="stylesheet" href="<?= $asset('plugins/admin/css/filter.css') ?>"/>
 <?= $block->end() ?>
 
-<div class="page-header">
-  <a class="btn btn-success pull-right" href="<?= $url('admin/coupons/new') ?>">增加优惠券</a>
-
-  <?php if (wei()->setting('coupon.enableBatchSend')) {
-    ?>
-    <div class="pull-right">
-      <form class="js-import-form form-horizontal" method="post" role="form">
-        <div class="js-excel-fileinput excel-fileinput fileinput fileinput-new" data-provides="fileinput">
+<?= $block('header-actions') ?>
+<a class="btn btn-success" href="<?= $url('admin/coupons/new') ?>">增加优惠券</a>
+<?php if (wei()->setting('coupon.enableBatchSend')) { ?>
+  <div class="pull-right">
+    <form class="js-import-form form-horizontal" method="post" role="form">
+      <div class="js-excel-fileinput excel-fileinput fileinput fileinput-new" data-provides="fileinput">
           <span class="btn btn-white btn-file">
             <span class="fileinput-new">批量发放优惠券</span>
               <input type="file" name="file">
           </span>
-          <a href="<?= $asset('plugins/coupon/docs/批量发放优惠券模板.xlsx') ?>" class="btn btn-link">
-            下载范例
-          </a>
-        </div>
-      </form>
-    </div>
-  <?php 
-} ?>
-  <h1>
-    微商城
-    <small>
-      <i class="fa fa-angle-double-right"></i>
-      优惠券列表
-    </small>
-  </h1>
-</div>
-<!-- /.page-header -->
+        <a href="<?= $asset('plugins/coupon/docs/批量发放优惠券模板.xlsx') ?>" class="btn btn-link">
+          下载范例
+        </a>
+      </div>
+    </form>
+  </div>
+<?php } ?>
+<?= $block->end() ?>
+
 <div class="row">
 
   <div class="col-xs-12">

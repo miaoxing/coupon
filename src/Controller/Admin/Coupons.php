@@ -15,6 +15,8 @@ class Coupons extends \Miaoxing\Plugin\BaseController
         'upload' => '批量发送优惠券',
     ];
 
+    protected $displayPageHeader = true;
+
     public function indexAction($req)
     {
         switch ($req['_format']) {
