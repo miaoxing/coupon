@@ -22,7 +22,7 @@ class UserCouponModel extends BaseModelV2
 
     public function coupon()
     {
-        return $this->belongsTo(wei()->couponModel());
+        return $this->belongsTo(wei()->couponModel()->withDeleted());
     }
 
     public function getCode()
