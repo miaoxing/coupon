@@ -106,7 +106,7 @@
   </a>
 </script>
 
-<?php require $view->getFile('admin:admin/checkboxCol.php') ?>
+<?php require $view->getFile('@admin/admin/checkboxCol.php') ?>
 
 <?= $block->js() ?>
 <script>
@@ -265,5 +265,5 @@
   }
 </script>
 <?= $block->end() ?>
-<?php require $this->getFile('excel:admin/error-modal.php') ?>
-<?php require $this->getFile('excel:admin/suc-modal.php') ?>
+<?php require $this->getFile('@excel/admin/error-modal.php') ?>
+<?php require $this->getFile('@excel/admin/suc-modal.php') ?>
