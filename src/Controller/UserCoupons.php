@@ -15,7 +15,7 @@ class UserCoupons extends BaseController
             ->findAll()
             ->load('coupon');
 
-        $headerTitle = '优惠券';
+        $this->page->setTitle('优惠券');
 
         return get_defined_vars();
     }

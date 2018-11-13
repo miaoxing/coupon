@@ -30,7 +30,7 @@ class Coupons extends BaseController
         }
         $coupons = $data;
 
-        $headerTitle = '优惠券';
+        $this->page->setTitle('优惠券');
 
         return get_defined_vars();
     }
