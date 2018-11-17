@@ -10,7 +10,7 @@
   <div class="pull-right">
     <form class="js-import-form form-horizontal" method="post" role="form">
       <div class="js-excel-fileinput excel-fileinput fileinput fileinput-new" data-provides="fileinput">
-          <span class="btn btn-white btn-file">
+          <span class="btn btn-default btn-file">
             <span class="fileinput-new">批量发放优惠券</span>
               <input type="file" name="file">
           </span>
