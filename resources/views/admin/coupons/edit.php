@@ -223,6 +223,22 @@
         </div>
       </div>
 
+      <div class="form-group">
+        <label class="col-lg-2 control-label" for="listing">
+          列表显示
+        </label>
+
+        <div class="col-lg-4">
+          <label class="radio-inline">
+            <input type="radio" name="listing" value="1"> 显示
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="listing" value="0"> 不显示
+          </label>
+
+        </div>
+      </div>
+
       <input type="hidden" name="id" id="id"/>
 
       <div class="clearfix form-actions form-group">

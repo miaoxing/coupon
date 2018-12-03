@@ -8,7 +8,7 @@ class Coupons extends BaseController
 {
     public function indexAction($req)
     {
-        $coupons = wei()->couponModel()->enabled()->findAll();
+        $coupons = wei()->couponModel()->enabled()->andWhere(['listing' => true])->findAll();
         $data = [];
 
         $curTime = time();

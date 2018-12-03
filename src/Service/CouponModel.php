@@ -24,6 +24,7 @@ class CouponModel extends BaseModelV2
     protected $data = [
         'sort' => 50,
         'enable' => true,
+        'listing' => true,
         'styles' => [],
         'redirect_link_to' => [],
         'product_ids' => [],
