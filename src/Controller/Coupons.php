@@ -3,13 +3,10 @@
 namespace Miaoxing\Coupon\Controller;
 
 use Miaoxing\Plugin\BaseController;
-use Miaoxing\Plugin\Bs4LayoutTrait;
 use Miaoxing\Plugin\Service\Request;
 
 class Coupons extends BaseController
 {
-    use Bs4LayoutTrait;
-
     public function indexAction($req)
     {
         $coupons = wei()->couponModel()->enabled()->andWhere(['listing' => true])->findAll();
@@ -41,6 +38,8 @@ class Coupons extends BaseController
 
     public function showAction(Request $req)
     {
+        $this->view->setDefaultLayout('@plugin/layouts/default-bs4.php');
+
         if (!$req->json()) {
             return [];
         }
@@ -103,13 +102,12 @@ class Coupons extends BaseController
 
     public function getCouponAction($req)
     {
-        return $this->suc();
         $ret = wei()->couponModel->sendCoupon($req['id'], wei()->curUser['id']);
         if ($ret['code'] == 1) {
             $ret['message'] = '领取成功';
         }
 
-        return $this->ret($ret);
+        return $ret;
     }
 
     public function getAllCouponAction($req)
