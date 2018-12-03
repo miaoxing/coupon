@@ -3,9 +3,13 @@
 namespace Miaoxing\Coupon\Controller;
 
 use Miaoxing\Plugin\BaseController;
+use Miaoxing\Plugin\Bs4LayoutTrait;
+use Miaoxing\Plugin\Service\Request;
 
 class Coupons extends BaseController
 {
+    use Bs4LayoutTrait;
+
     public function indexAction($req)
     {
         $coupons = wei()->couponModel()->enabled()->andWhere(['listing' => true])->findAll();
@@ -35,8 +39,12 @@ class Coupons extends BaseController
         return get_defined_vars();
     }
 
-    public function showAction($req)
+    public function showAction(Request $req)
     {
+        if (!$req->json()) {
+            return [];
+        }
+
         $coupon = wei()->couponModel()->findOneById($req['id']);
         $canGet = true;
 
@@ -62,11 +70,40 @@ class Coupons extends BaseController
             $canGet = false;
         }
 
-        return get_defined_vars();
+        return $this->suc([
+            'data' => $coupon->toArray() + ['redirectUrl' => $coupon->getRedirectUrl()],
+            'canGet' => $canGet,
+        ]);
+    }
+
+    public function productsAction($req)
+    {
+        $coupon = wei()->couponModel()->findOneById($req['id']);
+
+        $products = wei()->product();
+        switch ($coupon->scope) {
+            case 'category':
+                $products->andWhere(['categoryId' => $coupon->categoryIds]);
+                break;
+
+            case 'products':
+                $products->orderBy('FIELD(id, ' . implode(', ', $coupon->productIds) . ')');
+                break;
+
+            case 'all':
+                break;
+        }
+        $products->desc('sort')
+            ->desc('id')
+            ->page($req['page'])
+            ->findAll();
+
+        return $this->suc(['data' => $products]);
     }
 
     public function getCouponAction($req)
     {
+        return $this->suc();
         $ret = wei()->couponModel->sendCoupon($req['id'], wei()->curUser['id']);
         if ($ret['code'] == 1) {
             $ret['message'] = '领取成功';

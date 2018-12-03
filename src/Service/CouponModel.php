@@ -188,4 +188,12 @@ class CouponModel extends BaseModelV2
 
         return $this->products;
     }
+
+    public function getRedirectUrl()
+    {
+        if ($this->redirectLinkTo['type']) {
+            return wei()->linkTo->getUrl($this->redirectLinkTo);
+        }
+        return '';
+    }
 }
