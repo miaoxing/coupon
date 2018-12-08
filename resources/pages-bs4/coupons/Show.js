@@ -1,6 +1,5 @@
 import React from "react";
 import {List} from "antd-mobile";
-import _ from "lodash";
 import {Link} from "react-router-dom";
 import app from "app";
 import InfiniteList from "components/bs4/InfiniteList";
@@ -8,6 +7,7 @@ import styled from "styled-components";
 import axios from "axios";
 import '../../../public/css/coupon.css';
 import RetV2 from "components/RetV2";
+import map from 'lodash/map';
 
 const Img = styled.img`
   .am-list-item & {
@@ -93,7 +93,7 @@ export default class extends React.Component {
           return <List
             renderHeader={() => '可用商品列表'}
           >
-            {_.map(data, row => {
+            {map(data, row => {
               return <List.Item key={row.id}>
                 <a href={app.url('products/%s', row.id)} className="d-flex w-100">
                   <Img className="mr-3" src={row.images[0]}/>
