@@ -38,8 +38,6 @@ class Coupons extends BaseController
 
     public function showAction(Request $req)
     {
-        $this->view->setDefaultLayout('@plugin/layouts/default-bs4.php');
-
         if (!$req->json()) {
             return [];
         }

@@ -1,3 +1,4 @@
+import 'bs4';
 import React from "react";
 import {List} from "antd-mobile";
 import {Link} from "react-router-dom";
