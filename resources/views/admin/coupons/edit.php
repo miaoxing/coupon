@@ -269,6 +269,7 @@
     var coupon = <?= $coupon->toJson() ?>;
     // TODO populate
     coupon.enable = coupon.enable ? '1' : '0';
+    coupon.listing = coupon.listing ? '1' : '0';
     $('#coupon-form')
       .loadJSON(coupon)
       .ajaxForm({
