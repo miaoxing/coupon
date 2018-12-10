@@ -83,8 +83,9 @@ class Coupons extends BaseController
                 $products->andWhere(['categoryId' => $coupon->categoryIds]);
                 break;
 
-            case 'products':
-                $products->orderBy('FIELD(id, ' . implode(', ', $coupon->productIds) . ')');
+            case 'product':
+                $products->orderBy('FIELD(id, ' . implode(', ', $coupon->productIds) . ')')
+                    ->andWhere(['id' => $coupon->productIds]);
                 break;
 
             case 'all':
