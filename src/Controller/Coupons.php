@@ -77,7 +77,11 @@ class Coupons extends BaseController
     {
         $coupon = wei()->couponModel()->findOneById($req['id']);
 
-        $products = wei()->product();
+        $products = wei()->product()
+            ->notDeleted()
+            ->andWhere(['visible' => 1])
+            ->andWhere(['listing' => 1]);
+
         switch ($coupon->scope) {
             case 'category':
                 $products->andWhere(['categoryId' => $coupon->categoryIds]);
