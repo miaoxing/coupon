@@ -133,7 +133,7 @@ class CouponModel extends BaseModelV2
         $couponData = [
             'userId' => $userId,
             'couponId' => $couponId,
-            'startAt' => date('Y-m-d H:i:s'),
+            'startedAt' => date('Y-m-d H:i:s'),
             'endedAt' => $this->getEndTime($coupon),
         ];
 

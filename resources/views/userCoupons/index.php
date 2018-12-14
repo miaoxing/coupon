@@ -32,8 +32,8 @@ $view->layout();
         <div class="list-body">
           <div class="text-primary">￥ <?= $coupon->money ?></div>
           <div>有效期:
-            <?= substr($coupon->startedAt, 0, 10) ?> - <?= substr($coupon->endedAt, 0, 10) ?>
-            <?php if ($coupon->endedAt && ($coupon->endedAt < date('Y-m-d H:i:s'))) : ?>
+            <?= substr($userCoupon->startedAt, 0, 10) ?> - <?= substr($userCoupon->endedAt, 0, 10) ?>
+            <?php if ($userCoupon->endedAt && ($userCoupon->endedAt < date('Y-m-d H:i:s'))) : ?>
               <span class="text-danger">(已过期)</span>
             <?php endif ?>
           </div>
