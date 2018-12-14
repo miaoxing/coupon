@@ -29,6 +29,10 @@
         <div class="col-lg-4">
           <input type="text" class="form-control js-pic" id="pic" name="pic" required>
         </div>
+
+        <label for="pic" class="col-lg-6 help-text">
+          图片长宽比例不限<br>建议所有图片长宽比一致，宽度大于等于200像素
+        </label>
       </div>
 
       <div class="form-group">
