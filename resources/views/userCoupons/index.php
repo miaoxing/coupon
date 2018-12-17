@@ -41,6 +41,10 @@ $view->layout();
           <?php if ($userCoupon->used) : ?>
             <span class="coupon-list">使用时间: <?= $userCoupon->usedAt ?></span>
           <?php endif ?>
+          <div>
+            <a href="<?= $url('coupons/%s', $userCoupon->couponId) ?>"
+              class="btn btn-primary btn-sm hairline pull-right">去使用</a>
+          </div>
         </div>
       </div>
     </li>
