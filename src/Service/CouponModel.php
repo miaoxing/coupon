@@ -2,6 +2,7 @@
 
 namespace Miaoxing\Coupon\Service;
 
+use Carbon\Carbon;
 use Miaoxing\Cart\Service\Cart;
 use Miaoxing\Coupon\Metadata\CouponTrait;
 use Miaoxing\Plugin\BaseModelV2;
@@ -15,6 +16,10 @@ class CouponModel extends BaseModelV2
     use HasAppIdTrait;
     use SoftDeleteTrait;
 
+    const DATE_TYPE_FIXED_DATE = 1;
+
+    const DATE_TYPE_FIXED_TIME = 2;
+
     protected $code;
 
     protected $message;
@@ -25,6 +30,7 @@ class CouponModel extends BaseModelV2
         'sort' => 50,
         'enable' => true,
         'listing' => true,
+        'date_type' => self::DATE_TYPE_FIXED_DATE,
         'styles' => [],
         'redirect_link_to' => [],
         'product_ids' => [],
@@ -130,11 +136,19 @@ class CouponModel extends BaseModelV2
             return ['code' => -1, 'message' => '已过了最后领取的时间，请关注下次活动时间'];
         }
 
+        if ($coupon->dateType === self::DATE_TYPE_FIXED_DATE) {
+            $startedAt = wei()->time();
+            $endedAt = Carbon::now()->addDays($coupon->validDay)->toDateTimeString();
+        } else {
+            $startedAt = $coupon->startedUseAt;
+            $endedAt = $coupon->endedUseAt;
+        }
+
         $couponData = [
             'userId' => $userId,
             'couponId' => $couponId,
-            'startedAt' => date('Y-m-d H:i:s'),
-            'endedAt' => $this->getEndTime($coupon),
+            'startedAt' => $startedAt,
+            'endedAt' => $endedAt,
         ];
 
         for ($i = 0; $i < $count; ++$i) {
@@ -151,11 +165,6 @@ class CouponModel extends BaseModelV2
         ]);
 
         return $this->suc();
-    }
-
-    protected function getEndTime(CouponModel $coupon)
-    {
-        return date('Y-m-d H:i:s', time() + $coupon->validDay * 86400);
     }
 
     public function afterFind()

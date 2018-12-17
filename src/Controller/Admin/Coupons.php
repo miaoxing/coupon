@@ -80,10 +80,6 @@ class Coupons extends \Miaoxing\Plugin\BaseController
                     'minLength' => 1,
                     'digit' => 1,
                 ],
-                'validDay' => [
-                    'minLength' => 1,
-                    'digit' => 1,
-                ],
                 'pic' => [
                     'minLength' => 1,
                 ],
@@ -92,7 +88,6 @@ class Coupons extends \Miaoxing\Plugin\BaseController
             'names' => [
                 'name' => '名称',
                 'money' => '金额',
-                'validDay' => '有效时间',
                 'getLimit' => '领取限制',
                 'quantity' => '库存数量',
                 'pic' => '图片',

@@ -36,6 +36,10 @@ namespace Miaoxing\Coupon\Metadata;
  * @property int $receiveUser 累积领取人数
  * @property int $useCount 累积核销次数
  * @property int $useUser 累积核销次数
+ * @property bool $listing
+ * @property int $dateType
+ * @property string $startedUseAt
+ * @property string $endedUseAt
  */
 trait CouponTrait
 {
@@ -75,5 +79,9 @@ trait CouponTrait
         'receive_user' => 'int',
         'use_count' => 'int',
         'use_user' => 'int',
+        'listing' => 'bool',
+        'date_type' => 'int',
+        'started_use_at' => 'datetime',
+        'ended_use_at' => 'datetime',
     ];
 }

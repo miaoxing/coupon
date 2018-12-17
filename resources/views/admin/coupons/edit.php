@@ -76,16 +76,60 @@
       </div>
 
       <div class="form-group">
+        <label class="col-lg-2 control-label" for="dateType">
+          <span class="text-warning">*</span>
+          有效期
+        </label>
+
+        <div class="col-lg-4">
+          <label class="radio-inline">
+            <input type="radio" class="js-toggle-display" name="dateType" value="1"
+              data-target=".js-date-type-fixed-date"
+              data-reverse-target=".js-date-type-fixed-time"
+              data-value=":checked"> 固定天数
+          </label>
+          <label class="radio-inline">
+            <input type="radio" class="js-toggle-display" name="dateType" value="2"
+              data-target=".js-date-type-fixed-time"
+              data-reverse-target=".js-date-type-fixed-date"
+              data-value=":checked"> 固定日期
+          </label>
+        </div>
+      </div>
+
+      <div class="js-date-type-fixed-date form-group">
         <label class="col-lg-2 control-label" for="valid-day">
           <span class="text-warning">*</span>
-          有效期(日)
+          固定天数
         </label>
 
         <div class="col-lg-4">
           <input type="text" class="form-control" name="validDay" id="valid-day" data-rule-required="true">
         </div>
+      </div>
 
-        <label for="valid-day" class="col-lg-6 help-text">领取优惠券后的有效时间</label>
+      <div class="js-date-type-fixed-time">
+        <div class="form-group">
+          <label class="col-lg-2 control-label" for="startedUseAt">
+            <span class="text-warning">*</span>
+            开始使用时间
+          </label>
+
+          <div class="col-lg-4">
+            <input type="text" class="form-control js-start-use-time" name="startedUseAt">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-lg-2 control-label" for="endedUseAt">
+            <span class="text-warning">*</span>
+            结束使用时间
+          </label>
+
+          <div class="col-lg-4">
+            <input type="text" class="form-control js-end-use-time" name="endedUseAt">
+          </div>
+        </div>
       </div>
 
       <div class="form-group">
@@ -269,6 +313,7 @@
   require([
     'linkTo', 'form', 'ueditor', 'validator', 'assets/spectrum', 'assets/dateTimePicker',
     'plugins/admin/js/image-upload',
+    'plugins/app/libs/jquery-toggle-display/jquery-toggle-display',
   ], function (linkTo) {
     var coupon = <?= $coupon->toJson() ?>;
     // TODO populate
@@ -307,6 +352,13 @@
       timeFormat: 'HH:mm:ss'
     });
 
+    // 开始结束时间使用日期时间范围选择器
+    $('.js-start-use-time, .js-end-use-time').rangeDateTimePicker({
+      showSecond: true,
+      dateFormat: 'yy-mm-dd',
+      timeFormat: 'HH:mm:ss'
+    });
+
     // 跳转后直接跳转的链接
     linkTo.init({
       $el: $('#redirect-link-to'),
@@ -320,6 +372,8 @@
 
     // 点击选择图片
     $('.js-pic').imageUpload();
+
+    $('.js-toggle-display').toggleDisplay();
   });
 </script>
 <?= $block->end() ?>

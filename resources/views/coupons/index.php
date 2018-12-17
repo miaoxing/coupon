@@ -45,7 +45,11 @@
 
       <div class="copy f-20">
         <p class="f-12">
-          领取后<?= $coupon['validDay'] ?>天有效
+          <?php if ($coupon['dateType'] == \Miaoxing\Coupon\Service\CouponModel::DATE_TYPE_FIXED_DATE) { ?>
+            领取后<?= $coupon['validDay'] ?>天有效
+          <?php } else { ?>
+            <?= substr($coupon['startedUseAt'], 0, 10) ?> ~ <?= substr($coupon['endedUseAt'], 0, 10) ?> 有效
+          <?php } ?>
         </p>
 
         <?php if ($coupon['canGet']) : ?>
