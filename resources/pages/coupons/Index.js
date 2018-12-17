@@ -15,6 +15,10 @@ const Link = styled.a`
   color: #fff;
   font-size: 10px;
   
+  & + & {
+    bottom: 124px;
+  }
+  
   :hover {
     color: #fff;
     text-decoration: none;
@@ -26,10 +30,16 @@ const Link = styled.a`
 `;
 
 const ProductIcon = () => {
-  return <Link className="flex flex-center flex-y" href={app.url('products')}>
-    <i className="ni ni-gift"/>
-    商城
-  </Link>
+  return <>
+    <Link className="flex flex-center flex-y" href={app.url('products')}>
+      <i className="ni ni-gift"/>
+      商城
+    </Link>
+    <Link className="flex flex-center flex-y" href={app.url('user-coupons')}>
+      <i className="ni ni-coupon"/>
+      我的
+    </Link>
+  </>
 };
 
 export default class extends React.Component {
