@@ -5,6 +5,7 @@
 <style>
   <?php foreach ($coupons as $key => $coupon) : ?>
   .stamp<?= $key ?> {
+    display: block;
     background: <?= $coupon['styles']['bgColor'] ?: '#50ADD3' ?>;
     background: radial-gradient(rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 4px,
     <?= $coupon['styles']['bgColor'] ?: '#50ADD3' ?> 4px);
@@ -32,7 +33,7 @@
   </div>
 
   <?php foreach ($coupons as $key => $coupon) : ?>
-    <div class="stamp stamp<?= $key ?>">
+    <a href="<?= $url('coupons/%s', $coupon['id']) ?>" class="stamp stamp<?= $key ?>">
       <i></i>
 
       <div class="par">
@@ -53,12 +54,12 @@
         </p>
 
         <?php if ($coupon['canGet']) : ?>
-          <a href="javascript:;" class="js-get-coupon submit f-14" data-id="<?= $coupon['id'] ?>">点击领取</a>
+          <span class="js-get-coupon submit f-14" data-id="<?= $coupon['id'] ?>">点击领取</span>
         <?php else : ?>
           <span class="non-submit f-14"><?= $coupon['canGetMsg'] ?: '不可领取' ?></span>
         <?php endif; ?>
       </div>
-    </div>
+    </a>
 
     <div class="coupon-remark">
     <span class="text-primary">
@@ -84,7 +85,9 @@
     });
   };
 
-  $('.js-get-coupon').click(function () {
+  $('.js-get-coupon').click(function (e) {
+    e.preventDefault();
+
     <?php if ($needPerfect) : ?>
       perfectInformation();
 
