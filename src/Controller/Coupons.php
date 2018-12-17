@@ -115,7 +115,7 @@ class Coupons extends BaseController
 
     public function getAllCouponAction($req)
     {
-        $coupons = wei()->couponModel()->enabled()->findAll();
+        $coupons = wei()->couponModel()->enabled()->andWhere(['listing' => true])->findAll();
         $isGet = false;
 
         foreach ($coupons as $i => $coupon) {

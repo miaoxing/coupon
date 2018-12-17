@@ -40,6 +40,19 @@ class UserCouponModel extends BaseModelV2
         return ['code' => $this->code, 'message' => $this->message];
     }
 
+    public function checkToUse()
+    {
+        if ($this->used) {
+            return $this->err('该优惠券已经使用过');
+        }
+
+        if ($this->endedAt <= date('Y-m-d H:i:s')) {
+            return $this->err('该优惠券已经过了最后使用时间');
+        }
+
+        return $this->suc();
+    }
+
     /**
      * @param Cart|\Miaoxing\Cart\Service\Cart[] $carts
      * @return array|bool

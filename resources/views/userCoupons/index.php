@@ -18,7 +18,7 @@ $view->layout();
 
 <ul class="list">
   <?php
-  foreach ($userCoupons as $userCoupon) :
+  foreach ($userCoupons as $userCoupon) {
     $coupon = $userCoupon->coupon;
     ?>
     <li class="list-item">
@@ -33,23 +33,25 @@ $view->layout();
           <div class="text-primary">￥ <?= $coupon->money ?></div>
           <div>有效期:
             <?= substr($userCoupon->startedAt, 0, 10) ?> - <?= substr($userCoupon->endedAt, 0, 10) ?>
-            <?php if ($userCoupon->endedAt && ($userCoupon->endedAt < date('Y-m-d H:i:s'))) : ?>
+            <?php if ($userCoupon->endedAt && ($userCoupon->endedAt < date('Y-m-d H:i:s'))) { ?>
               <span class="text-danger">(已过期)</span>
-            <?php endif ?>
+            <?php } ?>
           </div>
           <div>使用规则: <?= $coupon->rule ?: '无'; ?></div>
-          <?php if ($userCoupon->used) : ?>
+          <?php if ($userCoupon->used) { ?>
             <span class="coupon-list">使用时间: <?= $userCoupon->usedAt ?></span>
-          <?php endif ?>
-          <div>
-            <a href="<?= $url('coupons/%s', $userCoupon->couponId) ?>"
-              class="btn btn-primary btn-sm hairline pull-right">去使用</a>
-          </div>
+          <?php } ?>
+          <?php if ($userCoupon->checkToUse()['code'] === 1) { ?>
+            <div>
+              <a href="<?= $url('coupons/%s', $userCoupon->couponId) ?>"
+                class="btn btn-default text-primary btn-sm hairline pull-right">去使用</a>
+            </div>
+          <?php } ?>
         </div>
       </div>
     </li>
-  <?php endforeach ?>
-  <?php if (!$userCoupons->length()) : ?>
+  <?php } ?>
+  <?php if (!$userCoupons->length()) { ?>
     <li class="list-empty">暂无记录</li>
-  <?php endif ?>
+  <?php } ?>
 </ul>
