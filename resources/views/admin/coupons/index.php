@@ -62,7 +62,7 @@
           <th class="t-3">金额</th>
           <th class="t-4">限制金额</th>
           <th class="t-4">库存数量</th>
-          <th class="t-4">有效期(日)</th>
+          <th class="t-6">有效期</th>
           <th class="t-4">领取人数</th>
           <th class="t-4">核销人数</th>
           <th class="t-2">顺序</th>
@@ -147,7 +147,14 @@
           data: 'quantity'
         },
         {
-          data: 'validDay'
+          data: 'validDay',
+          render: function (data, type, full) {
+            if (full.type === 1) {
+              return data + '天';
+            } else {
+              return full.startedUseAt.substr(0, 10) + ' ~ ' + full.endedUseAt.substr(0, 10);
+            }
+          }
         },
         {
           data: 'receiveUser',
