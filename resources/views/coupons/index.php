@@ -21,6 +21,7 @@
     background-color: <?= $coupon['styles']['btnColor'] ?: '#fff' ?>;
     color: <?= $coupon['styles']['btnFontColor'] ?: '#000' ?>;
   }
+
   <?php endforeach ?>
 </style>
 <?= $block->end() ?>
@@ -32,7 +33,7 @@
     <a class="btn btn-primary hairline js-get-all-coupon" href="javascript:;">一键领取</a>
   </div>
 
-  <?php foreach ($coupons as $key => $coupon) : ?>
+  <?php foreach ($coupons as $key => $coupon) { ?>
     <a href="<?= $url('coupons/%s', $coupon['id']) ?>" class="stamp stamp<?= $key ?>">
       <i></i>
 
@@ -56,7 +57,7 @@
         <?php
         $ret = $coupon->checkReceive();
         if ($ret['code'] === 1) {
-        ?>
+          ?>
           <span class="js-get-coupon submit f-14" data-id="<?= $coupon['id'] ?>">点击领取</span>
         <?php } else { ?>
           <span class="non-submit f-14"><?= $ret['shortMessage'] ?></span>
@@ -69,65 +70,41 @@
       备注: <?= $coupon['remark'] ?>
     </span>
     </div>
-  <?php endforeach; ?>
+  <?php } ?>
 </div>
 
 <?= $block->js() ?>
 <script>
-  <?php $needPerfect = wei()->event->until('preGetCoupon') ?>
-  var perfectInformation = function() {
-    var setimeout;
-    setimeout = setTimeout(function () {
-      clearTimeout(setimeout);
-      window.location.href = $.url('users/edit');
-    }, 3000);
-
-    $.alert('完善信息才能领取优惠券，马上跳转完善信息页面......', function () {
-      clearTimeout(setimeout);
-      window.location.href = $.url('users/edit');
-    });
-  };
-
   $('.js-get-coupon').click(function (e) {
     e.preventDefault();
 
-    <?php if ($needPerfect) : ?>
-      perfectInformation();
-
-    <?php else : ?>
-      var id = $(this).data('id');
-      $.ajax({
-        type: 'post',
-        url: $.url('coupons/get-coupon'),
-        data: {
-          id: id
-        },
-        dataType: 'json',
-        success: function (ret) {
-          $.msg(ret, function() {
-            window.location.reload();
-          });
-        }
-      });
-    <?php endif; ?>
+    var id = $(this).data('id');
+    $.ajax({
+      type: 'post',
+      url: $.url('coupons/get-coupon'),
+      data: {
+        id: id
+      },
+      dataType: 'json',
+      success: function (ret) {
+        $.msg(ret, function () {
+          window.location.reload();
+        });
+      }
+    });
   });
 
   $('.js-get-all-coupon').click(function () {
-    <?php if ($needPerfect) : ?>
-      perfectInformation();
-
-    <?php else : ?>
-      $.ajax({
-        type: 'post',
-        url: $.url('coupons/get-all-coupon'),
-        dataType: 'json',
-        success: function (ret) {
-          $.msg(ret, function() {
-            window.location.reload();
-          });
-        }
-      });
-    <?php endif; ?>
+    $.ajax({
+      type: 'post',
+      url: $.url('coupons/get-all-coupon'),
+      dataType: 'json',
+      success: function (ret) {
+        $.msg(ret, function () {
+          window.location.reload();
+        });
+      }
+    });
   });
 </script>
 <?= $block->end() ?>
