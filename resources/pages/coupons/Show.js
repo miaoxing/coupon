@@ -82,13 +82,11 @@ export default class extends React.Component {
               <span className="non-submit f-14">{this.state.receiveRet.shortMessage}</span>}
           </div>
         </div>
-      </Stamp>
 
-      <div className="coupon-remark">
-        <span className="text-primary">
+        <div className="coupon-remark p-0 mb-0 text-primary">
           备注: {coupon.remark || '-'}
-        </span>
-      </div>
+        </div>
+      </Stamp>
 
       <InfiniteList
         url={app.actionUrl('%s/products', app.id)}
