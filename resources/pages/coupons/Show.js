@@ -73,11 +73,13 @@ export default class extends React.Component {
           </div>
           <div className="copy f-20">
             <p className="f-12">
-              领取后{coupon.validDay}天有效
+              {coupon.dateType === 1 ?
+                <>领取后{coupon.validDay}天有效</> :
+                <>{coupon.startedUseAt.substr(0, 10)} ~ {coupon.endedUseAt.substr(0, 10)} 有效</>}
             </p>
-            {this.state.canGet ?
+            {this.state.receiveRet === 1 ?
               <a className="js-get-coupon submit f-14" onClick={this.handleClick}>点击领取</a> :
-              <span className="non-submit f-14">不可领取</span>}
+              <span className="non-submit f-14">{this.state.receiveRet.shortMessage}</span>}
           </div>
         </div>
       </Stamp>

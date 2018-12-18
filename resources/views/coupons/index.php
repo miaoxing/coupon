@@ -53,11 +53,14 @@
           <?php } ?>
         </p>
 
-        <?php if ($coupon['canGet']) : ?>
+        <?php
+        $ret = $coupon->checkReceive();
+        if ($ret['code'] === 1) {
+        ?>
           <span class="js-get-coupon submit f-14" data-id="<?= $coupon['id'] ?>">点击领取</span>
-        <?php else : ?>
-          <span class="non-submit f-14"><?= $coupon['canGetMsg'] ?: '不可领取' ?></span>
-        <?php endif; ?>
+        <?php } else { ?>
+          <span class="non-submit f-14"><?= $ret['shortMessage'] ?></span>
+        <?php } ?>
       </div>
     </a>
 

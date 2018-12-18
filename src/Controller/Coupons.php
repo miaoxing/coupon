@@ -9,30 +9,13 @@ class Coupons extends BaseController
 {
     public function indexAction($req)
     {
-        $coupons = wei()->couponModel()->enabled()->andWhere(['listing' => true])->findAll();
-        $data = [];
-
-        $curTime = time();
-        foreach ($coupons as $i => $coupon) {
-            $beforeStartTime = $coupon->startedAt && strtotime($coupon->startedAt) > $curTime;
-            $afterEndTime = $coupon->endedAt && strtotime($coupon->endedAt) <= $curTime;
-            $overLimit = $coupon['getLimit']
-                && wei()->userCouponModel->getUserCouponCount(wei()->curUser, $coupon) >= $coupon['getLimit'];
-            $lowQuantity = $coupon['quantity'] <= 0;
-            if ($beforeStartTime || $afterEndTime || $overLimit || $lowQuantity) {
-                $data[] = $coupon->toArray() + [
-                        'canGet' => false,
-                    ];
-            } else {
-                $data[] = $coupon->toArray() + [
-                        'canGet' => true,
-                    ];
-            }
-        }
-        $coupons = $data;
+        $coupons = wei()->couponModel()->enabled()
+            ->andWhere(['listing' => true])
+            ->desc('sort')
+            ->desc('id')
+            ->findAll();
 
         $this->page->setTitle('优惠券');
-
         return get_defined_vars();
     }
 
@@ -43,33 +26,10 @@ class Coupons extends BaseController
         }
 
         $coupon = wei()->couponModel()->findOneById($req['id']);
-        $canGet = true;
-
-        if (!$coupon->enable) {
-            $canGet = false;
-        }
-
-        if ($coupon->startedAt && strtotime($coupon->startedAt) > time()) {
-            $canGet = false;
-        }
-
-        if ($coupon->endedAt && strtotime($coupon->endedAt) < time()) {
-            $canGet = false;
-        }
-
-        if ($coupon->quantity <= 0) {
-            $canGet = false;
-        }
-
-        if ($coupon->getLimit
-            && wei()->userCouponModel->getUserCouponCount(wei()->curUser, $coupon) >= $coupon->getLimit
-        ) {
-            $canGet = false;
-        }
 
         return $this->suc([
             'data' => $coupon->toArray() + ['redirectUrl' => $coupon->getRedirectUrl()],
-            'canGet' => $canGet,
+            'receiveRet' => $coupon->checkReceive(),
         ]);
     }
 

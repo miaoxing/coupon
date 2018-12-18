@@ -100,6 +100,36 @@ class CouponModel extends BaseModelV2
         return true;
     }
 
+    public function checkReceive($user = null, $count = 1)
+    {
+        if (!$this->enable) {
+            return $this->err(['message' => '该优惠券未启用', 'shortMessage' => '未启用']);
+        }
+
+        if ($this->quantity <= 0) {
+            return $this->err(['message' => '优惠券库存为0，无法获得优惠券', 'shortMessage' => '已领完']);
+        }
+
+        if ($this->quantity < $count) {
+            return $this->err(['message' => '优惠券库存不足，无法获得优惠券', 'shortMessage' => '库存不足']);
+        }
+
+        $user || $user = wei()->curUserV2;
+        if ($this->getLimit && wei()->userCouponModel->getUserCouponCount($user, $this) >= $this->getLimit) {
+            return $this->err(['message' => '超过领取数量，无法获得优惠券', 'shortMessage' => '已领取']);
+        }
+
+        if ($this->startedAt && strtotime($this->startedAt) > time()) {
+            return $this->err(['message' => '还未到开始领取时间，请耐心等候', 'shortMessage' => '未开始']);
+        }
+
+        if ($this->endedAt && strtotime($this->endedAt) < time()) {
+            return $this->err(['message' => '已过了最后领取的时间，请关注下次活动时间', 'shortMessage' => '已结束']);
+        }
+
+        return $this->suc();
+    }
+
     /**
      * 发放优惠券
      *
