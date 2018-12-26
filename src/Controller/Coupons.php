@@ -81,26 +81,18 @@ class Coupons extends BaseController
         $coupons = wei()->couponModel()->enabled()->andWhere(['listing' => true])->findAll();
         $isGet = false;
 
-        foreach ($coupons as $i => $coupon) {
-            $afterStartTime = !$coupon->startedAt || strtotime($coupon->startedAt) <= time();
-            $beforeEndTime = !$coupon->endedAt || strtotime($coupon->endedAt) > time();
-            $inLimit = !$coupon->getLimit
-                || wei()->userCouponModel->getUserCouponCount(wei()->curUser, $coupon) < $coupon->getLimit;
-            $muchQuantity = $coupon->quantity > 0;
-            if ($afterStartTime && $beforeEndTime && $inLimit && $muchQuantity) {
-                $ret = wei()->couponModel->sendCoupon($coupon->id, wei()->curUser['id']);
-                if ($ret['code'] !== 1) {
-                    return $ret;
-                }
-
-                $isGet = true;
+        foreach ($coupons as $coupon) {
+            $ret = wei()->couponModel->sendCoupon($coupon->id, wei()->curUser['id']);
+            if ($ret['code'] !== 1) {
+                return $ret;
             }
+            $isGet = true;
         }
 
         if (!$isGet) {
             return $this->err('已经没有可领取的优惠券了');
         }
 
-        return $this->ret($ret);
+        return $this->suc('领取成功');
     }
 }

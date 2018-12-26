@@ -129,6 +129,11 @@ class CouponModel extends BaseModelV2
             return $this->err(['message' => '已过了最后领取的时间，请关注下次活动时间', 'shortMessage' => '已结束']);
         }
 
+        $ret = wei()->event->until('couponModelCheckReceive', $this);
+        if ($ret) {
+            return $ret;
+        }
+
         return $this->suc();
     }
 
@@ -147,25 +152,10 @@ class CouponModel extends BaseModelV2
             return $this->err('不存在该优惠券');
         }
 
-        if ($coupon->quantity <= 0) {
-            return ['code' => -1, 'message' => '优惠券库存为0，无法获得优惠券'];
-        }
-
-        if ($coupon->quantity < $count) {
-            return ['code' => -1, 'message' => '优惠券库存不足，无法获得优惠券'];
-        }
-
-        $user = wei()->user()->findOneById($userId);
-        if ($coupon->getLimit && wei()->userCouponModel->getUserCouponCount($user, $coupon) >= $coupon->getLimit) {
-            return ['code' => -1, 'message' => '超过领取数量，无法获得优惠券'];
-        }
-
-        if ($coupon->startedAt && strtotime($coupon->startedAt) > time()) {
-            return ['code' => -1, 'message' => '还未到开始领取时间，请耐心等候'];
-        }
-
-        if ($coupon->endedAt && strtotime($coupon->endedAt) < time()) {
-            return ['code' => -1, 'message' => '已过了最后领取的时间，请关注下次活动时间'];
+        $user = wei()->userModel()->findOneById($userId);
+        $ret = $coupon->checkReceive($user, $count);
+        if ($ret['code'] !== 1) {
+            return $ret;
         }
 
         if ($coupon->dateType === self::DATE_TYPE_FIXED_DATE) {
