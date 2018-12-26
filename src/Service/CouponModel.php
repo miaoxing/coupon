@@ -42,6 +42,7 @@ class CouponModel extends BaseModelV2
         'redirect_link_to' => 'json',
         'category_ids' => 'json',
         'product_ids' => 'json',
+        'user_tag_ids' => 'json',
     ];
 
     public function getCode()

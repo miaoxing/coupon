@@ -40,6 +40,7 @@ namespace Miaoxing\Coupon\Metadata;
  * @property int $dateType
  * @property string $startedUseAt
  * @property string $endedUseAt
+ * @property array $userTagIds
  */
 trait CouponTrait
 {
@@ -83,5 +84,6 @@ trait CouponTrait
         'date_type' => 'int',
         'started_use_at' => 'datetime',
         'ended_use_at' => 'datetime',
+        'user_tag_ids' => 'json',
     ];
 }

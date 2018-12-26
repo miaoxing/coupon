@@ -287,6 +287,8 @@
         </div>
       </div>
 
+      <?php $event->trigger('adminCouponsEditRender', [$coupon]) ?>
+
       <input type="hidden" name="id" id="id"/>
 
       <div class="clearfix form-actions form-group">
