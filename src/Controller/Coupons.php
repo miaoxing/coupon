@@ -9,11 +9,14 @@ class Coupons extends BaseController
 {
     public function indexAction($req)
     {
-        $coupons = wei()->couponModel()->enabled()
+        $coupons = wei()->couponModel()
+            ->enabled()
             ->andWhere(['listing' => true])
             ->desc('sort')
             ->desc('id')
             ->findAll();
+
+        $this->event->trigger('afterCouponsIndexFind', $coupons);
 
         $this->page->setTitle('优惠券');
         return get_defined_vars();
