@@ -35,6 +35,7 @@ class CouponModel extends BaseModelV2
         'redirect_link_to' => [],
         'product_ids' => [],
         'category_ids' => [],
+        'user_tag_ids' => [],
     ];
 
     protected $defaultCasts = [
