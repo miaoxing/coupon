@@ -3,7 +3,9 @@
 namespace MiaoxingDoc\Coupon {
 
     /**
-     * @property    \Miaoxing\Coupon\Service\CouponLogModel $couponLogModel
+     * @property    \Miaoxing\Coupon\Service\Coupon $coupon
+     *
+     * @property    \Miaoxing\Coupon\Service\CouponLogModel $couponLogModel 注意,不使用 HasAppIdTrait, 统计查询才不会包含 app_id
      * @method      \Miaoxing\Coupon\Service\CouponLogModel|\Miaoxing\Coupon\Service\CouponLogModel[] couponLogModel()
      *
      * @property    \Miaoxing\Coupon\Service\CouponModel $couponModel
@@ -28,6 +30,9 @@ namespace {
     function wei()
     {
     }
+
+    /** @var Miaoxing\Coupon\Service\Coupon $coupon */
+    $coupon = wei()->coupon;
 
     /** @var Miaoxing\Coupon\Service\CouponLogModel $couponLogModel */
     $couponLog = wei()->couponLogModel();

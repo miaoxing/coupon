@@ -6,6 +6,7 @@ use Miaoxing\Address\Service\Address;
 use Miaoxing\Coupon\Service\CouponLogModel;
 use Miaoxing\Order\Service\Order;
 use Miaoxing\Plugin\BasePlugin;
+use Miaoxing\Product\Service\Product;
 
 class Plugin extends BasePlugin
 {
@@ -139,5 +140,17 @@ class Plugin extends BasePlugin
         $couponName = $order['userCouponId']
             ? wei()->userCouponModel()->findById($order['userCouponId'])->getName() : '-';
         $rowData[] = $couponName;
+    }
+
+    public function onProductsShowItem(Product $product)
+    {
+        if (!$product['allowCoupon']) {
+            return;
+        }
+        if (!wei()->coupon->showProductCoupons) {
+            return;
+        }
+
+        $this->display(get_defined_vars());
     }
 }
