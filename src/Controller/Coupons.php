@@ -111,7 +111,7 @@ class Coupons extends BaseController
         $amount = $carts->getProductAmount();
 
         foreach ($coupons as $key => $coupon) {
-            if ($amount < $coupon->limitAmount || wei()->productFilter->filterCarts($carts, $coupon)->length() <= 0) {
+            if ($amount < $coupon->limitAmount || wei()->productFilter->filterCarts($carts, $coupon)->length() === 0) {
                 $coupons->remove($key);
             }
         }
