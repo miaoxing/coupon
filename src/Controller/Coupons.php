@@ -9,14 +9,7 @@ class Coupons extends BaseController
 {
     public function indexAction($req)
     {
-        $coupons = wei()->couponModel()
-            ->enabled()
-            ->andWhere(['listing' => true])
-            ->desc('sort')
-            ->desc('id')
-            ->findAll();
-
-        $this->event->trigger('afterCouponsIndexFind', $coupons);
+        $coupons = $this->getCoupons();
 
         $this->page->setTitle('优惠券');
         return get_defined_vars();
@@ -94,5 +87,49 @@ class Coupons extends BaseController
         }
 
         return $this->suc('领取成功');
+    }
+
+    public function getByProductAction($req)
+    {
+        $coupons = $this->getCoupons();
+
+        $carts = wei()->cart()->beColl();
+        $carts[] = wei()->cart()->fromArray(['productId' => $req['productId']]);
+        foreach ($coupons as $i => $coupon) {
+            if (wei()->productFilter->filterCarts($carts, $coupon)->length() === 0) {
+                unset($coupons[$i]);
+            }
+        }
+
+        return get_defined_vars();
+    }
+
+    public function getByCartsAction($req)
+    {
+        $coupons = $this->getCoupons();
+        $carts = wei()->cart()->findAllByIds($req['cartIds']);
+        $amount = $carts->getProductAmount();
+
+        foreach ($coupons as $key => $coupon) {
+            if ($amount < $coupon->limitAmount || wei()->productFilter->filterCarts($carts, $coupon)->length() <= 0) {
+                $coupons->remove($key);
+            }
+        }
+
+        return get_defined_vars();
+    }
+
+    protected function getCoupons()
+    {
+        $coupons = wei()->couponModel()
+            ->enabled()
+            ->andWhere(['listing' => true])
+            ->desc('sort')
+            ->desc('id')
+            ->findAll();
+
+        $this->event->trigger('afterCouponsIndexFind', $coupons);
+
+        return $coupons;
     }
 }

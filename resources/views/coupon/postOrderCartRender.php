@@ -49,7 +49,7 @@
         }
 
         if (ret.data.length === 0 && receiveCoupon) {
-          $.get($.url('product-coupons/order', {cartIds: cartIds})).then(function (res) {
+          $.get($.url('coupons/get-by-carts', {cartIds: cartIds})).then(function (res) {
             $('.js-coupon-container').html(res);
           });
           $(document).on('afterGetCoupon', function () {
