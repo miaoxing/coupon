@@ -30,7 +30,7 @@
 </li>
 
 <script type="text/html" id="coupon-tpl">
-  <option value=""><%= data.length ? '选择优惠券' : '暂无可用优惠券' %></option>
+  <option value=""><%= data.length ? '请选择优惠券' : '暂无可用优惠券' %></option>
   <% $.each(data, function (i, userCoupon) { %>
   <option data-amount-off="<%= userCoupon.reduceCost %>"
     value="<%= userCoupon.id %>"><%= userCoupon.name %>
@@ -48,6 +48,8 @@
   });
 
   require(['comps/artTemplate/template.min'], function (template) {
+    var showNewOrderCoupons = <?= json_encode(wei()->coupon->showNewOrderCoupons) ?>;
+
     function loadUserCoupon(receiveCoupon) {
       var cartIds = <?= json_encode($carts->getAll('id')) ?>;
       $.getJSON($.url('user-coupons/get-by-carts', {cartIds: cartIds})).then(function (ret) {
@@ -63,7 +65,7 @@
           $('.js-user-coupon').val(ret.data[0].id).change();
         }
 
-        if (ret.data.length === 0 && receiveCoupon) {
+        if (showNewOrderCoupons && ret.data.length === 0 && receiveCoupon) {
           $.get($.url('coupons/get-by-carts', {cartIds: cartIds})).then(function (res) {
             $('.js-coupon-container').html(res);
           });
@@ -73,6 +75,7 @@
         }
       });
     }
+
     loadUserCoupon(true);
   });
 </script>

@@ -7,6 +7,7 @@ use Miaoxing\Plugin\BaseService;
 
 /**
  * @property bool showProductCoupons
+ * @property bool showNewOrderCoupons
  */
 class Coupon extends BaseService
 {
@@ -14,6 +15,9 @@ class Coupon extends BaseService
 
     protected $configs = [
         'showProductCoupons' => [
+            'default' => false,
+        ],
+        'showNewOrderCoupons' => [
             'default' => false,
         ],
     ];
