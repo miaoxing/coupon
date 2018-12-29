@@ -2,7 +2,7 @@
   <dt>领券：</dt>
   <dd>
     <a class="js-coupon-modal-show" href="javascript:;">
-      <?= $coupons[0]->name  ?><?= $coupons->length() > 1 ? '等' : '' ?>
+      <?= implode('，', $coupons->getAll('name')) ?>
     </a>
   </dd>
 </dl>
