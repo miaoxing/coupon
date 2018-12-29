@@ -14,11 +14,13 @@
   <option value=""><%= data.length ? '选择优惠券' : '暂无可用优惠券' %></option>
   <% $.each(data, function (i, userCoupon) { %>
   <option data-amount-off="<%= userCoupon.reduceCost %>"
-    value="<%= userCoupon.id %>"><%= userCoupon.name %></option>
+    value="<%= userCoupon.id %>"><%= userCoupon.name %>
+  </option>
   <% }) %>
 </script>
 
-<!--<li class="js-coupon-container list-item order-form-group has-feedback list-over-fix" style="padding: 11px 30px 11px 0;"></li>-->
+<li class="js-coupon-container list-item order-form-group has-feedback list-over-fix"
+  style="padding: 11px 30px 11px 0;"></li>
 
 <?= $block->js() ?>
 <script>
@@ -31,8 +33,9 @@
   });
 
   require(['comps/artTemplate/template.min'], function (template) {
-    $.getJSON($.url('user-coupons/get-by-carts', {cartIds: <?= json_encode($carts->getAll('id')) ?>}))
-      .then(function (ret) {
+    function loadUserCoupon(receiveCoupon) {
+      var cartIds = <?= json_encode($carts->getAll('id')) ?>;
+      $.getJSON($.url('user-coupons/get-by-carts', {cartIds: cartIds})).then(function (ret) {
         if (ret.code !== 1) {
           $.msg(ret);
           return;
@@ -44,11 +47,18 @@
         if (ret.data.length) {
           $('.js-user-coupon').val(ret.data[0].id).change();
         }
-      });
-  });
 
-  $.get($.url('product-coupons/order')).then(function (res) {
-    $('.js-coupon-container').html(res);
+        if (ret.data.length === 0 && receiveCoupon) {
+          $.get($.url('product-coupons/order', {cartIds: cartIds})).then(function (res) {
+            $('.js-coupon-container').html(res);
+          });
+          $(document).on('afterGetCoupon', function () {
+            loadUserCoupon(false);
+          });
+        }
+      });
+    }
+    loadUserCoupon(true);
   });
 </script>
 <?= $block->end() ?>

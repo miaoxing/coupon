@@ -74,6 +74,8 @@
 
 <?= $block->js() ?>
 <script>
+  var event = $.Event('afterGetCoupon');
+
   $('.js-get-coupon').click(function (e) {
     e.preventDefault();
 
@@ -90,6 +92,7 @@
         $.msg(ret);
         if (ret.code === 1) {
           $btn.html('已领取').addClass('disabled');
+          $(document).trigger(event);
         }
       }
     });
@@ -105,6 +108,7 @@
           $('.js-get-coupon').html('已领取').addClass('disabled');
         }
         $.msg(ret);
+        $(document).trigger(event);
       }
     });
   });

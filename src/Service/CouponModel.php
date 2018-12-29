@@ -71,8 +71,8 @@ class CouponModel extends BaseModelV2
         $userCoupons = wei()->userCouponModel()
             ->mine()
             ->andWhere('used = 0')
-            ->andWhere('started_at < ?', $now)
-            ->andWhere('ended_at > ?', $now)
+            ->andWhere('started_at <= ?', $now)
+            ->andWhere('ended_at >= ?', $now)
             ->findAll();
 
         $amount = $carts->getProductAmount();
