@@ -61,7 +61,6 @@ class Plugin extends BasePlugin
             return;
         }
 
-        $userCoupons = wei()->couponModel->getAvailableCouponsByCarts($carts);
         $this->display(get_defined_vars());
     }
 

@@ -19,4 +19,20 @@ class UserCoupons extends BaseController
 
         return get_defined_vars();
     }
+
+    public function getByCartsAction($req)
+    {
+        $carts = wei()->cart()->findAllByIds($req['cartIds']);
+        $userCoupons = wei()->couponModel->getAvailableCouponsByCarts($carts);
+
+        $data = [];
+        foreach ($userCoupons as $userCoupon) {
+            $data[] = $userCoupon->toArray() + [
+                    'name' => $userCoupon->getName(),
+                    'reduceCost' => $userCoupon->getReduceCost(),
+                ];
+        }
+
+        return $this->suc(['data' => $data]);
+    }
 }

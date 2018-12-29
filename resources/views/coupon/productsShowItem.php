@@ -2,7 +2,7 @@
 
 <?= $block->js() ?>
 <script>
-  $.get($.url('product-coupons')).then(function (res) {
+  $.get($.url('product-coupons', {productId: <?= $product['id'] ?>})).then(function (res) {
     $('.js-coupon-container').html(res);
   });
 </script>
