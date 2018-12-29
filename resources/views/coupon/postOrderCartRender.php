@@ -1,13 +1,32 @@
-<li class="list-item order-form-group has-feedback list-over-fix">
+<style>
+  .coupon-list-item > label {
+    vertical-align: middle;
+  }
+
+  .coupon-list-item .bm-angle-right {
+    right: -15px;
+  }
+
+  .coupon-list-item .order-form-select {
+    text-align-last: right;
+    text-indent: 0;
+  }
+
+  .coupon-select-container {
+    position: relative;
+  }
+</style>
+
+<li class="list-item order-form-group coupon-list-item has-feedback">
   <label for="userCouponId">优惠券</label>
-  <div class="order-form-col text-right">
-    <select class="js-user-coupon order-form-select" name="userCouponId" id="userCouponId">
-    </select>
-    <div class="js-user-coupon-name order-form-select-fake">
-      选择优惠券
+  <div class="order-form-col">
+    <div class="coupon-select-container">
+      <select class="js-user-coupon order-form-select" name="userCouponId" id="userCouponId" dir="rtl">
+      </select>
+      <i class="bm-angle-right list-feedback"></i>
     </div>
+    <div class="js-coupon-container text-right"></div>
   </div>
-  <i class="bm-angle-right list-feedback"></i>
 </li>
 
 <script type="text/html" id="coupon-tpl">
@@ -19,14 +38,10 @@
   <% }) %>
 </script>
 
-<li class="js-coupon-container list-item order-form-group has-feedback list-over-fix"
-  style="padding: 11px 30px 11px 0;"></li>
-
 <?= $block->js() ?>
 <script>
   $('.js-user-coupon').change(function () {
     var selected = $(this).find('option:selected');
-    $('.js-user-coupon-name').html(selected.html());
     var fee = selected.data('amount-off');
     orders.setAmountRule('coupon', {name: '优惠券', amountOff: fee});
     orders.applyAmountRule();

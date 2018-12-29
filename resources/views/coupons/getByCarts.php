@@ -1,11 +1,4 @@
-<label for="userCouponId">优惠券</label>
-
-<div class="js-coupon-modal-show order-form-col text-right">
-  <div class=" order-form-select-fake">
-    领取优惠券
-  </div>
-</div>
-<i class="bm-angle-right list-feedback"></i>
+<a href="javascript:;" class="js-coupon-modal-show text-normal">有可用优惠券领取</a>
 
 <div class="js-coupon-modal modal-bottom modal fade" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog">
