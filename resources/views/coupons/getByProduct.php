@@ -19,7 +19,9 @@
         </div>
       </div>
       <div class="modal-body modal-body-fluid">
-        <?php require $view->getFile('@coupon/coupons/_list.php') ?>
+        <div class="coupon-container">
+          <?php require $view->getFile('@coupon/coupons/_list.php') ?>
+        </div>
       </div>
       <div class="modal-footer modal-footer-fluid flex">
         <button type="button" class="btn btn-primary btn-fluid flex-grow-1" data-dismiss="modal">关闭</button>

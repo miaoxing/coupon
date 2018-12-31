@@ -25,52 +25,45 @@
 </style>
 <?= $block->end() ?>
 
-<div class="coupon-container">
-  <?php require $view->getFile('@coupon/coupons/index-title.php') ?>
 
-  <div class="m-x-sm">
-    <a class="btn btn-primary hairline js-get-all-coupon" href="javascript:;">一键领取</a>
-  </div>
+<?php foreach ($coupons as $key => $coupon) { ?>
+  <a href="<?= $url('coupons/%s', $coupon['id']) ?>" class="stamp stamp<?= $key ?>">
+    <i></i>
 
-  <?php foreach ($coupons as $key => $coupon) { ?>
-    <a href="<?= $url('coupons/%s', $coupon['id']) ?>" class="stamp stamp<?= $key ?>">
-      <i></i>
-
-      <div class="par">
-        <p class="f-16"><?= $coupon['name'] ?></p>
-        <sub class="sign f-20">￥</sub>
-        <span class="f-24"><?= sprintf('%.2f', $coupon['money']) ?></span>
-        <sub>优惠券</sub>
-        <p class="f-16">订单满<?= $coupon['limitAmount'] ?>元可使用</p>
-      </div>
-
-      <div class="copy f-20">
-        <p class="f-12">
-          <?php if ($coupon['dateType'] == \Miaoxing\Coupon\Service\CouponModel::DATE_TYPE_FIXED_DATE) { ?>
-            领取后<?= $coupon['validDay'] ?>天有效
-          <?php } else { ?>
-            <?= substr($coupon['startedUseAt'], 0, 10) ?> ~ <?= substr($coupon['endedUseAt'], 0, 10) ?> 有效
-          <?php } ?>
-        </p>
-
-        <?php
-        $ret = $coupon->checkReceive();
-        if ($ret['code'] === 1) {
-          ?>
-          <span class="js-get-coupon btn btn-default hairline" data-id="<?= $coupon['id'] ?>">点击领取</span>
-        <?php } else { ?>
-          <span class="btn btn-default hairline disabled"><?= $ret['shortMessage'] ?></span>
-        <?php } ?>
-      </div>
-    </a>
-
-    <div class="coupon-remark p-l-0">
-      <span class="text-primary">
-        备注: <?= $coupon['remark'] ?>
-      </span>
+    <div class="par">
+      <p class="f-16"><?= $coupon['name'] ?></p>
+      <sub class="sign f-20">￥</sub>
+      <span class="f-24"><?= sprintf('%.2f', $coupon['money']) ?></span>
+      <sub>优惠券</sub>
+      <p class="f-16">订单满<?= $coupon['limitAmount'] ?>元可使用</p>
     </div>
-  <?php } ?>
-</div>
+
+    <div class="copy f-20">
+      <p class="f-12">
+        <?php if ($coupon['dateType'] == \Miaoxing\Coupon\Service\CouponModel::DATE_TYPE_FIXED_DATE) { ?>
+          领取后<?= $coupon['validDay'] ?>天有效
+        <?php } else { ?>
+          <?= substr($coupon['startedUseAt'], 0, 10) ?> ~ <?= substr($coupon['endedUseAt'], 0, 10) ?> 有效
+        <?php } ?>
+      </p>
+
+      <?php
+      $ret = $coupon->checkReceive();
+      if ($ret['code'] === 1) {
+        ?>
+        <span class="js-get-coupon btn btn-default hairline" data-id="<?= $coupon['id'] ?>">点击领取</span>
+      <?php } else { ?>
+        <span class="btn btn-default hairline disabled"><?= $ret['shortMessage'] ?></span>
+      <?php } ?>
+    </div>
+  </a>
+
+  <div class="coupon-remark p-l-0">
+    <span class="text-primary">
+      备注: <?= $coupon['remark'] ?>
+    </span>
+  </div>
+<?php } ?>
 
 <?= $block->js() ?>
 <script>
