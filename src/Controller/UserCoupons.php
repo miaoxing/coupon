@@ -33,6 +33,8 @@ class UserCoupons extends BaseController
                 ];
         }
 
+        $data = wei()->coll->orderBy($data, 'reduceCost', SORT_DESC);
+
         return $this->suc(['data' => $data]);
     }
 }
