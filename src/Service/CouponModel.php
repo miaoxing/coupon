@@ -39,11 +39,11 @@ class CouponModel extends BaseModelV2
     ];
 
     protected $defaultCasts = [
-        'styles' => 'json',
-        'redirect_link_to' => 'json',
-        'category_ids' => 'json',
-        'product_ids' => 'json',
-        'user_tag_ids' => 'json',
+        'styles' => 'array',
+        'redirect_link_to' => 'array',
+        'category_ids' => 'array',
+        'product_ids' => 'array',
+        'user_tag_ids' => 'array',
     ];
 
     public function getCode()
