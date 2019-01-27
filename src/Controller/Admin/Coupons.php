@@ -1,6 +1,6 @@
 <?php
 
-namespace Miaoxing\Coupon\Controller\admin;
+namespace Miaoxing\Coupon\Controller\Admin;
 
 class Coupons extends \Miaoxing\Plugin\BaseController
 {
