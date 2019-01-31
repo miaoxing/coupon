@@ -367,8 +367,7 @@
       name: 'redirectLinkTo',
       data: coupon.redirectLinkTo,
       hide: {
-        keyword: true,
-        decorator: true
+        keyword: true
       }
     });
 
