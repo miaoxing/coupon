@@ -4,13 +4,13 @@ $view->layout();
 ?>
 
 <ul class="header-tab nav tab-underline border-bottom">
-  <li class="border-primary <?= !$req['used'] ? 'active' : '' ?>">
-    <a class="text-active-primary" href="<?= $url->query('user-coupons', ['used' => 0]) ?>">
+  <li class="nav-item border-primary <?= !$req['used'] ? 'active' : '' ?>">
+    <a class="nav-link text-active-primary" href="<?= $url->query('user-coupons', ['used' => 0]) ?>">
       未使用
     </a>
   </li>
-  <li class="border-primary <?= $req['used'] ? 'active' : '' ?>">
-    <a class="text-active-primary" href="<?= $url->query('user-coupons', ['used' => 1]) ?>">
+  <li class="nav-item border-primary <?= $req['used'] ? 'active' : '' ?>">
+    <a class="nav-link text-active-primary" href="<?= $url->query('user-coupons', ['used' => 1]) ?>">
       已使用
     </a>
   </li>
