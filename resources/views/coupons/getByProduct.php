@@ -11,12 +11,12 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header border-bottom">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
         <div class="modal-title text-center">
           领券
         </div>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body modal-body-fluid">
         <div class="coupon-container">
