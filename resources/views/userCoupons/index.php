@@ -44,7 +44,7 @@ $view->layout();
           <?php if ($userCoupon->checkToUse()['code'] === 1) { ?>
             <div>
               <a href="<?= $url('coupons/%s', $userCoupon->couponId) ?>"
-                class="btn btn-default text-primary btn-sm hairline pull-right">去使用</a>
+                class="btn btn-default text-primary btn-sm pull-right">去使用</a>
             </div>
           <?php } ?>
         </div>
