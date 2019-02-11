@@ -15,7 +15,7 @@
 </div>
 
 <div class="row">
-  <div class="col-xs-12">
+  <div class="col-12">
 
     <div class="well well-sm bigger-110">
       优惠券名称: <?= $e($coupon['name']) ?>

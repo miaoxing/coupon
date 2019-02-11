@@ -25,7 +25,7 @@
 
 <div class="row">
 
-  <div class="col-xs-12">
+  <div class="col-12">
     <div class="table-responsive">
       <form class="js-coupon-form form-horizontal filter-form" role="form">
         <div class="well form-well m-b">
@@ -41,7 +41,7 @@
           </div>
 
           <div class="clearfix form-group form-group-sm">
-            <div class="col-md-offset-1 col-md-6">
+            <div class="offset-md-1 col-md-6">
               <button class="js-user-filter btn btn-primary btn-sm" type="submit">
                 查询
               </button>

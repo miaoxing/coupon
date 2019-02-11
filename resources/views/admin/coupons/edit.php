@@ -5,7 +5,7 @@
 <?= $block->end() ?>
 
 <div class="row">
-  <div class="col-xs-12">
+  <div class="col-12">
     <!-- PAGE CONTENT BEGINS -->
     <form id="coupon-form" class="form-horizontal" method="post" role="form">
 
@@ -292,7 +292,7 @@
       <input type="hidden" name="id" id="id"/>
 
       <div class="clearfix form-actions form-group">
-        <div class="col-sm-offset-2">
+        <div class="offset-sm-2">
           <button class="btn btn-primary" type="submit">
             <i class="fa fa-check"></i>
             提交
