@@ -55,7 +55,7 @@
         <div class="col-lg-4">
           <div class="input-group">
             <input type="text" class="form-control" name="quantity" id="quantity" data-rule-required="true">
-            <span class="input-group-addon">份</span>
+            <span class="input-group-append"><span class="input-group-text">份</span></span>
           </div>
         </div>
       </div>
@@ -69,7 +69,7 @@
         <div class="col-lg-4">
           <div class="input-group">
             <input type="text" class="form-control" name="getLimit" id="get-limit" value="1" data-rule-required="true">
-            <span class="input-group-addon">份</span>
+            <span class="input-group-append"><span class="input-group-text">份</span></span>
           </div>
         </div>
         <label for="get-limit" class="col-lg-6 help-text">每个用户领券上限，0为不限次数</label>
