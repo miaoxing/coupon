@@ -28,7 +28,7 @@
   <div class="col-12">
     <div class="table-responsive">
       <form class="js-coupon-form form-horizontal filter-form" role="form">
-        <div class="well form-well m-b">
+        <div class="well">
           <div class="form-group form-group-sm">
             <label class="col-md-1 control-label" for="created-at">创建时间：</label>
 
@@ -75,7 +75,7 @@
         <tfoot></tfoot>
       </table>
       <?php if ($req['userlist'] || $req['groupId']) : ?>
-        <div class="well form-well">
+        <div class="well">
           <form class="form-inline" role="form">
             <div class="form-group">
               <a class="btn btn-info" href="javascript:sendUserCoupon();">发送优惠券</a>
