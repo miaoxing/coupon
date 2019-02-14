@@ -29,7 +29,7 @@
     <div class="table-responsive">
       <form class="js-coupon-form form-horizontal filter-form" role="form">
         <div class="well">
-          <div class="form-group form-group-sm">
+          <div class="form-group">
             <label class="col-md-1 control-label" for="created-at">创建时间：</label>
 
             <div class="col-md-3">
@@ -40,7 +40,7 @@
 
           </div>
 
-          <div class="clearfix form-group form-group-sm">
+          <div class="clearfix form-group">
             <div class="offset-md-1 col-md-6">
               <button class="js-user-filter btn btn-primary btn-sm" type="submit">
                 查询
