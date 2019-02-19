@@ -99,7 +99,7 @@ export default class extends React.Component {
                 <a href={app.url('products/%s', row.id)} className="d-flex w-100">
                   <Img className="mr-3" src={row.images[0]}/>
                   <div className="d-flex flex-column justify-content-between">
-                    <div className="text-dark">{row.name}</div>
+                    <div className="text-body">{row.name}</div>
                     <div className="text-primary">¥{row.price}</div>
                   </div>
                 </a>
