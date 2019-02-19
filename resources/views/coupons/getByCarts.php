@@ -1,4 +1,4 @@
-<a href="javascript:;" class="js-coupon-modal-show text-normal">有可用优惠券领取</a>
+<a href="javascript:;" class="js-coupon-modal-show text-sm">有可用优惠券领取</a>
 
 <div class="js-coupon-modal modal-bottom modal fade" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog">
