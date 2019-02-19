@@ -3,7 +3,7 @@ import React from "react";
 import {List} from "antd-mobile";
 import {Link} from "react-router-dom";
 import app from "app";
-import InfiniteList from "components/bs4/InfiniteList";
+import InfiniteList from "components/InfiniteList";
 import styled from "styled-components";
 import axios from "axios";
 import '../../../public/css/coupon.css';
