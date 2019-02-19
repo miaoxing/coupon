@@ -50,7 +50,7 @@
         <a href="#total-use" class="nav-link" aria-controls="use" role="tab" data-toggle="tab">累积核销</a>
       </li>
     </ul>
-    <div class="tab-content m-t border-0">
+    <div class="tab-content mt-3 border-0">
       <div role="tabpanel" class="js-chart-pane tab-pane text-center active" id="receive">
         加载中...
       </div>
