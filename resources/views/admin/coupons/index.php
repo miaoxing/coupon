@@ -110,7 +110,7 @@
 
 <?= $block->js() ?>
 <script>
-  require(['plugins/admin/js/data-table', 'plugins/excel/js/excel', 'daterangepicker'], function () {
+  require(['plugins/admin/js/data-table', 'plugins/excel/js/excel', 'plugins/admin/js/date-range-picker'], function () {
     var recordTable = $('#coupon-list').dataTable({
       ajax: {
         url: $.url('admin/coupons.json')
