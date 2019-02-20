@@ -94,7 +94,7 @@
 
 <?= $block->js() ?>
 <script>
-  require(['plugins/stat/js/stat', 'highcharts',
+  require(['plugins/stat/js/stat', 'plugins/stat/js/highcharts',
     'form', 'jquery-deparam', 'plugins/admin/js/data-table', 'daterangepicker'
   ], function (stat) {
     // 渲染底部表格
