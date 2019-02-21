@@ -49,7 +49,7 @@
     orders.applyAmountRule();
   });
 
-  require(['comps/artTemplate/template.min'], function (template) {
+  require(['plugins/app/libs/artTemplate/template.min'], function (template) {
     var showNewOrderCoupons = <?= json_encode(wei()->coupon->showNewOrderCoupons) ?>;
 
     function loadUserCoupon(receiveCoupon) {
