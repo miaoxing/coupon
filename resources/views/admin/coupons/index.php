@@ -1,4 +1,8 @@
-<?php $view->layout() ?>
+<?php
+
+$view->layout();
+$wei->page->addAsset('comps/jasny-bootstrap/dist/css/jasny-bootstrap.min.css');
+?>
 
 <?= $block->css() ?>
 <link rel="stylesheet" href="<?= $asset('plugins/admin/css/filter.css') ?>"/>
@@ -7,19 +11,17 @@
 <?= $block('header-actions') ?>
 <a class="btn btn-success" href="<?= $url('admin/coupons/new') ?>">增加优惠券</a>
 <?php if (wei()->setting('coupon.enableBatchSend')) { ?>
-  <div class="pull-right">
-    <form class="js-import-form form-horizontal" method="post" role="form">
-      <div class="js-excel-fileinput excel-fileinput fileinput fileinput-new" data-provides="fileinput">
-          <span class="btn btn-default btn-file">
-            <span class="fileinput-new">批量发放优惠券</span>
-              <input type="file" name="file">
-          </span>
-        <a href="<?= $asset('plugins/coupon/docs/批量发放优惠券模板.xlsx') ?>" class="btn btn-link">
-          下载范例
-        </a>
-      </div>
-    </form>
-  </div>
+  <form class="js-import-form form-horizontal d-inline-block" method="post" role="form">
+    <div class="js-excel-fileinput excel-fileinput fileinput fileinput-new" data-provides="fileinput">
+        <span class="btn btn-default btn-file">
+          <span class="fileinput-new">批量发放优惠券</span>
+            <input type="file" name="file">
+        </span>
+      <a href="<?= $asset('plugins/coupon/docs/批量发放优惠券模板.xlsx') ?>" class="btn btn-link">
+        下载范例
+      </a>
+    </div>
+  </form>
 <?php } ?>
 <?= $block->end() ?>
 
@@ -110,7 +112,8 @@
 
 <?= $block->js() ?>
 <script>
-  require(['plugins/admin/js/data-table', 'plugins/excel/js/excel', 'plugins/admin/js/date-range-picker'], function () {
+  require(['plugins/admin/js/data-table', 'plugins/excel/js/excel', 'plugins/admin/js/date-range-picker',
+    'comps/jasny-bootstrap/dist/js/jasny-bootstrap.min'], function () {
     var recordTable = $('#coupon-list').dataTable({
       ajax: {
         url: $.url('admin/coupons.json')
