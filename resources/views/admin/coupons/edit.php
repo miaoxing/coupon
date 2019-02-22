@@ -313,7 +313,7 @@
 <?= $block->js() ?>
 <script>
   require([
-    'plugins/link-to/js/link-to', 'form', 'ueditor', 'plugins/app/js/validation', 'plugins/admin/js/spectrum', 'plugins/admin/js/range-date-time-picker',
+    'plugins/link-to/js/link-to', 'plugins/admin/js/form', 'ueditor', 'plugins/app/js/validation', 'plugins/admin/js/spectrum', 'plugins/admin/js/range-date-time-picker',
     'plugins/admin/js/image-upload',
     'plugins/app/libs/jquery-toggle-display/jquery-toggle-display',
   ], function (linkTo) {
