@@ -195,7 +195,7 @@
         </label>
 
         <div class="col-lg-4">
-          <p class="form-control-static" id="redirect-link-to"></p>
+          <p class="form-control-plaintext" id="redirect-link-to"></p>
         </div>
       </div>
 
