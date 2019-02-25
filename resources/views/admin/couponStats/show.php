@@ -6,7 +6,7 @@
 
 <!-- /.page-header -->
 <div class="page-header">
-  <div class="pull-right">
+  <div class="float-right">
     <a class="btn btn-default" href="<?= $url('admin/coupons') ?>">返回列表</a>
   </div>
   <h1>
@@ -19,7 +19,7 @@
 
     <div class="well well-sm bigger-110">
       优惠券名称: <?= $e($coupon['name']) ?>
-      <span class="pull-right small">新数据每分钟更新,最后更新时间: <?= $lastUpdateTime ?: '暂无' ?></span>
+      <span class="float-right small">新数据每分钟更新,最后更新时间: <?= $lastUpdateTime ?: '暂无' ?></span>
     </div>
 
     <div class="well well-sm">
