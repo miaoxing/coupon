@@ -31,11 +31,11 @@ const Link = styled.a`
 
 const ProductIcon = () => {
   return <>
-    <Link className="flex flex-center flex-y" href={app.url('products')}>
+    <Link className="d-flex flex-center flex-column" href={app.url('products')}>
       <i className="ni ni-gift"/>
       商城
     </Link>
-    <Link className="flex flex-center flex-y" href={app.url('user-coupons')}>
+    <Link className="d-flex flex-center flex-column" href={app.url('user-coupons')}>
       <i className="ni ni-coupon"/>
       我的
     </Link>
