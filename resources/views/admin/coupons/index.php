@@ -13,7 +13,7 @@ $wei->page->addAsset('comps/jasny-bootstrap/dist/css/jasny-bootstrap.min.css');
 <?php if (wei()->setting('coupon.enableBatchSend')) { ?>
   <form class="js-import-form form-horizontal d-inline-block" method="post" role="form">
     <div class="js-excel-fileinput excel-fileinput fileinput fileinput-new" data-provides="fileinput">
-        <span class="btn btn-default btn-file">
+        <span class="btn btn-secondary btn-file">
           <span class="fileinput-new">批量发放优惠券</span>
             <input type="file" name="file">
         </span>

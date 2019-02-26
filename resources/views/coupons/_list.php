@@ -51,9 +51,9 @@
       $ret = $coupon->checkReceive();
       if ($ret['code'] === 1) {
         ?>
-        <span class="js-get-coupon btn btn-default" data-id="<?= $coupon['id'] ?>">点击领取</span>
+        <span class="js-get-coupon btn btn-secondary" data-id="<?= $coupon['id'] ?>">点击领取</span>
       <?php } else { ?>
-        <span class="btn btn-default disabled"><?= $ret['shortMessage'] ?></span>
+        <span class="btn btn-secondary disabled"><?= $ret['shortMessage'] ?></span>
       <?php } ?>
     </div>
   </a>
