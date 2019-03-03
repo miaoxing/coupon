@@ -16,7 +16,7 @@
   }
 </style>
 
-<li class="list-item order-form-group coupon-list-item has-feedback">
+<li class="list-item order-form-group coupon-list-item list-has-feedback">
   <label for="userCouponId">优惠券</label>
   <div class="order-form-col">
     <div class="coupon-select-container">
