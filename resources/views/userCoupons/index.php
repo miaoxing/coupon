@@ -26,10 +26,10 @@ $view->layout();
         <img src="<?= $coupon->pic ?>">
       </div>
       <div class="list-col">
-        <h4 class="list-item-title">
+        <h4 class="list-title">
           <?= $coupon->name ?>
         </h4>
-        <div class="list-item-text">
+        <div class="list-text">
           <div class="text-primary">￥ <?= $coupon->money ?></div>
           <div>有效期:
             <?= substr($userCoupon->startedAt, 0, 10) ?> - <?= substr($userCoupon->endedAt, 0, 10) ?>
