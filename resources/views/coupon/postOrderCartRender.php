@@ -16,14 +16,14 @@
   }
 </style>
 
-<li class="list-item order-form-group coupon-list-item list-has-feedback">
+<li class="list-item order-form-group coupon-list-item list-has-arrow">
   <label for="userCouponId">优惠券</label>
   <div class="order-form-col">
     <div class="coupon-select-container">
       <select class="js-user-coupon order-form-select" name="userCouponId" id="userCouponId">
       </select>
       <div class="js-user-coupon-name order-form-select-fake"></div>
-      <i class="bm-angle-right list-feedback"></i>
+      <i class="bm-angle-right list-arrow"></i>
     </div>
     <div class="js-coupon-container text-right"></div>
   </div>
