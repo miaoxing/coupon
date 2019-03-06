@@ -3,7 +3,7 @@
 $view->layout();
 ?>
 
-<ul class="header-tab nav tab-underline">
+<ul class="header-nav nav nav-underline">
   <li class="nav-item">
     <a class="nav-link <?= !$req['used'] ? 'active' : '' ?> text-active-primary border-active-primary" href="<?= $url->query('user-coupons', ['used' => 0]) ?>">
       未使用

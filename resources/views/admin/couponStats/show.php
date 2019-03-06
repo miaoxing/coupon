@@ -36,7 +36,7 @@
 
     <h5 class="stat-title">趋势图</h5>
 
-    <ul class="js-chart-tabs nav tab-underline">
+    <ul class="js-chart-tabs nav nav-underline">
       <li role="presentation" class="nav-item">
         <a href="#receive" class="nav-link active" aria-controls="receive" role="tab" data-toggle="tab">新增领取</a>
       </li>
