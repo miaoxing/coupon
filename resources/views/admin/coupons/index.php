@@ -207,7 +207,7 @@ $wei->page->addAsset('comps/jasny-bootstrap/dist/css/jasny-bootstrap.min.css');
     // 点击删除标签
     recordTable.on('click', '.delete-record', function () {
       var link = $(this);
-      $.confirm('删除后将无法还原,确认删除?', function (result) {
+      $.confirm('删除后将无法还原,确定删除?', function (result) {
         if (!result) {
           return;
         }
