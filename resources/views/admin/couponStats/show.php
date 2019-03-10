@@ -95,7 +95,7 @@
 <?= $block->js() ?>
 <script>
   require(['plugins/stat/js/stat', 'plugins/stat/js/highcharts',
-    'form', 'plugins/admin/js/data-table', 'plugins/admin/js/date-range-picker'
+    'plugins/admin/js/form', 'plugins/admin/js/data-table', 'plugins/admin/js/date-range-picker'
   ], function (stat) {
     // 渲染底部表格
     var $statTable = $('.js-stat-table').dataTable({
