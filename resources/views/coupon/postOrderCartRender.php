@@ -3,16 +3,8 @@
     vertical-align: middle;
   }
 
-  .coupon-list-item .bm-angle-right {
-    right: -15px;
-  }
-
   .coupon-select-container {
     position: relative;
-  }
-
-  .coupon-select-container .order-form-select-fake {
-    right: 10px;
   }
 </style>
 
@@ -23,10 +15,10 @@
       <select class="js-user-coupon order-form-select" name="userCouponId" id="userCouponId">
       </select>
       <div class="js-user-coupon-name order-form-select-fake"></div>
-      <i class="bm-angle-right list-arrow"></i>
     </div>
     <div class="js-coupon-container text-right"></div>
   </div>
+  <i class="bm-angle-right list-arrow"></i>
 </li>
 
 <script type="text/html" id="coupon-tpl">
