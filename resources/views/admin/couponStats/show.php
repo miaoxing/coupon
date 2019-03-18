@@ -17,9 +17,9 @@
 <div class="row">
   <div class="col-12">
 
-    <div class="well well-sm bigger-110">
+    <div class="well well-sm bigger-110 d-flex align-items-center justify-content-between">
       优惠券名称: <?= $e($coupon['name']) ?>
-      <span class="float-right small">新数据每分钟更新,最后更新时间: <?= $lastUpdateTime ?: '暂无' ?></span>
+      <small>新数据每分钟更新,最后更新时间: <?= $lastUpdateTime ?: '暂无' ?></small>
     </div>
 
     <div class="well well-sm">
