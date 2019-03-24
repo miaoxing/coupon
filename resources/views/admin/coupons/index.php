@@ -44,7 +44,7 @@ $wei->page->addAsset('comps/jasny-bootstrap/dist/css/jasny-bootstrap.min.css');
 
           <div class="clearfix form-group">
             <div class="offset-md-1 col-md-6">
-              <button class="js-user-filter btn btn-primary btn-sm" type="submit">
+              <button class="js-user-filter btn btn-primary" type="submit">
                 查询
               </button>
             </div>
