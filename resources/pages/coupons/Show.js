@@ -6,7 +6,7 @@ import InfiniteList from "components/InfiniteList";
 import styled from "styled-components";
 import axios from "axios";
 import '../../../public/css/coupon.css';
-import RetV2 from "components/RetV2";
+import Ret from "components/Ret";
 import map from 'lodash/map';
 
 const Img = styled.img`
@@ -59,7 +59,7 @@ export default class extends React.Component {
     }
     const coupon = this.state.data;
 
-    return <RetV2 ret={this.state}>
+    return <Ret ret={this.state}>
       <Stamp className="coupon-container" {...coupon.styles}>
         <div className="stamp stamp01">
           <i/>
@@ -107,6 +107,6 @@ export default class extends React.Component {
           </List>
         }}
       />
-    </RetV2>
+    </Ret>
   }
 }
